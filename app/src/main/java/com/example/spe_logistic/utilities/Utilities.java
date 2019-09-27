@@ -106,7 +106,6 @@ public class Utilities {
     public static final String HISTORIAL_ENVIOS_DESCRIPCION = "descripcion";
     public static final String HISTORIAL_ENVIOS_ENVIO_ID    = "envio_id";
 
-    public static final String HISTORIAL_ENVIOS_ENVIO_ID2    = "envio_id";
 
 
 }
