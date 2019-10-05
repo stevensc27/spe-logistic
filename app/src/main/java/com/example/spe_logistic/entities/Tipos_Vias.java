@@ -5,7 +5,7 @@ public class Tipos_Vias {
     private Integer id;
     private String  nombre;
 
-    public Tipos_Vias(Integer id, String nombre) {
+    public Tipos_Vias() {
         this.id = id;
         this.nombre = nombre;
     }
