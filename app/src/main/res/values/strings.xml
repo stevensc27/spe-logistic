@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">spe_logistic</string>
+    <string name="user_login">Usuario</string>
+    <string name="password_login">Contraseña</string>
+    <string name="button_login">Entrar</string>
+    <string name="button_register">Registrarse</string>
+    <string name="logo_spe">logo_spe</string>
+    <string name="boxes">boxes</string>
 </resources>
