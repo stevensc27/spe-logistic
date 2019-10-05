@@ -30,9 +30,20 @@ public class Utilities {
     public static final String ENVIOS_FECHA_EMPACADO         = "fecha_empacado";
     public static final String ENVIOS_FECHA_DESPACHADO       = "fecha_despachado";
     public static final String ENVIOS_CLIENTE_ID             = "cliente_id";
+    public static final String ENVIOS_ESTADO_ID              = "estado_id";
+
+    // ESTADOS_ENVIOS TABLE
+    public static final String ESTADOS_ENVIOS        = "estados_envios";
+    public static final String ESTADOS_ENVIOS_ID     = "id";
+    public static final String ESTADOS_ENVIOS_NOMBRE = "nombre";
 
 
 
+
+    // CAMBIOS TABLE
+    public static final String CAMBIOS        = "cambios";
+    public static final String CAMBIOS_ID     = "id";
+    public static final String CAMBIOS_NOMBRE = "nombre";
 
     // HISTORIAL_INVENTARIO TABLE
     public static final String HISTORIAL_INVENTARIO               = "historial_inventario";
@@ -86,6 +97,7 @@ public class Utilities {
     public static final String CLIENTES_ID             = "id";
     public static final String CLIENTES_RAZON_SOCIAL   = "razon_social";
     public static final String CLIENTES_NIT            = "nit";
+    public static final String CLIENTES_PASSWORD       = "password";
     public static final String CLIENTES_DIRECCIONES_ID = "direccion_id";
 
     // DIRECCIONES TABLE
