@@ -1,4 +1,4 @@
-package com.example.spe_logistic.ui.home;
+package com.example.spe_logistic.ui.collect;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,17 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import com.example.spe_logistic.R;
 
-public class HomeFragment extends Fragment {
+public class CollectFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private CollectViewModel collectViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        collectViewModel =
+                ViewModelProviders.of(this).get(CollectViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_collect, container, false);
+        final TextView textView = root.findViewById(R.id.text_references);
+        collectViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

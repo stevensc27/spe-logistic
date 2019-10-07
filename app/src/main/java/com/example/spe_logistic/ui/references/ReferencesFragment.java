@@ -1,4 +1,4 @@
-package com.example.spe_logistic.ui.dashboard;
+package com.example.spe_logistic.ui.references;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,17 +13,17 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import com.example.spe_logistic.R;
 
-public class DashboardFragment extends Fragment {
+public class ReferencesFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private ReferencesViewModel referencesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        referencesViewModel =
+                ViewModelProviders.of(this).get(ReferencesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_references, container, false);
+        final TextView textView = root.findViewById(R.id.text_references);
+        referencesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
