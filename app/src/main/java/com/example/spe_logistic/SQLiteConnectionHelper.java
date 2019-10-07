@@ -36,14 +36,16 @@ public class SQLiteConnectionHelper extends SQLiteOpenHelper {
         db.execSQL(Utilities.CREATE_ESTADOS_RECOGIDAS);
         db.execSQL(Utilities.CREATE_RECOGIDAS);
 
+        /*
         db.execSQL(Utilities.TIPOS_VIAS_REGS);
-        /*db.execSQL(Utilities.CATEGORIAS_PQRS_REGS);
+        db.execSQL(Utilities.CATEGORIAS_PQRS_REGS);
         db.execSQL(Utilities.CIUDADES_REGS);
         db.execSQL(Utilities.ESTADOS_ENVIOS_REGS);
         db.execSQL(Utilities.ESTADOS_INVENTARIO_REGS);
 
         db.execSQL(Utilities.ESTADOS_RECOGIDAS_REGS);
-        db.execSQL(Utilities.ESTADOS_PQRS_REGS); */
+        db.execSQL(Utilities.ESTADOS_PQRS_REGS);
+        */
 
     }
 

@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class RegisterActivity extends AppCompatActivity {
 
     Spinner road_type;
-    ArrayList<String> road_types;
-    ArrayList<Tipos_Vias> road_types_list;
+    Spinner orientation_road;
+    Spinner orientation_road2;
 
     SQLiteConnectionHelper con;
 
@@ -29,44 +29,22 @@ public class RegisterActivity extends AppCompatActivity {
         con = new SQLiteConnectionHelper(getApplicationContext(),"SPEDB",null,1);
 
         road_type = (Spinner) findViewById(R.id.road_type);
+        ArrayAdapter<CharSequence> adapter_address_options = ArrayAdapter.createFromResource(this,R.array.address_options,android.R.layout.simple_spinner_item);
+        road_type.setAdapter(adapter_address_options);
 
-        searchRoadsTypes();
+        orientation_road = (Spinner) findViewById(R.id.orientation_road);
+        ArrayAdapter<CharSequence> orientation_road_options = ArrayAdapter.createFromResource(this,R.array.orientation_road_options,android.R.layout.simple_spinner_item);
+        orientation_road.setAdapter(orientation_road_options);
 
-        ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,road_types);
+        orientation_road2 = (Spinner) findViewById(R.id.orientation_road2);
+        ArrayAdapter<CharSequence> orientation_road_options2 = ArrayAdapter.createFromResource(this,R.array.orientation_road_options,android.R.layout.simple_spinner_item);
+        orientation_road2.setAdapter(orientation_road_options2);
 
-        road_type.setAdapter(adapter);
+
     }
 
-    private void searchRoadsTypes() {
-        SQLiteDatabase db = con.getReadableDatabase();
 
-        Tipos_Vias tipos_vias = null;
 
-        road_types_list = new ArrayList<Tipos_Vias>();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ Utilities.TIPOS_VIAS,null);
-
-        Log.i("QUERY","SELECT * FROM "+ Utilities.TIPOS_VIAS+" "+cursor.getCount());
-
-        while (cursor.moveToNext()){
-            tipos_vias = new Tipos_Vias();
-            tipos_vias.setId(cursor.getInt(0));
-            tipos_vias.setNombre(cursor.getString(1));
-
-            road_types_list.add(tipos_vias);
-        }
-
-        //generateList();
-    }
-
-    private void generateList() {
-        road_types = new ArrayList<String>();
-        road_types.add("Seleccione");
-
-        for (int i = 0; i<=road_types_list.size();i++){
-            road_types.add(road_types_list.get(i).getId()+" - "+road_types_list.get(i).getNombre());
-        }
-    }
 
 
 }

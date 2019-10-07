@@ -9,4 +9,36 @@
     <string name="name">Razón Social</string>
     <string name="nit">NIT</string>
     <string name="address">Dirección</string>
+    <string name="road_type">Tipo de vía</string>
+    <string name="number">N°</string>
+    <string name="number_simbol">#</string>
+    <string name="chart">Letra</string>
+    <string name="orientation">Orient.</string>
+    <string name="save">Guardar</string>
+
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="title_send">Envíos</string>
+    <string name="title_collect">Recogidas</string>
+    <string name="title_inventory">Inventario</string>
+    <string name="title_references">Referencias</string>
+
+
+
+
+    <string-array name="address_options">
+        <item>Seleccione</item>
+        <item>1-Calle</item>
+        <item>2-Carrera</item>
+        <item>3-Circular</item>
+    </string-array>
+
+    <string-array name="orientation_road_options">
+        <item>Seleccione</item>
+        <item>1-Norte</item>
+        <item>2-Sur</item>
+        <item>3-Este</item>
+        <item>3-Oeste</item>
+    </string-array>
+
 </resources>
