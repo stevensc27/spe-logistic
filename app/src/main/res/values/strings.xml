@@ -9,10 +9,10 @@
     <string name="name">Razón Social</string>
     <string name="nit">NIT</string>
     <string name="address">Dirección</string>
+    <string name="city">Ciudad</string>
     <string name="road_type">Tipo de vía</string>
-    <string name="number">N°</string>
     <string name="number_simbol">#</string>
-    <string name="chart">Letra</string>
+    <string name="chart">A</string>
     <string name="orientation">Orient.</string>
     <string name="save">Guardar</string>
 
@@ -39,6 +39,19 @@
         <item>2-Sur</item>
         <item>3-Este</item>
         <item>3-Oeste</item>
+    </string-array>
+
+    <string-array name="city_options">
+        <item>Seleccione</item>
+        <item>1-Medellín</item>
+        <item>2-Sabaneta</item>
+        <item>3-La Estrella</item>
+        <item>4-Bello</item>
+        <item>5-Bogotá</item>
+        <item>6-Cartagena</item>
+        <item>7-Cali</item>
+        <item>8-Barichara</item>
+        <item>9-Jardín</item>
     </string-array>
 
 </resources>

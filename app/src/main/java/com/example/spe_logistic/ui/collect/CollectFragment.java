@@ -22,13 +22,13 @@ public class CollectFragment extends Fragment {
         collectViewModel =
                 ViewModelProviders.of(this).get(CollectViewModel.class);
         View root = inflater.inflate(R.layout.fragment_collect, container, false);
-        final TextView textView = root.findViewById(R.id.text_references);
+        /*final TextView textView = root.findViewById(R.id.text_references);
         collectViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

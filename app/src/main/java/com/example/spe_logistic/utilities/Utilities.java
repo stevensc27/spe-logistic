@@ -26,7 +26,7 @@ public class Utilities {
                                                                                     DESPACHOS_FECHA+" TEXT, "+
                                                                                     DESPACHOS_GUIA+" TEXT, "+
                                                                                     DESPACHOS_PESO+" INTEGER, "+
-                                                                                    DESPACHOS_CAJAS+"INTEGER)";
+                                                                                    DESPACHOS_CAJAS+" INTEGER)";
 
     // ENVIOS TABLE
     public static final String ENVIOS                        = "envios";
@@ -56,7 +56,7 @@ public class Utilities {
                                                                                             ENVIOS_FECHA_ALISTADO+" TEXT, "+
                                                                                             ENVIOS_FECHA_EMPACADO+" TEXT, "+
                                                                                             ENVIOS_CLIENTE_ID+" INTEGER, "+
-                                                                                            ENVIOS_ESTADO_ID+"INTEGER)";
+                                                                                            ENVIOS_ESTADO_ID+" INTEGER)";
 
     // ESTADOS_ENVIOS TABLE
     public static final String ESTADOS_ENVIOS        = "estados_envios";
@@ -97,7 +97,7 @@ public class Utilities {
                                                                                             INVENTARIO_POSICION+" TEXT, "+
                                                                                             INVENTARIO_SERIAL+" TEXT, "+
                                                                                             INVENTARIO_FECHA_INGRESO+" TEXT, "+
-                                                                                            INVENTARIO_ENVIO_ID+"INTEGER)";
+                                                                                            INVENTARIO_ENVIO_ID+" INTEGER)";
 
     // HISTORIAL_ENVIOS TABLE
     public static final String HISTORIAL_ENVIOS             = "historial_envios";
@@ -109,7 +109,7 @@ public class Utilities {
     public static final String CREATE_HISTORIAL_ENVIOS      = "CREATE TABLE "+HISTORIAL_ENVIOS+" ("+HISTORIAL_ENVIOS_ID+" INTEGER PRIMATY KEY, "+
                                                                                                     HISTORIAL_ENVIOS_FECHA+" TEXT, "+
                                                                                                     HISTORIAL_ENVIOS_DESCRIPCION+" TEXT, "+
-                                                                                                    HISTORIAL_ENVIOS_ENVIO_ID+"INTEGER)";
+                                                                                                    HISTORIAL_ENVIOS_ENVIO_ID+" INTEGER)";
 
     // DETALLE_HISTORIAL_ENVIOS TABLE
     public static final String DETALLE_HISTORIAL_ENVIOS                     = "detalle_historial_envios";
@@ -121,7 +121,7 @@ public class Utilities {
     public static final String CREATE_DETALLE_HISTORIAL_ENVIOS              = "CREATE TABLE "+  DETALLE_HISTORIAL_ENVIOS+" ("+DETALLE_HISTORIAL_ENVIOS_ID+" INTEGER PRIMATY KEY, "+
                                                                                                 DETALLE_HISTORIAL_ENVIOS_HISTORIAL_ENVIOS_ID+" INTEGER, "+
                                                                                                 DETALLE_HISTORIAL_ENVIOS_REFERENCIA_ID+" INTEGER, "+
-                                                                                                DETALLE_HISTORIAL_ENVIOS_DESCRIPCION+"TEXT)";
+                                                                                                DETALLE_HISTORIAL_ENVIOS_DESCRIPCION+" TEXT)";
 
     // CIUDADES TABLE
     public static final String CIUDADES        = "ciudades";
@@ -151,7 +151,7 @@ public class Utilities {
                                                                                                 REFERENCIAS_VALOR+" INTEGER, "+
                                                                                                 REFERENCIAS_CODIGO_BARRAS+" TEXT, "+
                                                                                                 REFERENCIAS_UNIDADES_EMPAQUE+" INTEGER, "+
-                                                                                                REFERENCIAS_CLIENTE_ID+"INTEGER)";
+                                                                                                REFERENCIAS_CLIENTE_ID+" INTEGER)";
 
     // CLIENTES TABLE
     public static final String CLIENTES                = "clientes";
@@ -165,7 +165,7 @@ public class Utilities {
                                                                                         CLIENTES_RAZON_SOCIAL+" TEXT, "+
                                                                                         CLIENTES_NIT+" TEXT, "+
                                                                                         CLIENTES_PASSWORD+" TEXT, "+
-                                                                                        CLIENTES_DIRECCION_ID+"INTEGER)";
+                                                                                        CLIENTES_DIRECCION_ID+" INTEGER)";
 
     // DIRECCIONES TABLE
     public static final String DIRECCIONES                  = "direcciones";
@@ -189,7 +189,7 @@ public class Utilities {
                                                                                                 DIRECCIONES_LETRA_2+" TEXT, "+
                                                                                                 DIRECCIONES_ORIENTACION_2_ID+" INTEGER, "+
                                                                                                 DIRECCIONES_NUMERO_3+" INTEGER, "+
-                                                                                                DIRECCIONES_CIUDAD_ID+"INTEGER)";
+                                                                                                DIRECCIONES_CIUDAD_ID+" INTEGER)";
 
     // TIPOS_VIAS TABLE
     public static final String TIPOS_VIAS        = "tipos_vias";
@@ -225,7 +225,7 @@ public class Utilities {
     public static final String CREATE_HISTORIAL_REFERENCIAS        = "CREATE TABLE "+HISTORIAL_REFERENCIAS+" ("+HISTORIAL_REFERENCIAS_ID+" INTEGER PRIMATY KEY, "+
                                                                                                                 HISTORIAL_REFERENCIAS_FECHA+" TEXT, "+
                                                                                                                 HISTORIAL_REFERENCIAS_REFERENCIA_ID+" INTEGER, "+
-                                                                                                                HISTORIAL_REFERENCIAS_DESCRIPCION+"TEXT)";
+                                                                                                                HISTORIAL_REFERENCIAS_DESCRIPCION+" TEXT)";
 
     // PQRS TABLE
     public static final String PQRS              = "PQRS";
@@ -241,7 +241,7 @@ public class Utilities {
                                                                                 PQRS_CLIENTE_ID+" INTEGER, "+
                                                                                 PQRS_DESCRIPCION+" TEXT, "+
                                                                                 PQRS_CATEGORIA_ID+" INTEGER, "+
-                                                                                PQRS_ESTADO_ID+"INTEGER)";
+                                                                                PQRS_ESTADO_ID+" INTEGER)";
 
     // CATEGORIAS_PQRS TABLE
     public static final String CATEGORIAS_PQRS        = "categorias_pqrs";
@@ -288,5 +288,5 @@ public class Utilities {
                                                                                                 RECOGIDAS_PESO+" INTEGER, "+
                                                                                                 RECOGIDAS_DESCRIPCION_CONTENIDO+" TEXT, "+
                                                                                                 RECOGIDAS_VALOR_DECLARADO+" INTEGER, "+
-                                                                                                RECOGIDAS_ESTADO_ID+"INTEGER)";
+                                                                                                RECOGIDAS_ESTADO_ID+" INTEGER)";
 }

@@ -8,6 +8,7 @@ public class InventoryViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
+
     public InventoryViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");

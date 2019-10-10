@@ -22,13 +22,13 @@ public class ReferencesFragment extends Fragment {
         referencesViewModel =
                 ViewModelProviders.of(this).get(ReferencesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_references, container, false);
-        final TextView textView = root.findViewById(R.id.text_references);
+        /*final TextView textView = root.findViewById(R.id.text_references);
         referencesViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
         return root;
     }
 }

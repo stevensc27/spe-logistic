@@ -3,25 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_inventory">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_inventory"
+        android:name="com.example.spe_logistic.ui.inventory.InventoryFragment"
+        android:label="@string/title_inventory"
+        tools:layout="@layout/fragment_inventory" />
+
+    <fragment
+        android:id="@+id/navigation_send"
         android:name="com.example.spe_logistic.ui.collect.CollectFragment"
         android:label="@string/title_send"
         tools:layout="@layout/fragment_send" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_collect"
         android:name="com.example.spe_logistic.ui.send.SendFragment"
         android:label="@string/title_collect"
         tools:layout="@layout/fragment_collect" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.spe_logistic.ui.inventory.InventoryFragment"
-        android:label="@string/title_inventory"
-        tools:layout="@layout/fragment_inventory" />
 
     <fragment
         android:id="@+id/navigation_references"
