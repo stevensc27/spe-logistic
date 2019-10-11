@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/navigation_references"
-        android:name="com.example.spe_logistic.ui.inventory.InventoryFragment"
-        android:label="@string/title_inventory"
+        android:name="com.example.spe_logistic.ui.references.ReferencesFragment"
+        android:label="@string/title_references"
         tools:layout="@layout/fragment_references" />
 </navigation>

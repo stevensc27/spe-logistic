@@ -1,8 +1,11 @@
 package com.example.spe_logistic;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,17 +16,18 @@ import android.widget.Toast;
 
 import com.example.spe_logistic.utilities.Utilities;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText user_login, password_login;
-    Button login_button, register_button;
+    Button   login_button, register_button;
+    Integer  user_id;
 
     SQLiteConnectionHelper con;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         user_login     = (EditText) findViewById(R.id.user_login);
         password_login = (EditText) findViewById(R.id.password_login);
@@ -44,18 +48,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.login_button:
                 Log.i("LOG", "Entrar");
                 if (userValidation()) {
-                    intent = new Intent(MainActivity.this, HomeActivity.class);
+                    intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    savePreferences();
                 }
                 break;
             case R.id.register_button:
                 Log.i("LOG", "Registrar");
-                intent = new Intent(MainActivity.this, RegisterActivity.class);
+                intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 break;
         }
 
         if (intent != null) {
             startActivity(intent);
         }
+    }
+
+    private void savePreferences() {
+        /*SharedPreferences mPreferences;
+        SharedPreferences.Editor mEditor;
+
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mPreferences.edit();
+
+        mEditor.putInt()*/
+
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt("user_id",user_id);
+        editor.commit();
+
     }
 
     private boolean userValidation() {
@@ -70,9 +91,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             con = new SQLiteConnectionHelper(getApplicationContext(),"SPEDB",null,1);
             SQLiteDatabase db = con.getReadableDatabase();
 
-            Cursor cursor = db.rawQuery("SELECT id FROM "+ Utilities.CLIENTES+" WHERE "+Utilities.CLIENTES_NIT+"='"+user+"' AND "+Utilities.CLIENTES_PASSWORD+"='"+pass+"'",null);
+            String[] parameters = {user,pass};
+            String[] field      = {Utilities.CLIENTES_ID};
+
+            Cursor cursor = db.query(Utilities.CLIENTES,field,Utilities.CLIENTES_NIT+"=? AND "+Utilities.CLIENTES_PASSWORD+"=?",parameters,null,null,null);
+
 
             if(cursor.moveToFirst()){
+                user_id =  cursor.getInt(0);
+                Log.i("APP","USER IN: "+user_id);
                 return true;
             }else {
                 Toast.makeText(this,"NIT o contraseña incorrectos",Toast.LENGTH_LONG).show();

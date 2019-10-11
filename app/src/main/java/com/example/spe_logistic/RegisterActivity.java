@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if (userRegister()){
             Toast.makeText(this,"NIT registrado correctamente",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
             startActivity(intent);
         }
     }

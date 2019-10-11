@@ -1,8 +1,12 @@
 package com.example.spe_logistic;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -11,10 +15,19 @@ import androidx.navigation.ui.NavigationUI;
 
 public class HomeActivity extends AppCompatActivity {
 
+    Integer user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
+
+        Integer user_id = preferences.getInt("user_id",0);
+
+        Log.i("APP","USER: "+user_id);
+
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
