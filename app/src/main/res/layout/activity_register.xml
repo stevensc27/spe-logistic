@@ -83,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nit" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/id"
         android:layout_width="125dp"
         android:layout_height="20dp"
         android:layout_marginStart="32dp"
@@ -106,7 +106,7 @@
         android:text="@string/city"
         android:textColor="@color/colorPurpleSpe"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
     <TextView
         android:id="@+id/textView4"
@@ -147,7 +147,7 @@
         app:layout_constraintTop_toBottomOf="@+id/city" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/address"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
@@ -206,7 +206,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/id" />
 
     <Spinner
         android:id="@+id/city"
@@ -237,7 +237,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/orientation"
         android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/address"
         app:layout_constraintTop_toBottomOf="@+id/city" />
 
     <Spinner
@@ -312,7 +312,7 @@
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe"
         app:layout_constraintStart_toEndOf="@+id/number1"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/address" />
 
     <EditText
         android:id="@+id/chart2"

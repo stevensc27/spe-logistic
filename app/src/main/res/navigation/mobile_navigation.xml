@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_send"
-        android:name="com.example.spe_logistic.ui.collect.CollectFragment"
+        android:name="com.example.spe_logistic.ui.send.SendFragment"
         android:label="@string/title_send"
         tools:layout="@layout/fragment_send" />
 
     <fragment
         android:id="@+id/navigation_collect"
-        android:name="com.example.spe_logistic.ui.send.SendFragment"
+        android:name="com.example.spe_logistic.ui.collect.CollectFragment"
         android:label="@string/title_collect"
         tools:layout="@layout/fragment_collect" />
 

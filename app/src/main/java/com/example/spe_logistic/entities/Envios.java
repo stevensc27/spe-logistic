@@ -18,6 +18,9 @@ public class Envios {
     private Integer cliente_id;
     private Integer estado_id;
 
+    public Envios() {
+    }
+
     public Envios(Integer id, String nombre_destinatario, String direccion_destinatario, Integer ciudad_destinatario_id, String telefono_destinatario, String email_destinatario, String factura, String archivo, Integer despacho_id, Date fecha_alistamiento, Date fecha_empacado, Integer cliente_id, Integer estado_id) {
         this.id = id;
         this.nombre_destinatario = nombre_destinatario;
