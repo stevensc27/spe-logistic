@@ -8,6 +8,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.spe_logistic.ui.send.SendItemFragment;
+
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,11 +24,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        /*
         SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
-
         Integer user_id = preferences.getInt("user_id",0);
-
         Log.i("APP","USER: "+user_id);
+        */
 
 
         BottomNavigationView navView = findViewById(R.id.nav_view);

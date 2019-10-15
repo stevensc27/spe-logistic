@@ -256,11 +256,9 @@
         android:layout_height="41dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:inputType="number|textPersonName"
-
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe"
         app:layout_constraintStart_toStartOf="parent"
@@ -272,8 +270,6 @@
         android:layout_height="41dp"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
-
-
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:inputType="number|textPersonName"
@@ -288,10 +284,8 @@
         android:layout_height="41dp"
         android:layout_marginStart="6dp"
         android:layout_marginLeft="6dp"
-
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
-
         android:inputType="number|textPersonName"
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe"

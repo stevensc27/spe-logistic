@@ -121,6 +121,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 Long cliente_id = db.insert(Utilities.CLIENTES, Utilities.CLIENTES_ID, values_cliente);
 
+                //Toast.makeText(this,"CLIENTE ID"+cliente_id,Toast.LENGTH_LONG).show();
+
+
                 return true;
 
             }else {

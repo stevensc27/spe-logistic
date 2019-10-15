@@ -64,7 +64,7 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
 
     public class ViewHolderSends extends RecyclerView.ViewHolder {
 
-        TextView id,address,state;
+        TextView  id,address,state;
         ImageView edit,delete;
 
 

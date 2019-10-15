@@ -15,6 +15,13 @@
     <string name="chart">A</string>
     <string name="orientation">Orient.</string>
     <string name="save">Guardar</string>
+    <string name="receiverName">Nombre destinatario</string>
+    <string name="receiverPhone">Teléfono destinatario</string>
+    <string name="receiverEmail">Email destinatario</string>
+    <string name="receiverAddress">Dirección destinatario</string>
+    <string name="reference">Referencia</string>
+    <string name="references">Referencias</string>
+    <string name="cont">Cantidad</string>
 
     <string name="title_activity_home">HomeActivity</string>
 

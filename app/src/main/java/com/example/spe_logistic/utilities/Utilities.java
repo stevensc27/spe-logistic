@@ -7,7 +7,7 @@ public class Utilities {
     public static final String ESTADOS_INVENTARIO_ID     = "id";
     public static final String ESTADOS_INVENTARIO_NOMBRE = "nombre";
     public static final String DROP_ESTADOS_INVENTARIO   = "DROP TABLE IF EXISTS "+ESTADOS_INVENTARIO;
-    public static final String CREATE_ESTADOS_INVENTARIO = "CREATE TABLE "+ESTADOS_INVENTARIO+" ("+ ESTADOS_INVENTARIO_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_ESTADOS_INVENTARIO = "CREATE TABLE "+ESTADOS_INVENTARIO+" ("+ ESTADOS_INVENTARIO_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                     ESTADOS_INVENTARIO_NOMBRE+" TEXT)";
     //public static final String ESTADOS_INVENTARIO_REGS = "INSERT INTO "+ESTADOS_INVENTARIO+ " ('nombre') SELECT 'Disponible' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_INVENTARIO+" WHERE nombre = 'Disponible');"+
     //                                                     "INSERT INTO "+ESTADOS_INVENTARIO+ " ('nombre') SELECT 'Reservado' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_INVENTARIO+" WHERE nombre = 'Reservado');"+
@@ -22,7 +22,7 @@ public class Utilities {
     public static final String DESPACHOS_PESO   = "peso";
     public static final String DESPACHOS_CAJAS  = "cajas";
     public static final String DROP_DESPACHOS   = "DROP TABLE IF EXISTS "+DESPACHOS;
-    public static final String CREATE_DESPACHOS = "CREATE TABLE "+DESPACHOS+" ("+   DESPACHOS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_DESPACHOS = "CREATE TABLE "+DESPACHOS+" ("+   DESPACHOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                     DESPACHOS_FECHA+" TEXT, "+
                                                                                     DESPACHOS_GUIA+" TEXT, "+
                                                                                     DESPACHOS_PESO+" INTEGER, "+
@@ -44,7 +44,7 @@ public class Utilities {
     public static final String ENVIOS_CLIENTE_ID             = "cliente_id";
     public static final String ENVIOS_ESTADO_ID              = "estado_id";
     public static final String DROP_ENVIOS                   = "DROP TABLE IF EXISTS "+ENVIOS;
-    public static final String CREATE_ENVIOS                 = "CREATE TABLE "+ENVIOS+" ("+ ENVIOS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_ENVIOS                 = "CREATE TABLE "+ENVIOS+" ("+ ENVIOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                             ENVIOS_NOMBRE_DESTINATARIO+" TEXT, "+
                                                                                             ENVIOS_DIRECCION_DESTINATARIO+" TEXT, "+
                                                                                             ENVIOS_CIUDAD_DESTINATARIO_ID+" INTEGER, "+
@@ -63,7 +63,7 @@ public class Utilities {
     public static final String ESTADOS_ENVIOS_ID     = "id";
     public static final String ESTADOS_ENVIOS_NOMBRE = "nombre";
     public static final String DROP_ESTADOS_ENVIOS   = "DROP TABLE IF EXISTS "+ESTADOS_ENVIOS;
-    public static final String CREATE_ESTADOS_ENVIOS = "CREATE TABLE "+ESTADOS_ENVIOS+" ("+ ESTADOS_ENVIOS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_ESTADOS_ENVIOS = "CREATE TABLE "+ESTADOS_ENVIOS+" ("+ ESTADOS_ENVIOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                             ESTADOS_ENVIOS_NOMBRE+" TEXT)";
     //public static final String ESTADOS_ENVIOS_REGS = "INSERT INTO "+ESTADOS_ENVIOS+ " ('nombre') SELECT 'Reservado' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_ENVIOS+" WHERE nombre = 'Reservado');"+
     //                                                 "INSERT INTO "+ESTADOS_ENVIOS+ " ('nombre') SELECT 'Alistado' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_ENVIOS+" WHERE nombre = 'Alistado');"+
@@ -77,7 +77,7 @@ public class Utilities {
     public static final String HISTORIAL_INVENTARIO_INVENTARIO_ID = "inventario_id";
     public static final String HISTORIAL_INVENTARIO_DESCRIPCION   = "descripcion";
     public static final String DROP_HISTORIAL_INVENTARIO          = "DROP TABLE IF EXISTS "+HISTORIAL_INVENTARIO;
-    public static final String CREATE_HISTORIAL_INVENTARIO        = "CREATE TABLE "+HISTORIAL_INVENTARIO+" ("+  HISTORIAL_INVENTARIO_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_HISTORIAL_INVENTARIO        = "CREATE TABLE "+HISTORIAL_INVENTARIO+" ("+  HISTORIAL_INVENTARIO_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                                 HISTORIAL_INVENTARIO_INVENTARIO_ID+" INTEGER, "+
                                                                                                                 HISTORIAL_INVENTARIO_DESCRIPCION+" TEXT)";
 
@@ -91,7 +91,7 @@ public class Utilities {
     public static final String INVENTARIO_FECHA_INGRESO = "fecha_ingreso";
     public static final String INVENTARIO_ENVIO_ID      = "envio_id";
     public static final String DROP_INVENTARIO          = "DROP TABLE IF EXISTS "+INVENTARIO;
-    public static final String CREATE_INVENTARIO        = "CREATE TABLE "+INVENTARIO+" ("+  INVENTARIO_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_INVENTARIO        = "CREATE TABLE "+INVENTARIO+" ("+  INVENTARIO_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                             INVENTARIO_REFERENCIA_ID+" INTEGER, "+
                                                                                             INVENTARIO_ESTADO_ID+" INTEGER, "+
                                                                                             INVENTARIO_POSICION+" TEXT, "+
@@ -106,7 +106,7 @@ public class Utilities {
     public static final String HISTORIAL_ENVIOS_DESCRIPCION = "descripcion";
     public static final String HISTORIAL_ENVIOS_ENVIO_ID    = "envio_id";
     public static final String DROP_HISTORIAL_ENVIOS        = "DROP TABLE IF EXISTS "+HISTORIAL_ENVIOS;
-    public static final String CREATE_HISTORIAL_ENVIOS      = "CREATE TABLE "+HISTORIAL_ENVIOS+" ("+HISTORIAL_ENVIOS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_HISTORIAL_ENVIOS      = "CREATE TABLE "+HISTORIAL_ENVIOS+" ("+HISTORIAL_ENVIOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                     HISTORIAL_ENVIOS_FECHA+" TEXT, "+
                                                                                                     HISTORIAL_ENVIOS_DESCRIPCION+" TEXT, "+
                                                                                                     HISTORIAL_ENVIOS_ENVIO_ID+" INTEGER)";
@@ -118,7 +118,7 @@ public class Utilities {
     public static final String DETALLE_HISTORIAL_ENVIOS_REFERENCIA_ID       = "referencia_id";
     public static final String DETALLE_HISTORIAL_ENVIOS_DESCRIPCION         = "descripcion";
     public static final String DROP_DETALLE_HISTORIAL_ENVIOS                = "DROP TABLE IF EXISTS "+DETALLE_HISTORIAL_ENVIOS;
-    public static final String CREATE_DETALLE_HISTORIAL_ENVIOS              = "CREATE TABLE "+  DETALLE_HISTORIAL_ENVIOS+" ("+DETALLE_HISTORIAL_ENVIOS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_DETALLE_HISTORIAL_ENVIOS              = "CREATE TABLE "+  DETALLE_HISTORIAL_ENVIOS+" ("+DETALLE_HISTORIAL_ENVIOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 DETALLE_HISTORIAL_ENVIOS_HISTORIAL_ENVIOS_ID+" INTEGER, "+
                                                                                                 DETALLE_HISTORIAL_ENVIOS_REFERENCIA_ID+" INTEGER, "+
                                                                                                 DETALLE_HISTORIAL_ENVIOS_DESCRIPCION+" TEXT)";
@@ -128,7 +128,7 @@ public class Utilities {
     public static final String CIUDADES_ID     = "id";
     public static final String CIUDADES_NOMBRE = "nombre";
     public static final String DROP_CIUDADES   = "DROP TABLE IF EXISTS "+CIUDADES;
-    public static final String CREATE_CIUDADES = "CREATE TABLE "+CIUDADES+" ("+ CIUDADES_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_CIUDADES = "CREATE TABLE "+CIUDADES+" ("+ CIUDADES_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                 CIUDADES_NOMBRE+" TEXT)";
     //public static final String CIUDADES_REGS = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');"+
     //                                           "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');"+
@@ -146,7 +146,7 @@ public class Utilities {
     public static final String REFERENCIAS_UNIDADES_EMPAQUE = "unidades_empaque";
     public static final String REFERENCIAS_CLIENTE_ID       = "cliente_id";
     public static final String DROP_REFERENCIAS             = "DROP TABLE IF EXISTS "+REFERENCIAS;
-    public static final String CREATE_REFERENCIAS           = "CREATE TABLE "+REFERENCIAS+" ("+ REFERENCIAS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_REFERENCIAS           = "CREATE TABLE "+REFERENCIAS+" ("+ REFERENCIAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 REFERENCIAS_NOMBRE+" TEXT, "+
                                                                                                 REFERENCIAS_VALOR+" INTEGER, "+
                                                                                                 REFERENCIAS_CODIGO_BARRAS+" TEXT, "+
@@ -161,7 +161,7 @@ public class Utilities {
     public static final String CLIENTES_PASSWORD       = "password";
     public static final String CLIENTES_DIRECCION_ID   = "direccion_id";
     public static final String DROP_CLIENTES           = "DROP TABLE IF EXISTS "+CLIENTES;
-    public static final String CREATE_CLIENTES         = "CREATE TABLE "+CLIENTES+" ("+ CLIENTES_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_CLIENTES         = "CREATE TABLE "+CLIENTES+" ("+ CLIENTES_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                         CLIENTES_RAZON_SOCIAL+" TEXT, "+
                                                                                         CLIENTES_NIT+" TEXT, "+
                                                                                         CLIENTES_PASSWORD+" TEXT, "+
@@ -180,7 +180,7 @@ public class Utilities {
     public static final String DIRECCIONES_NUMERO_3         = "numero_3";
     public static final String DIRECCIONES_CIUDAD_ID        = "ciudad_id";
     public static final String DROP_DIRECCIONES             = "DROP TABLE IF EXISTS "+DIRECCIONES;
-    public static final String CREATE_DIRECCIONES           = "CREATE TABLE "+DIRECCIONES+" ("+ DIRECCIONES_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_DIRECCIONES           = "CREATE TABLE "+DIRECCIONES+" ("+ DIRECCIONES_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 DIRECCIONES_TIPO_VIA_ID+" INTEGER, "+
                                                                                                 DIRECCIONES_NUMERO_1+" INTEGER, "+
                                                                                                 DIRECCIONES_LETRA_1+" TEXT, "+
@@ -196,7 +196,7 @@ public class Utilities {
     public static final String TIPOS_VIAS_ID     = "id";
     public static final String TIPOS_VIAS_NOMBRE = "nombre";
     public static final String DROP_TIPOS_VIAS   = "DROP TABLE IF EXISTS "+TIPOS_VIAS;
-    public static final String CREATE_TIPOS_VIAS = "CREATE TABLE "+TIPOS_VIAS+" ("+ TIPOS_VIAS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_TIPOS_VIAS = "CREATE TABLE "+TIPOS_VIAS+" ("+ TIPOS_VIAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                     TIPOS_VIAS_NOMBRE+" TEXT)";
     //public static final String TIPOS_VIAS_REGS = "INSERT INTO "+TIPOS_VIAS+ "(nombre) values ('Calle')";
 
@@ -205,7 +205,7 @@ public class Utilities {
     public static final String ESTADOS_RECOGIDAS_ID     = "id";
     public static final String ESTADOS_RECOGIDAS_NOMBRE = "nombre";
     public static final String DROP_ESTADOS_RECOGIDAS   = "DROP TABLE IF EXISTS "+ESTADOS_RECOGIDAS;
-    public static final String CREATE_ESTADOS_RECOGIDAS = "CREATE TABLE "+ESTADOS_RECOGIDAS+" ("+   ESTADOS_RECOGIDAS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_ESTADOS_RECOGIDAS = "CREATE TABLE "+ESTADOS_RECOGIDAS+" ("+   ESTADOS_RECOGIDAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                     ESTADOS_RECOGIDAS_NOMBRE+" TEXT)";
     //public static final String ESTADOS_RECOGIDAS_REGS = "INSERT INTO "+ESTADOS_RECOGIDAS+ " ('nombre') SELECT 'Pendiente' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_RECOGIDAS+" WHERE nombre = 'Pendiente');"+
     //                                                    "INSERT INTO "+ESTADOS_RECOGIDAS+ " ('nombre') SELECT 'En camino' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_RECOGIDAS+" WHERE nombre = 'En camino');"+
@@ -222,7 +222,7 @@ public class Utilities {
     public static final String HISTORIAL_REFERENCIAS_REFERENCIA_ID = "referencia_id";
     public static final String HISTORIAL_REFERENCIAS_DESCRIPCION   = "descripcion";
     public static final String DROP_HISTORIAL_REFERENCIAS          = "DROP TABLE IF EXISTS "+HISTORIAL_REFERENCIAS;
-    public static final String CREATE_HISTORIAL_REFERENCIAS        = "CREATE TABLE "+HISTORIAL_REFERENCIAS+" ("+HISTORIAL_REFERENCIAS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_HISTORIAL_REFERENCIAS        = "CREATE TABLE "+HISTORIAL_REFERENCIAS+" ("+HISTORIAL_REFERENCIAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                                 HISTORIAL_REFERENCIAS_FECHA+" TEXT, "+
                                                                                                                 HISTORIAL_REFERENCIAS_REFERENCIA_ID+" INTEGER, "+
                                                                                                                 HISTORIAL_REFERENCIAS_DESCRIPCION+" TEXT)";
@@ -236,7 +236,7 @@ public class Utilities {
     public static final String PQRS_CATEGORIA_ID = "categoria_id";
     public static final String PQRS_ESTADO_ID    = "estado_id";
     public static final String DROP_PQRS         = "DROP TABLE IF EXISTS "+PQRS;
-    public static final String CREATE_PQRS       = "CREATE TABLE "+PQRS+" ("+   PQRS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_PQRS       = "CREATE TABLE "+PQRS+" ("+   PQRS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                 PQRS_FECHA+" TEXT, "+
                                                                                 PQRS_CLIENTE_ID+" INTEGER, "+
                                                                                 PQRS_DESCRIPCION+" TEXT, "+
@@ -248,7 +248,7 @@ public class Utilities {
     public static final String CATEGORIAS_PQRS_ID     = "id";
     public static final String CATEGORIAS_PQRS_NOMBRE = "nombre";
     public static final String DROP_CATEGORIAS_PQRS   = "DROP TABLE IF EXISTS "+CATEGORIAS_PQRS;
-    public static final String CREATE_CATEGORIAS_PQRS = "CREATE TABLE "+CATEGORIAS_PQRS+" ("+   CATEGORIAS_PQRS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_CATEGORIAS_PQRS = "CREATE TABLE "+CATEGORIAS_PQRS+" ("+   CATEGORIAS_PQRS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 CATEGORIAS_PQRS_NOMBRE+" TEXT)";
     //public static final String CATEGORIAS_PQRS_REGS = "INSERT INTO "+CATEGORIAS_PQRS+ " ('nombre') SELECT 'Peticion' WHERE NOT EXISTS (SELECT 1 FROM "+ CATEGORIAS_PQRS+" WHERE nombre = 'Peticion');"+
     //                                                  "INSERT INTO "+CATEGORIAS_PQRS+ " ('nombre') SELECT 'Queja' WHERE NOT EXISTS (SELECT 1 FROM "+ CATEGORIAS_PQRS+" WHERE nombre = 'Queja');"+
@@ -259,7 +259,7 @@ public class Utilities {
     public static final String ESTADOS_PQRS_ID     = "id";
     public static final String ESTADOS_PQRS_NOMBRE = "nombre";
     public static final String DROP_ESTADOS_PQRS   = "DROP TABLE IF EXISTS "+ESTADOS_PQRS;
-    public static final String CREATE_ESTADOS_PQRS = "CREATE TABLE "+ESTADOS_PQRS+" ("+ ESTADOS_PQRS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_ESTADOS_PQRS = "CREATE TABLE "+ESTADOS_PQRS+" ("+ ESTADOS_PQRS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                         ESTADOS_PQRS_NOMBRE+" TEXT)";
     //public static final String ESTADOS_PQRS_REGS = "INSERT INTO "+ESTADOS_PQRS+ " ('nombre') SELECT 'Nuevo' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_PQRS+" WHERE nombre = 'Nuevo');"+
     //                                               "INSERT INTO "+ESTADOS_PQRS+ " ('nombre') SELECT 'Procesado' WHERE NOT EXISTS (SELECT 1 FROM "+ ESTADOS_PQRS+" WHERE nombre = 'Procesado');";
@@ -278,7 +278,7 @@ public class Utilities {
     public static final String RECOGIDAS_VALOR_DECLARADO       = "valor_declarado";
     public static final String RECOGIDAS_ESTADO_ID             = "estado_id";
     public static final String DROP_RECOGIDAS                  = "DROP TABLE IF EXISTS "+RECOGIDAS;
-    public static final String CREATE_RECOGIDAS                = "CREATE TABLE "+RECOGIDAS+" ("+RECOGIDAS_ID+" INTEGER PRIMATY KEY, "+
+    public static final String CREATE_RECOGIDAS                = "CREATE TABLE "+RECOGIDAS+" ("+RECOGIDAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 RECOGIDAS_FECHA+" TEXT, "+
                                                                                                 RECOGIDAS_CLIENTE_ID+" INTEGER, "+
                                                                                                 RECOGIDAS_CANTIDAD_CAJAS+" INTEGER, "+

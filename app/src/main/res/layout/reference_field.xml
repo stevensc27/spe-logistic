@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="1.0">
+
+    <EditText
+        android:id="@+id/reference_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".65"
+        android:backgroundTint="@color/colorGreenSpe"
+        android:ems="10"
+        android:hint="@string/reference"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPurpleSpe"
+        android:textColorHint="@color/colorClearPurpleSpe" />
+
+    <EditText
+        android:id="@+id/amount_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".25"
+        android:backgroundTint="@color/colorGreenSpe"
+        android:ems="10"
+        android:hint="@string/number_simbol"
+        android:inputType="textPersonName"
+        android:textColor="@color/colorPurpleSpe"
+        android:textColorHint="@color/colorClearPurpleSpe" />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight=".10"
+        android:background="@android:drawable/ic_delete"
+        />
+
+
+</LinearLayout>

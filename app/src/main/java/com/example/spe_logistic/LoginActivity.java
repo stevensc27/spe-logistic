@@ -46,14 +46,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.login_button:
-                Log.i("LOG", "Entrar");
                 if (userValidation()) {
                     intent = new Intent(LoginActivity.this, HomeActivity.class);
                     savePreferences();
                 }
                 break;
             case R.id.register_button:
-                Log.i("LOG", "Registrar");
                 intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 break;
         }
@@ -72,10 +70,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mEditor.putInt()*/
 
+
         SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("user_id",user_id);
         editor.commit();
+
+
+
+
 
     }
 
@@ -96,10 +99,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Cursor cursor = db.query(Utilities.CLIENTES,field,Utilities.CLIENTES_NIT+"=? AND "+Utilities.CLIENTES_PASSWORD+"=?",parameters,null,null,null);
 
-
             if(cursor.moveToFirst()){
                 user_id =  cursor.getInt(0);
-                Log.i("APP","USER IN: "+user_id);
+                Log.i("APP","USER IN: "+cursor.getString(0));
                 return true;
             }else {
                 Toast.makeText(this,"NIT o contraseña incorrectos",Toast.LENGTH_LONG).show();

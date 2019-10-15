@@ -35,8 +35,8 @@ public class ReferencesFragment extends Fragment {
 
         referencesViewModel.getReferencesList().observe(this, new Observer<ArrayList<ReferencesVo>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<ReferencesVo> references_list_array) {
-                ReferencesAdapter adapter = new ReferencesAdapter(references_list_array);
+            public void onChanged(@Nullable ArrayList<ReferencesVo> references_array_list) {
+                ReferencesAdapter adapter = new ReferencesAdapter(references_array_list);
 
                 references_list.setAdapter(adapter);
             }
