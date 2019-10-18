@@ -123,7 +123,11 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     }
 
     public void onDeleteField(View v) {
-        parentLinearLayout.removeView((View) v.getParent());
+
+        if (parentLinearLayout.getChildCount() > 3) {
+            parentLinearLayout.removeViewAt(parentLinearLayout.getChildCount() - 2);
+        }
+        //parentLinearLayout.removeView((View) v.getParent());
     }
 
     @Override

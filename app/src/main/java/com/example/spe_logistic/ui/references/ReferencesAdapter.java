@@ -23,8 +23,11 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
     @NonNull
     @Override
     public ReferencesAdapter.ViewHolderReferences onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.references_item_list,null,false);
-        return new ViewHolderReferences(view);
+        //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.references_item_list,null,false);
+
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.references_item_list, viewGroup,false);
+
+        return new ViewHolderReferences(v);
     }
 
     @Override

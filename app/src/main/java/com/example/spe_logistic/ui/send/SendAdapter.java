@@ -41,14 +41,14 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
             case "2":
                 viewHolderSends.state.setText("En Alistamiento");
                 viewHolderSends.state.setTextColor(0xAA2FD6E9);
-                viewHolderSends.edit.setAlpha(80);
-                viewHolderSends.delete.setAlpha(80);
+                viewHolderSends.edit.setAlpha(20);
+                viewHolderSends.delete.setAlpha(20);
                 break;
             case "3":
                 viewHolderSends.state.setText("Despachado");
                 viewHolderSends.state.setTextColor(0xAA43ED26);
-                viewHolderSends.edit.setAlpha(80);
-                viewHolderSends.delete.setAlpha(80);
+                viewHolderSends.edit.setAlpha(20);
+                viewHolderSends.delete.setAlpha(20);
                 break;
             default:
                 viewHolderSends.state.setText("");

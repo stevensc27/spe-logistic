@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -305,135 +306,162 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
 
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="396dp"
+        android:layout_height="347dp"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/send_item_number1"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/send_item_number2">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/parent_linear_layout">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="10dp"
 
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:scrollbars="vertical"
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".65"
-                    android:text="@string/references"
-                    android:textColor="@color/colorPurpleSpe"
-                    android:textSize="16dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:text="@string/cont"
-                    android:textColor="@color/colorPurpleSpe"
-                    android:textSize="16dp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".10"
-                    android:textColor="@color/colorPurpleSpe"/>
-            </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <LinearLayout
+                android:id="@+id/parent_linear_layout"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <EditText
-                    android:id="@+id/reference_field"
-                    android:layout_width="0dp"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".65"
-                    android:backgroundTint="@color/colorGreenSpe"
-                    android:ems="10"
-                    android:hint="@string/reference"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/colorPurpleSpe"
-                    android:textColorHint="@color/colorClearPurpleSpe" />
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
 
-                <EditText
-                    android:id="@+id/amount_field"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".25"
-                    android:backgroundTint="@color/colorGreenSpe"
-                    android:ems="10"
-                    android:hint="@string/number_simbol"
-                    android:inputType="textPersonName"
-                    android:textColor="@color/colorPurpleSpe"
-                    android:textColorHint="@color/colorClearPurpleSpe" />
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:text="@string/references"
+                        android:textColor="@color/colorPurpleSpe"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/delete_button"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_weight=".10"
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:text="@string/cont"
+                        android:textColor="@color/colorPurpleSpe"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
-                    android:background="@android:drawable/ic_delete"
-                    />
-                <!--android:text="Delete Field"-->
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <EditText
+                        android:id="@+id/reference_field"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".70"
+                        android:backgroundTint="@color/colorGreenSpe"
+                        android:ems="10"
+                        android:hint="@string/reference"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorPurpleSpe"
+                        android:textColorHint="@color/colorClearPurpleSpe" />
+
+                    <EditText
+                        android:id="@+id/amount_field"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".30"
+                        android:backgroundTint="@color/colorGreenSpe"
+                        android:ems="10"
+                        android:hint="@string/number_simbol"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorPurpleSpe"
+                        android:textColorHint="@color/colorClearPurpleSpe" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/add_field_button"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight=".5"
+                        android:background="#555"
+                        android:onClick="onAddField"
+                        android:paddingLeft="5dp"
+                        android:text="@string/add"
+                        android:textColor="#FFF" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/delete_button"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight=".5"
+                        android:background="#555"
+                        android:onClick="onAddField"
+                        android:paddingLeft="5dp"
+                        android:text="@string/remove"
+                        android:textColor="#FFF" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/add_field_button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="#555"
-                android:onClick="onAddField"
-                android:paddingLeft="5dp"
-                android:text="Add Field"
-                android:textColor="#FFF" />
+        </android.support.constraint.ConstraintLayout>
 
-        </LinearLayout>
-
-    </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </android.support.constraint.ConstraintLayout>

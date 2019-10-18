@@ -22,6 +22,9 @@
     <string name="reference">Referencia</string>
     <string name="references">Referencias</string>
     <string name="cont">Cantidad</string>
+    <string name="add">Agregar</string>
+    <string name="remove">Quitar</string>
+    <string name="seemore">Ver más</string>
 
     <string name="title_activity_home">HomeActivity</string>
 

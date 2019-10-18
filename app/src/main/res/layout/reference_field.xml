@@ -16,7 +16,7 @@
         android:id="@+id/reference_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".65"
+        android:layout_weight=".70"
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:hint="@string/reference"
@@ -28,21 +28,13 @@
         android:id="@+id/amount_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight=".25"
+        android:layout_weight=".30"
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:hint="@string/number_simbol"
         android:inputType="textPersonName"
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe" />
-
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:layout_weight=".10"
-        android:background="@android:drawable/ic_delete"
-        />
 
 
 </LinearLayout>

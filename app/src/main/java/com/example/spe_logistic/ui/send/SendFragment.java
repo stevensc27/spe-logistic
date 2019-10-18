@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.spe_logistic.MyApp;
 import com.example.spe_logistic.R;
+import com.example.spe_logistic.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -44,8 +45,6 @@ public class SendFragment extends Fragment  {
         new_send.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MyApp.getContext(),"Hola desde boton flotante",Toast.LENGTH_LONG).show();
-                //Snackbar.make(v,"AAAAAAAAAAA",Snackbar.LENGTH_LONG).setAction("Action",null).show();
                 SendItemFragment send_item = new SendItemFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -64,6 +63,8 @@ public class SendFragment extends Fragment  {
         send_list = root.findViewById(R.id.send_list);
         send_list.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
 
+
+
         sendViewModel.getSendList().observe(this, new Observer<ArrayList<SendVo>>() {
             @Override
             public void onChanged(@Nullable ArrayList<SendVo> send_array_list) {
@@ -71,6 +72,8 @@ public class SendFragment extends Fragment  {
                 send_list.setAdapter(adapter);
             }
         });
+
+        send_list.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
         return root;
     }

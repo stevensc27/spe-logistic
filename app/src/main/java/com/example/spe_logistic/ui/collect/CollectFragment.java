@@ -18,6 +18,7 @@ import android.arch.lifecycle.ViewModelProviders;
 
 import com.example.spe_logistic.MyApp;
 import com.example.spe_logistic.R;
+import com.example.spe_logistic.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,8 @@ public class CollectFragment extends Fragment {
                 collect_list.setAdapter(adapter);
             }
         });
+
+        collect_list.addItemDecoration(new SimpleDividerItemDecoration(getActivity()));
 
 
         return root;
