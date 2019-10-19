@@ -38,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         register_button = findViewById(R.id.register_button);
         register_button.setOnClickListener(this);
 
+
+
     }
 
     @Override

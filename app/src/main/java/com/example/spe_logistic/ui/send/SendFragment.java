@@ -1,17 +1,16 @@
 package com.example.spe_logistic.ui.send;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.annotation.Nullable;
@@ -19,8 +18,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
+import com.example.spe_logistic.HomeActivity;
 import com.example.spe_logistic.MyApp;
 import com.example.spe_logistic.R;
 import com.example.spe_logistic.SimpleDividerItemDecoration;
@@ -30,6 +30,7 @@ import java.util.ArrayList;
 public class SendFragment extends Fragment  {
 
     private SendViewModel sendViewModel;
+    private Toolbar toolbar;
 
     RecyclerView send_list;
     FloatingActionButton new_send;
@@ -40,6 +41,14 @@ public class SendFragment extends Fragment  {
         sendViewModel =
                 ViewModelProviders.of(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);
+
+
+
+        toolbar = (Toolbar) root.findViewById(R.id.toolBar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
+
 
         new_send = (FloatingActionButton) root.findViewById(R.id.new_send);
         new_send.setOnClickListener(new View.OnClickListener(){
@@ -77,5 +86,14 @@ public class SendFragment extends Fragment  {
 
         return root;
     }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+    }
+
 
 }

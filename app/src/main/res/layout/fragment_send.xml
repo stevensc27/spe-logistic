@@ -6,6 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/include"
+        layout="@layout/toolbar_layout"></include>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/send_list"
         android:layout_width="match_parent"
@@ -13,7 +17,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="1.0" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/new_send"
@@ -26,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_add"
-        android:tint="@color/colorGreenSpe"
+        android:tint="@color/colorPurpleSpe"
+        app:backgroundTint="@color/colorOrangeSpe"
         android:scaleType="center"
-        app:backgroundTint="@color/colorPurpleSpe"/>
+        />
 </android.support.constraint.ConstraintLayout>

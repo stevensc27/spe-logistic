@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         /*
         SharedPreferences preferences = getSharedPreferences("credentials", Context.MODE_PRIVATE);
         Integer user_id = preferences.getInt("user_id",0);
@@ -38,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
                 R.id.navigation_inventory, R.id.navigation_send, R.id.navigation_collect, R.id.navigation_references)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
 }

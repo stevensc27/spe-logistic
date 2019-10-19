@@ -12,9 +12,10 @@ import com.example.spe_logistic.R;
 
 import java.util.ArrayList;
 
-public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.ViewHolderReferences> {
+public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.ViewHolderReferences> implements View.OnClickListener {
 
     ArrayList<ReferencesVo> references_list;
+    private View.OnClickListener listener;
 
     public ReferencesAdapter(ArrayList<ReferencesVo> references_list) {
         this.references_list = references_list;
@@ -26,6 +27,8 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
         //View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.references_item_list,null,false);
 
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.references_item_list, viewGroup,false);
+
+        v.setOnClickListener(this);
 
         return new ViewHolderReferences(v);
     }
@@ -39,6 +42,17 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
     @Override
     public int getItemCount() {
         return references_list.size();
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener != null){
+            listener.onClick(v);
+        }
     }
 
     public class ViewHolderReferences extends RecyclerView.ViewHolder {

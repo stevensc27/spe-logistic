@@ -25,6 +25,12 @@
     <string name="add">Agregar</string>
     <string name="remove">Quitar</string>
     <string name="seemore">Ver más</string>
+    <string name="month">Mes</string>
+    <string name="inputs">Entradas</string>
+    <string name="outputs">Salida</string>
+    <string name="barcode">Código de barras</string>
+    <string name="rotationIndicator">Indicador de rotación último mes</string>
+    <string name="monthsCellar">Meses con SPE</string>
 
     <string name="title_activity_home">HomeActivity</string>
 

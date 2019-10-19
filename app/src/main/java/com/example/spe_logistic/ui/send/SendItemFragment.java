@@ -56,11 +56,6 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         Integer user_id = preferences.getInt("user_id",0);
         Log.i("APP","USER FRAGMENT VIEW MODEL NEW SEND: "+user_id);*/
 
-
-
-
-
-
         root = inflater.inflate(R.layout.fragment_send_item, container, false);
 
         parentLinearLayout = (LinearLayout) root.findViewById(R.id.parent_linear_layout);
@@ -104,10 +99,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(this.getActivity().LAYOUT_INFLATER_SERVICE);
         final View rowView = inflater.inflate(R.layout.reference_field, null);
 
-
         // Add the new row before the add field button.
         parentLinearLayout.addView(rowView, parentLinearLayout.getChildCount() - 1);
-
 
         onDelete = (Button) root.findViewById(R.id.delete_button);
         onDelete.setOnClickListener(this);

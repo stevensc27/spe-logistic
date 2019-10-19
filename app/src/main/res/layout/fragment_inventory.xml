@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <android.support.v7.widget.CardView
+        <android.support.v7.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="190dp"
@@ -26,7 +25,7 @@
     </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonHorizontalBar"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginTop="1dp"
@@ -47,7 +46,7 @@
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHorizontalBar"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -63,7 +62,7 @@
     </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonBar"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginTop="1dp"
@@ -79,12 +78,12 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="240dp"
         android:layout_margin="8dp"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBar"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -100,7 +99,7 @@
     </android.support.v7.widget.CardView>
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonPie"
         android:layout_width="80dp"
         android:layout_height="20dp"
         android:layout_marginTop="1dp"
