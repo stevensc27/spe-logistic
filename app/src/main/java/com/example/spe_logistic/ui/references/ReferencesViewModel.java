@@ -17,6 +17,12 @@ public class ReferencesViewModel extends ViewModel {
         references_list = new MutableLiveData<>();
 
         ArrayList<ReferencesVo> references_array_list = new ArrayList<>();
+        
+        /*
+        SELECT  id,codigo_barras,nombre
+        FROM    referencias
+        WHERE   cliente_id = ***
+        */
 
         references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
         references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
