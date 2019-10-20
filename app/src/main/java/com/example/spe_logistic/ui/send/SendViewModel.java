@@ -34,7 +34,17 @@ public class SendViewModel extends AndroidViewModel {
         send_list = new MutableLiveData<>();
 
         ArrayList<SendVo> send_array_list = new ArrayList<>();
-
+        
+        /*
+        SELECT      id,direccion_destinatario||' '||ciudades.nombre,estados.nombre
+        FROM        envios
+        INNER JOIN  ciudades
+                ON  ciudades.id = envios.ciudad_destinatario_id
+        INNER JOIN  estados_envios
+                ON  estados_envios.id = envios.estado_id
+        WHERE       cliente_id = ***
+        */
+        
         send_array_list.add(new SendVo("123","carrera 213","1"));
         send_array_list.add(new SendVo("456","calle 4561","2"));
         send_array_list.add(new SendVo("856","calle 96 54 26","2"));
