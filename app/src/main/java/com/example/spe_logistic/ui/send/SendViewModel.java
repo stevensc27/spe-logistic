@@ -36,12 +36,10 @@ public class SendViewModel extends AndroidViewModel {
         ArrayList<SendVo> send_array_list = new ArrayList<>();
         
         /*
-        SELECT      id,direccion_destinatario||' '||ciudades.nombre,estados.nombre
+        SELECT      id,direccion_destinatario||' '||ciudades.nombre,estado_id
         FROM        envios
         INNER JOIN  ciudades
                 ON  ciudades.id = envios.ciudad_destinatario_id
-        INNER JOIN  estados_envios
-                ON  estados_envios.id = envios.estado_id
         WHERE       cliente_id = ***
         */
         
