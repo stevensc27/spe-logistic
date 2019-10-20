@@ -15,7 +15,15 @@ public class CollectViewModel extends ViewModel {
         collect_list = new MutableLiveData<>();
 
         ArrayList<CollectVo> collect_array_list = new ArrayList<>();
-
+        
+        /*
+        
+        ADD DIRECCION TO ENTITY
+        
+        SELECT  id,direccion,fecha,estado_id
+        FROM    recogidas
+        WHERE   cliente_id = ***
+        */
 
         collect_array_list.add(new CollectVo("03","Calle 15 96 36","01/10/2019","1"));
         collect_array_list.add(new CollectVo("04","Crra 36 52","08/10/2019","1"));
