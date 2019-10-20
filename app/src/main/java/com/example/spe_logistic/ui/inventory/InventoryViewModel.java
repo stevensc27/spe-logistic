@@ -42,6 +42,16 @@ public class InventoryViewModel extends ViewModel {
     private void getDataInventory() {
         ArrayList<BarEntry> bar_inventory_array_list       = new ArrayList<>();
         ArrayList<String>   bar_inventory_array_list_label = new ArrayList<>();
+        
+        /*
+        SELECT      count(*),
+                    referencias.codigo_barras
+        FROM        inventario
+        INNER JOIN  referencias
+                ON  referencias.id = inventario.referencia_id
+        GROUP BY    codigo_barras
+        LIMIT       5
+        */
 
         // here desc, in chart asc
         // x order
@@ -68,6 +78,24 @@ public class InventoryViewModel extends ViewModel {
         ArrayList<BarEntry> bar_send_array_list_in    = new ArrayList<>();
         ArrayList<BarEntry> bar_send_array_list_out   = new ArrayList<>();
         ArrayList<String>   bar_send_array_list_label = new ArrayList<>();
+        
+        /*
+        Date afterSixMonth = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(afterSixMonth);
+        calendar.add(Calendar.MONTH, -5);
+        
+        String monthAfterSix = String.format("%02d", String.valueOf(calendar.get(Calendar.MONTH)));
+        String yearAfterSix  = String.format("%04d", String.valueOf(calendar.get(Calendar.YEAR)));
+        
+        
+        SELECT      count(*),
+                    strftime("%m_%Y", fecha_ingreso) as month_year
+        FROM        inventario
+        GROUP BY    month_year
+        WHERE       strftime("%m", fecha_ingreso) >= monthAfterSix AND
+                    strftime("%Y", fecha_ingreso) >= yearAfterSix                            
+        */
 
         bar_send_array_list_in.add(new BarEntry(1,12));
         bar_send_array_list_in.add(new BarEntry(2,35));
@@ -75,6 +103,19 @@ public class InventoryViewModel extends ViewModel {
         bar_send_array_list_in.add(new BarEntry(4,13));
         bar_send_array_list_in.add(new BarEntry(5,68));
         bar_send_array_list_in.add(new BarEntry(6,22));
+        
+        /*
+        SELECT      count(*),
+                    strftime("%m_%Y", despachos.fecha) as month_year
+        FROM        inventario
+        INNER JOIN  envios
+                ON  envios.id = inventario.envio_id
+        INNER JOIN  despachos
+                ON  despachos.id = envios.despacho_id
+        GROUP BY    month_year
+        WHERE       strftime("%m", despachos.fecha) >= monthAfterSix AND
+                    strftime("%Y", despachos.fecha) >= yearAfterSix  
+        */
 
         bar_send_array_list_out.add(new BarEntry(1,93));
         bar_send_array_list_out.add(new BarEntry(2,62));
@@ -99,6 +140,52 @@ public class InventoryViewModel extends ViewModel {
 
     private void getDataPie() {
         ArrayList<PieEntry> pie_inventory_arrat_list = new ArrayList<>();
+        
+        /*
+        Date firstDayMonth = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(firstDayMonth);
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String currentDay = format.format(cal.getTime());
+        
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        
+        String firstDay = format.format(cal.getTime());
+        
+        
+        SELECT  id,codigo_barras
+        FROM    referencias
+        WHERE   cliente_id = ***
+        
+        for(every referencias){
+        
+            SELECT      count(*) AS amountFirstDay
+            FROM        inventario
+            INNER JOIN  envios
+                    ON  envios.id = inventario.envio_id
+            WHERE       fecha_ingreso <= firstDay                                           AND
+                        (envios.fecha_alistado = null OR envios.fecha_alistados > firstDay) AND
+                        referencia_id = id
+                        
+            SELECE  count(*) AS amountCurrentDay
+            FROM    inventario
+            WHERE   estado = 1          AND
+                    referencia_id = id
+            
+            averageInventory = ( amountFirstDay + amountCurrentDay ) / 2
+            
+            SELECT      count(*) amountDispatchedCurrentMount
+            FROM        inventario
+            INNER JOIN  envios
+                    ON  envios.id = inventario.envio_id
+            WHERE       envios.fecha_alistados > firstDay   AND
+                        referencia_id = id
+            
+            rotationIndicator = amountDispatchedCurrentMount / averageInventory
+        
+        }
+        */
 
         pie_inventory_arrat_list.add(new PieEntry(6, "1232365985645"));
         pie_inventory_arrat_list.add(new PieEntry(5, "6688522994477"));
