@@ -2,6 +2,7 @@ package com.example.spe_logistic.ui.collect;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,20 +34,25 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         viewHolderCollect.id_adress.setText(collect_list.get(i).getId()+" - "+collect_list.get(i).getAddress());
         viewHolderCollect.date.setText("Programado para "+collect_list.get(i).getDate());
 
+        Log.i("APP","Status: "+collect_list.get(i).getId() +" "+collect_list.get(i).getStatus());
+
         switch (collect_list.get(i).getStatus()){
             case "1":
                 viewHolderCollect.state.setText("Pendiente");
                 viewHolderCollect.state.setTextColor(0xAAFF8000);
+                Log.i("APP","Aca1: "+collect_list.get(i).getId() +" "+collect_list.get(i).getStatus());
                 break;
             case "2":
                 viewHolderCollect.state.setText("Aceptado");
                 viewHolderCollect.state.setTextColor(0xAA2FD6E9);
+                Log.i("APP","Aca2: "+collect_list.get(i).getId() +" "+collect_list.get(i).getStatus());
                 break;
             case "3":
                 viewHolderCollect.state.setText("Recogido");
                 viewHolderCollect.state.setTextColor(0xAA43ED26);
-                viewHolderCollect.edit.setAlpha(20);
-                viewHolderCollect.delete.setAlpha(20);
+                //viewHolderCollect.edit.setAlpha(20);
+                //viewHolderCollect.delete.setAlpha(20);
+                Log.i("APP","Aca3: "+collect_list.get(i).getId() +" "+collect_list.get(i).getStatus());
                 break;
             default:
                 viewHolderCollect.state.setText("");
@@ -74,5 +80,11 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
             delete    = (ImageView) itemView.findViewById(R.id.collect_card_delete);
 
         }
+    }
+
+    public void updateList (ArrayList<CollectVo> newList){
+        collect_list = new ArrayList<>();
+        collect_list.addAll(newList);
+        notifyDataSetChanged();
     }
 }

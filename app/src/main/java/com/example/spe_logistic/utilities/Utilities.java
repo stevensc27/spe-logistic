@@ -152,6 +152,11 @@ public class Utilities {
                                                                                                 REFERENCIAS_CODIGO_BARRAS+" TEXT, "+
                                                                                                 REFERENCIAS_UNIDADES_EMPAQUE+" INTEGER, "+
                                                                                                 REFERENCIAS_CLIENTE_ID+" INTEGER)";
+    public static final String REFERENCIAS_REGS = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Harina de lentejas x 500gr', 12128,'7707345200098',1,1);";
+
+    public static final String REFERENCIAS_REGS2 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Arroz SAN TOMAS JR intgr.ltja.almen.300g', 7586,'7709219137882',1,1);";
+    public static final String REFERENCIAS_REGS3 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Frijoles negros en paca', 62000,'7768795854268',1,1);";
+    public static final String REFERENCIAS_REGS4 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Lentejas con salsa negra', 3600,'7709853259869',1,1);";
 
     // CLIENTES TABLE
     public static final String CLIENTES                = "clientes";
@@ -166,6 +171,8 @@ public class Utilities {
                                                                                         CLIENTES_NIT+" TEXT, "+
                                                                                         CLIENTES_PASSWORD+" TEXT, "+
                                                                                         CLIENTES_DIRECCION_ID+" INTEGER)";
+
+
 
     // DIRECCIONES TABLE
     public static final String DIRECCIONES                  = "direcciones";
@@ -269,6 +276,7 @@ public class Utilities {
     public static final String RECOGIDAS_ID                    = "id";
     public static final String RECOGIDAS_FECHA                 = "fecha";
     public static final String RECOGIDAS_CLIENTE_ID            = "cliente_id";
+    public static final String RECOGIDAS_DIRECCION             = "direccion";
     public static final String RECOGIDAS_CANTIDAD_CAJAS        = "cantidad_cajas";
     public static final String RECOGIDAS_ALTO_CAJA             = "alto_caja";
     public static final String RECOGIDAS_ANCHO_CAJA            = "ancho_caja";
@@ -281,6 +289,7 @@ public class Utilities {
     public static final String CREATE_RECOGIDAS                = "CREATE TABLE "+RECOGIDAS+" ("+RECOGIDAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                 RECOGIDAS_FECHA+" TEXT, "+
                                                                                                 RECOGIDAS_CLIENTE_ID+" INTEGER, "+
+                                                                                                RECOGIDAS_DIRECCION+" TEXT, "+
                                                                                                 RECOGIDAS_CANTIDAD_CAJAS+" INTEGER, "+
                                                                                                 RECOGIDAS_ALTO_CAJA+" INTEGER, "+
                                                                                                 RECOGIDAS_ANCHO_CAJA+" INTEGER, "+
@@ -289,4 +298,36 @@ public class Utilities {
                                                                                                 RECOGIDAS_DESCRIPCION_CONTENIDO+" TEXT, "+
                                                                                                 RECOGIDAS_VALOR_DECLARADO+" INTEGER, "+
                                                                                                 RECOGIDAS_ESTADO_ID+" INTEGER)";
+    public static final String RECOGIDAS_REGS0 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-09-18 11:30:00',1,'carrera 34A # 75 Sur 03',25,20,40,40,55,'Mercancia saliente de septiembre',699000,3)";
+    public static final String RECOGIDAS_REGS1 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-09-21 15:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de septiembre',500000,3)";
+    public static final String RECOGIDAS_REGS2 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-09-29 08:00:00',1,'calle 12 # 63 11',25,20,22,40,55,'Mercancia saliente de septiembre',750000,3)";
+    public static final String RECOGIDAS_REGS3 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-02 14:30:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',800000,3)";
+    public static final String RECOGIDAS_REGS4 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-05 14:30:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',950000,3)";
+    public static final String RECOGIDAS_REGS5 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-11 07:00:00',1,'calle 12 # 63 11',18,20,40,40,55,'Mercancia saliente de octubre',699000,3)";
+    public static final String RECOGIDAS_REGS6 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-14 17:30:00',1,'carrera 34A # 75 Sur 03',25,20,40,40,55,'Mercancia saliente de octubre',940000,3)";
+    public static final String RECOGIDAS_REGS7 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-18 11:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de octubre',950000,3)";
+    public static final String RECOGIDAS_REGS8 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-22 13:30:00',1,'carrera 34A # 75 Sur 03',32,20,40,40,55,'Mercancia saliente de octubre',500000,3)";
+    public static final String RECOGIDAS_REGS9 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-23 13:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de octubre',280000,3)";
+    public static final String RECOGIDAS_REGS10 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-25 14:00:00',1,'carrera 34A # 75 Sur 03',28,20,40,40,55,'Mercancia saliente de octubre',850000,2)";
+    public static final String RECOGIDAS_REGS11 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-10-31 13:00:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',740000,1)";
+    public static final String RECOGIDAS_REGS12 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-11-01 07:00:00',1,'carrera 34A # 75 Sur 03',22,20,40,40,55,'Mercancia saliente de noviembre',720000,2)";
+    public static final String RECOGIDAS_REGS13 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-11-12 17:30:00',1,'calle 12 # 63 11',24,20,40,40,55,'Mercancia saliente de noviembre',620000,1)";
+    public static final String RECOGIDAS_REGS14 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-11-15 08:00:00',1,'calle 12 # 63 11',26,20,40,40,55,'Mercancia saliente de noviembre',360000,1)";
+    public static final String RECOGIDAS_REGS15 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+            "values ('2019-11-30 07:00:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de noviembre',850000,1)";
 }

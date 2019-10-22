@@ -4,17 +4,14 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.example.spe_logistic.MyApp;
+
 import com.example.spe_logistic.SQLiteConnectionHelper;
-import com.example.spe_logistic.entities.Envios;
 
 import java.util.ArrayList;
 
@@ -22,26 +19,38 @@ public class SendViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<SendVo>> send_list;
 
+    private SQLiteConnectionHelper con;
+
     public SendViewModel(@NonNull Application application){
         super(application);
-        //SQLiteConnectionHelper con = new SQLiteConnectionHelper(MyApp.getContext(),"SPEDB",null,1);
-        //SQLiteDatabase db = con.getWritableDatabase();
-
-        /*SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
-        Integer user_id = preferences.getInt("user_id",0);
-        Log.i("APP","USER FRAGMENT VIEW MODEL: "+user_id);*/
 
         send_list = new MutableLiveData<>();
 
         ArrayList<SendVo> send_array_list = new ArrayList<>();
+
+        SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
+        Integer user_id = preferences.getInt("user_id",0);
+
+        con = new SQLiteConnectionHelper(getApplication(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
         
-        /*
-        SELECT      id,direccion_destinatario||' '||ciudades.nombre,estado_id
-        FROM        envios
-        INNER JOIN  ciudades
-                ON  ciudades.id = envios.ciudad_destinatario_id
-        WHERE       cliente_id = ***
-        */
+
+        String search = "SELECT     envios.id,direccion_destinatario||' '||ciudades.nombre,estado_id " +
+                        "FROM       envios " +
+                        "INNER JOIN ciudades " +
+                        "ON         ciudades.id = envios.ciudad_destinatario_id " +
+                        "WHERE      cliente_id ="+ user_id +" "+
+                        "ORDER BY   envios.id DESC";
+
+        Cursor cursor = db.rawQuery(search,null);
+        try {
+            while (cursor.moveToNext()) {
+                send_array_list.add(new SendVo(cursor.getString(0),cursor.getString(1),cursor.getString(2)));
+            }
+        } finally {
+            cursor.close();
+        }
+
         
         send_array_list.add(new SendVo("123","carrera 213","1"));
         send_array_list.add(new SendVo("456","calle 4561","2"));

@@ -1,56 +1,52 @@
 package com.example.spe_logistic.ui.references;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.example.spe_logistic.SQLiteConnectionHelper;
 
 import java.util.ArrayList;
 
-public class ReferencesViewModel extends ViewModel {
+public class ReferencesViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<ReferencesVo>> references_list;
 
-    public ReferencesViewModel() {
-        //SQLiteConnectionHelper con = new SQLiteConnectionHelper(MyApp.getContext(),"SPEDB",null,1);
-        //SQLiteDatabase db = con.getWritableDatabase();
+    private SQLiteConnectionHelper con;
+
+    public ReferencesViewModel(@NonNull Application application) {
+        super(application);
 
         references_list = new MutableLiveData<>();
 
         ArrayList<ReferencesVo> references_array_list = new ArrayList<>();
-        
-        /*
-        SELECT  id,codigo_barras,nombre
-        FROM    referencias
-        WHERE   cliente_id = ***
-        */
 
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
-        references_array_list.add(new ReferencesVo("123","022426","2222222222222","producto prueba 123"));
-        references_array_list.add(new ReferencesVo("456","022466","3333333333333","producto prueba 3454"));
-        references_array_list.add(new ReferencesVo("789","035151","4444444444444","producto prueba 54"));
+        SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
+        Integer user_id = preferences.getInt("user_id",0);
+
+        con = new SQLiteConnectionHelper(getApplication(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
+        String search = "SELECT     id,codigo_barras,nombre " +
+                        "FROM       referencias " +
+                        "WHERE      cliente_id ="+user_id +" "+
+                        "ORDER BY   id DESC";
+
+        Cursor cursor = db.rawQuery(search,null);
+        try {
+            while (cursor.moveToNext()) {
+                Log.i("APP","Nombre: "+cursor.getString(2)+" ID: "+cursor.getString(0));
+
+                references_array_list.add(new ReferencesVo(cursor.getString(0),"",cursor.getString(1),cursor.getString(2)));
+            }
+        } finally {
+            cursor.close();
+        }
 
         references_list.setValue(references_array_list);
     }

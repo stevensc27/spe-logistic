@@ -77,4 +77,10 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
             delete  = (ImageView) itemView.findViewById(R.id.send_card_delete);
         }
     }
+
+    public void updateList (ArrayList<SendVo> newList){
+        send_list = new ArrayList<>();
+        send_list.addAll(newList);
+        notifyDataSetChanged();
+    }
 }

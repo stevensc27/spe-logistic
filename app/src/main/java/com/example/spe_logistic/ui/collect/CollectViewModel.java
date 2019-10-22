@@ -1,38 +1,52 @@
 package com.example.spe_logistic.ui.collect;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.example.spe_logistic.SQLiteConnectionHelper;
 
 import java.util.ArrayList;
 
-public class CollectViewModel extends ViewModel {
+public class CollectViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<CollectVo>> collect_list;
 
-    public CollectViewModel() {
+    private SQLiteConnectionHelper con;
+
+    public CollectViewModel(@NonNull Application application) {
+        super(application);
 
         collect_list = new MutableLiveData<>();
 
         ArrayList<CollectVo> collect_array_list = new ArrayList<>();
-        
-        /*
-        
-        ADD DIRECCION TO ENTITY
-        
-        SELECT  id,direccion,fecha,estado_id
-        FROM    recogidas
-        WHERE   cliente_id = ***
-        */
 
-        collect_array_list.add(new CollectVo("03","Calle 15 96 36","01/10/2019","1"));
-        collect_array_list.add(new CollectVo("04","Crra 36 52","08/10/2019","1"));
-        collect_array_list.add(new CollectVo("05","Calle 96A sur 36","07/11/2019","2"));
-        collect_array_list.add(new CollectVo("06","Calle 34A 75 sur 03","06/11/2019","1"));
-        collect_array_list.add(new CollectVo("07","Circular 1A 39","05/11/2019","2"));
-        collect_array_list.add(new CollectVo("09","Crra 64 93 1","01/11/2019","1"));
-        collect_array_list.add(new CollectVo("10","Crra 92 88BB 63","02/11/2019","3"));
+        SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
+        Integer user_id = preferences.getInt("user_id",0);
 
+        con = new SQLiteConnectionHelper(getApplication(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        String search = "SELECT     id,direccion,fecha,estado_id " +
+                        "FROM       recogidas " +
+                        "WHERE      cliente_id ="+ user_id +" "+
+                        "ORDER BY   id DESC";
+
+        Cursor cursor = db.rawQuery(search,null);
+        try {
+            while (cursor.moveToNext()) {
+                collect_array_list.add(new CollectVo(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)));
+            }
+        } finally {
+            cursor.close();
+        }
 
         collect_list.setValue(collect_array_list);
 

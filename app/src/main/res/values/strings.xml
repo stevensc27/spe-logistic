@@ -31,6 +31,14 @@
     <string name="barcode">Código de barras</string>
     <string name="rotationIndicator">Indicador de rotación último mes</string>
     <string name="monthsCellar">Meses con SPE</string>
+    <string name="collectDate">Fecha de recogida</string>
+    <string name="collectAddress">Dirección de recogida</string>
+    <string name="boxs">Cajas</string>
+    <string name="height">Altura</string>
+    <string name="wifth">Ancho</string>
+    <string name="large">Largo</string>
+    <string name="weight">Peso</string>
+    <string name="statement">Declaración de contenido</string>
 
     <string name="title_activity_home">HomeActivity</string>
 

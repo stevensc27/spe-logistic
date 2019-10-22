@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,22 +19,27 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.support.v7.widget.Toolbar;
 
-import com.example.spe_logistic.HomeActivity;
 import com.example.spe_logistic.MyApp;
 import com.example.spe_logistic.R;
 import com.example.spe_logistic.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
-public class SendFragment extends Fragment  {
+public class SendFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private SendViewModel sendViewModel;
-    private Toolbar toolbar;
+    private SendAdapter adapter;
+    private ArrayList<SendVo> sendVos = new ArrayList<>();
 
     RecyclerView send_list;
     FloatingActionButton new_send;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,15 +48,7 @@ public class SendFragment extends Fragment  {
                 ViewModelProviders.of(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);
 
-
-
-        toolbar = (Toolbar) root.findViewById(R.id.toolBar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
-
-
-
-        new_send = (FloatingActionButton) root.findViewById(R.id.new_send);
+        new_send = root.findViewById(R.id.new_send);
         new_send.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -72,12 +70,11 @@ public class SendFragment extends Fragment  {
         send_list = root.findViewById(R.id.send_list);
         send_list.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
 
-
-
         sendViewModel.getSendList().observe(this, new Observer<ArrayList<SendVo>>() {
             @Override
             public void onChanged(@Nullable ArrayList<SendVo> send_array_list) {
-                SendAdapter adapter = new SendAdapter(send_array_list);
+                sendVos = send_array_list;
+                adapter = new SendAdapter(send_array_list);
                 send_list.setAdapter(adapter);
             }
         });
@@ -87,13 +84,63 @@ public class SendFragment extends Fragment  {
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Mis Envíos");
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
         menu.clear();
         inflater.inflate(R.menu.toolbar_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) menuItem.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+
+        String userInput = s.toLowerCase();
+        ArrayList<SendVo> newList = new ArrayList<>();
+
+        for(int i=0;i<sendVos.size();i++) {
+            SendVo sendVo = sendVos.get(i);
+
+            //            String status;
+            //            if (sendVo.getStatus().equals("1")){
+            //                status = "pendiente";
+            //            }else if (sendVo.getStatus().equals("2")){
+            //                status = "en alistamiento";
+            //            }else {
+            //                status = "despachado";
+            //            }
+
+            if (sendVo.getId().contains(userInput) || sendVo.getAddress().toLowerCase().contains(userInput)){
+                newList.add(sendVo);
+            }
+        }
+
+        if (newList.size() == 0){
+            adapter.updateList(sendVos);
+        }else {
+            adapter.updateList(newList);
+        }
+
+        return true;
+    }
 }

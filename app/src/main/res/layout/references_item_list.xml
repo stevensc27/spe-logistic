@@ -57,7 +57,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
-            android:tint="#474A52"
+            android:tint="@color/colorOrangeSpe"
             app:srcCompat="@drawable/ic_next" />
 
     </RelativeLayout>

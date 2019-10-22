@@ -35,7 +35,7 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ReferencesAdapter.ViewHolderReferences viewHolderReferences, int i) {
-        viewHolderReferences.reference_code_bar.setText(references_list.get(i).getReference()+" - "+references_list.get(i).getCode_bar());
+        viewHolderReferences.reference_code_bar.setText(references_list.get(i).getId()+" - "+references_list.get(i).getCode_bar());
         viewHolderReferences.description.setText(references_list.get(i).getDescription());
     }
 
@@ -67,5 +67,11 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
             description        = (TextView)  itemView.findViewById(R.id.references_card_description);
             edit               = (ImageView) itemView.findViewById(R.id.references_card_edit);
         }
+    }
+
+    public void updateList (ArrayList<ReferencesVo> newList){
+        references_list = new ArrayList<>();
+        references_list.addAll(newList);
+        notifyDataSetChanged();
     }
 }
