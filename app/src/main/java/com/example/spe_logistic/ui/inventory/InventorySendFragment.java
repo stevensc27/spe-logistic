@@ -1,11 +1,9 @@
 package com.example.spe_logistic.ui.inventory;
 
 
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +22,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import java.util.ArrayList;
 
 import static com.example.spe_logistic.R.color.colorGreenSpe;
-import static com.example.spe_logistic.R.color.colorGrey;
 import static com.example.spe_logistic.R.color.colorOrangeSpe;
 import static com.example.spe_logistic.R.color.colorPurpleSpe;
 

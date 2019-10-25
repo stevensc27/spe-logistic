@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,335 +7,344 @@
     android:background="@color/colorWhite"
     tools:context=".RegisterActivity">
 
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="300dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:contentDescription="@string/logo_spe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_spe" />
-
-    <EditText
-        android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
-
-    <EditText
-        android:id="@+id/nit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:hint="@string/nit"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <EditText
-        android:id="@+id/password"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:hint="@string/password_login"
-        android:inputType="textPassword"
-        android:phoneNumber="false"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nit" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="125dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/address"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/city"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/number_simbol"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/number_simbol"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginRight="32dp"
+                android:contentDescription="@string/logo_spe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/logo_spe" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/number_simbol"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
-    <TextView
-        android:id="@+id/address"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/chart"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <EditText
+                android:id="@+id/nit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:hint="@string/nit"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintEnd_toEndOf="@+id/name"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/chart"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:hint="@string/password_login"
+                android:inputType="textPassword"
+                android:phoneNumber="false"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintEnd_toEndOf="@+id/nit"
+                app:layout_constraintStart_toStartOf="@+id/nit"
+                app:layout_constraintTop_toBottomOf="@+id/nit" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/orientation"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="125dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/address"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password" />
 
-    <Spinner
-        android:id="@+id/road_type"
-        android:layout_width="90dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:background="@color/colorClearGreenSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/city"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/city"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/id" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="90dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/road_type"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/id" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_simbol"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <Spinner
-        android:id="@+id/city"
-        android:layout_width="120dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:background="@color/colorClearGreenSpe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_simbol"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/textView5"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <Spinner
-        android:id="@+id/orientation_road1"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:background="@color/colorClearGreenSpe"
-        app:layout_constraintStart_toEndOf="@+id/chart1"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/number_simbol"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView8"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/orientation"
-        android:textColor="@color/colorPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/address"
-        app:layout_constraintTop_toBottomOf="@+id/city" />
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/chart"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <Spinner
-        android:id="@+id/orientation_road2"
-        android:layout_width="70dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:background="@color/colorClearGreenSpe"
-        app:layout_constraintStart_toEndOf="@+id/chart2"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/chart"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <EditText
-        android:id="@+id/number1"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:inputType="number|textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/orientation"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/textView7"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-    <EditText
-        android:id="@+id/number2"
-        android:layout_width="40dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:inputType="number|textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/orientation_road1"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+            <Spinner
+                android:id="@+id/road_type"
+                android:layout_width="90dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:background="@color/colorClearGreenSpe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/city"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <EditText
-        android:id="@+id/number3"
-        android:layout_width="30dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:inputType="number|textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/orientation_road2"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/road_type"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/id" />
 
-    <EditText
-        android:id="@+id/chart1"
-        android:layout_width="30dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/number1"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
+            <Spinner
+                android:id="@+id/city"
+                android:layout_width="120dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:background="@color/colorClearGreenSpe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <EditText
-        android:id="@+id/chart2"
-        android:layout_width="30dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:backgroundTint="@color/colorGreenSpe"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/colorPurpleSpe"
-        android:textColorHint="@color/colorClearPurpleSpe"
-        app:layout_constraintStart_toEndOf="@+id/number2"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            <Spinner
+                android:id="@+id/orientation_road1"
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:background="@color/colorClearGreenSpe"
+                app:layout_constraintStart_toEndOf="@+id/chart1"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:background="@drawable/button_rounded"
-        android:text="@string/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/number1" />
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/orientation"
+                android:textColor="@color/colorPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/address"
+                app:layout_constraintTop_toBottomOf="@+id/city" />
 
-</android.support.constraint.ConstraintLayout>
+            <Spinner
+                android:id="@+id/orientation_road2"
+                android:layout_width="70dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:background="@color/colorClearGreenSpe"
+                app:layout_constraintStart_toEndOf="@+id/chart2"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <EditText
+                android:id="@+id/number1"
+                android:layout_width="40dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:inputType="number|textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <EditText
+                android:id="@+id/number2"
+                android:layout_width="40dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:inputType="number|textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/orientation_road1"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <EditText
+                android:id="@+id/number3"
+                android:layout_width="30dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:inputType="number|textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/orientation_road2"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+            <EditText
+                android:id="@+id/chart1"
+                android:layout_width="30dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/number1"
+                app:layout_constraintTop_toBottomOf="@+id/address" />
+
+            <EditText
+                android:id="@+id/chart2"
+                android:layout_width="30dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
+                android:backgroundTint="@color/colorGreenSpe"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorPurpleSpe"
+                android:textColorHint="@color/colorClearPurpleSpe"
+                app:layout_constraintStart_toEndOf="@+id/number2"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginLeft="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginRight="64dp"
+                android:background="@drawable/button_rounded"
+                android:text="@string/save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/number1"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

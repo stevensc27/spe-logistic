@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -304,13 +304,13 @@
         app:layout_constraintStart_toEndOf="@+id/send_item_orientation_road2"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/abc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/send_item_number1">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="396dp"
         android:layout_height="347dp"
         android:layout_margin="8dp"
@@ -415,7 +415,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0">
 
-                    <android.support.v7.widget.AppCompatButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/add_field_button"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
@@ -430,7 +430,7 @@
                         android:text="@string/add"
                         android:textColor="#FFF" />
 
-                    <android.support.v7.widget.AppCompatButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/delete_button"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
@@ -460,7 +460,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="1.0">
 
-                    <android.support.v7.widget.AppCompatButton
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/send_item_save"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -480,11 +480,11 @@
 
 
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-    </android.support.constraint.ConstraintLayout>
-
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
