@@ -26,11 +26,16 @@ import com.example.spe_logistic.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 public class SendFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private SendViewModel sendViewModel;
     private SendAdapter adapter;
     private ArrayList<SendVo> sendVos = new ArrayList<>();
+
+    private NavController navController;
 
     RecyclerView send_list;
     FloatingActionButton new_send;
@@ -48,16 +53,21 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
                 ViewModelProviders.of(this).get(SendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_send, container, false);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
         new_send = root.findViewById(R.id.new_send);
         new_send.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                SendItemFragment send_item = new SendItemFragment();
+                /*SendItemFragment send_item = new SendItemFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment,send_item);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+
+                Bundle bundle = new Bundle();
+                navController.navigate(R.id.sendItemFragment,bundle);
             }
         });
 

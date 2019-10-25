@@ -2,6 +2,10 @@ package com.example.spe_logistic.ui.send;
 
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -16,30 +20,40 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.spe_logistic.R;
+import com.example.spe_logistic.SQLiteConnectionHelper;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SendItemFragment extends Fragment implements View.OnClickListener {
 
-    EditText name;
-    EditText phone;
-    EditText email;
-    Spinner  city;
-    Spinner  road_type;
-    EditText number1;
-    EditText chart1;
-    Spinner  orientation_road1;
-    EditText number2;
-    EditText chart2;
-    Spinner  orientation_road2;
-    EditText number3;
-    EditText codebar;
-    EditText amount;
+    private String send_id;
 
-    Button onDelete;
-    Button onAdd;
-    Button save;
+    private EditText name;
+    private EditText phone;
+    private EditText email;
+    private EditText address;
+    private EditText invoice;
+    private Spinner  city;
+    /*private Spinner  road_type;
+    private EditText number1;
+    private EditText chart1;
+    private Spinner  orientation_road1;
+    private EditText number2;
+    private EditText chart2;
+    private Spinner  orientation_road2;
+    private EditText number3;
+    private EditText codebar;
+    private EditText amount;*/
+
+    private Button onDelete;
+    private Button onAdd;
+    private Button save;
+
+    private SQLiteConnectionHelper con;
 
     View root;
 
@@ -63,6 +77,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_send_item, container, false);
 
+        send_id = (getArguments().getString("sendId","-1"));
+
         parentLinearLayout =  root.findViewById(R.id.parent_linear_layout);
 
 
@@ -78,24 +94,30 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         phone             = root.findViewById(R.id.send_item_phone);
         email             = root.findViewById(R.id.send_item_email);
         city              = root.findViewById(R.id.send_item_city);
-        road_type         = root.findViewById(R.id.send_item_road_type);
+        address           = root.findViewById(R.id.send_item_address);
+        invoice           = root.findViewById(R.id.send_item_invoice);
+        /*road_type         = root.findViewById(R.id.send_item_road_type);
         number1           = root.findViewById(R.id.send_item_number1);
         chart1            = root.findViewById(R.id.send_item_chart1);
         orientation_road1 = root.findViewById(R.id.send_item_orientation_road1);
         number2           = root.findViewById(R.id.send_item_number2);
         chart2            = root.findViewById(R.id.send_item_chart2);
         orientation_road2 = root.findViewById(R.id.send_item_orientation_road2);
-        number3           = root.findViewById(R.id.send_item_number3);
+        number3           = root.findViewById(R.id.send_item_number3);*/
 
 
         ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this.getActivity(),R.array.city_options,android.R.layout.simple_spinner_item);
         city.setAdapter(adapter_city);
-        ArrayAdapter<CharSequence> adapter_address_options = ArrayAdapter.createFromResource(this.getActivity(),R.array.address_options,android.R.layout.simple_spinner_item);
+        /*ArrayAdapter<CharSequence> adapter_address_options = ArrayAdapter.createFromResource(this.getActivity(),R.array.address_options,android.R.layout.simple_spinner_item);
         road_type.setAdapter(adapter_address_options);
         ArrayAdapter<CharSequence> orientation_road_options = ArrayAdapter.createFromResource(this.getActivity(),R.array.orientation_road_options,android.R.layout.simple_spinner_item);
         orientation_road1.setAdapter(orientation_road_options);
         ArrayAdapter<CharSequence> orientation_road_options2 = ArrayAdapter.createFromResource(this.getActivity(),R.array.orientation_road_options,android.R.layout.simple_spinner_item);
-        orientation_road2.setAdapter(orientation_road_options2);
+        orientation_road2.setAdapter(orientation_road_options2);*/
+
+        if (!send_id.equals("-1")){
+            getCollectData();
+        }
 
         return root;
     }
@@ -118,6 +140,15 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+    // TODO
+    private void getCollectData() {
+        con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        db.close();
+    }
+
 
     @SuppressLint("WrongViewCast")
     public void onAddField(View v) {
@@ -142,14 +173,39 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
     private boolean validateData(View v){
 
-        String isNumber = "[0-9]+";
+        String isEmail = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+
+        if(name.getText().toString().length() < 5) {
+            Toast.makeText(this.getActivity(), "Nombre de destinatario muy corto", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(phone.getText().toString().length() < 7){
+            Toast.makeText(this.getActivity(),"Teléfono de destinatario inválido",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        Pattern pattern = Pattern.compile(isEmail, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email.getText().toString());
+        if (!matcher.matches()){
+            Toast.makeText(this.getActivity(),"Correo de destinatario inválido",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(address.getText().toString().length() < 5) {
+            Toast.makeText(this.getActivity(), "Dirección de destinatario muy corta", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        if(invoice.getText().toString().length() == 0) {
+            Toast.makeText(this.getActivity(), "Por favor ingrese una factura", Toast.LENGTH_LONG).show();
+            return false;
+        }
 
         LinearLayout layout;
         layout = root.findViewById(R.id.parent_linear_layout);
-
         int count = layout.getChildCount();
         View row = null;
-
         for(int i=1; i<count-2; i++) {
 
             row = layout.getChildAt(i);
@@ -196,14 +252,37 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
             return false;
         }
 
+        con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
 
+        String[] parameters = {send_id};
+        String queryAmountReference =   "SELECT     count(*) "                                  +
+                                        "FROM       inventario "                                +
+                                        "INNER JOIN referencias "                               +
+                                        "ON         referencias.id = inventario.referencia_id " +
+                                        "WHERE      estado_id = 1   AND"                        +
+                                        "           referencias.codigo_barras = ?";
 
+        Cursor cursor = db.rawQuery(queryAmountReference,parameters);
+
+        cursor.moveToFirst();
+        if (Integer.parseInt(cursor.getString(0)) <  Integer.parseInt(amount_unit)){
+            Toast.makeText(this.getActivity(),"No hay suficientes unidades disponibles: "+codebar_unit,Toast.LENGTH_LONG).show();
+        }
+
+        db.close();
         return true;
     }
 
     private void saveSend(){
+        con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getWritableDatabase();
+
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
+        Integer user_id = preferences.getInt("user_id",0);
+
+        ContentValues values = new ContentValues();
+
 
     }
-
-
 }

@@ -95,6 +95,8 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
     private SQLiteConnectionHelper con;
 
+    View root;
+
     public CollectItemFragment() {
         // Required empty public constructor
     }
@@ -109,7 +111,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_collect_item, container, false);
+        root = inflater.inflate(R.layout.fragment_collect_item, container, false);
 
         collect_id = (getArguments().getString("collectId", "-1"));
 
@@ -197,7 +199,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
         db.close();
     }
-
 
     private void validateData() {
 
@@ -346,7 +347,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         Log.i("APP", "ID change history collect: " + idResult + " " + description);
 
     }
-
 
     private void selectDate() {
 

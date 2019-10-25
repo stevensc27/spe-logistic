@@ -20,7 +20,7 @@
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:hint="@string/reference"
-        android:inputType="textPersonName"
+        android:inputType="number|textPersonName"
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe" />
 
