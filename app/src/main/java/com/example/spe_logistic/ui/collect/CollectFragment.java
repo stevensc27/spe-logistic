@@ -26,11 +26,16 @@ import com.example.spe_logistic.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 public class CollectFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private CollectViewModel collectViewModel;
     private CollectAdapter adapter;
     private ArrayList<CollectVo> collectVos = new ArrayList<>();
+
+    private NavController navController;
 
     RecyclerView collect_list;
     FloatingActionButton new_collect;
@@ -47,18 +52,22 @@ public class CollectFragment extends Fragment implements SearchView.OnQueryTextL
                 ViewModelProviders.of(this).get(CollectViewModel.class);
         View root = inflater.inflate(R.layout.fragment_collect, container, false);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         new_collect = root.findViewById(R.id.new_collect);
         new_collect.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                CollectItemFragment collect_item = new CollectItemFragment();
+                /*CollectItemFragment collect_item = new CollectItemFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.nav_host_fragment,collect_item);
                 fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                fragmentTransaction.commit();*/
+
+                Bundle bundle = new Bundle();
+                navController.navigate(R.id.collectItemFragment,bundle);
             }
         });
 

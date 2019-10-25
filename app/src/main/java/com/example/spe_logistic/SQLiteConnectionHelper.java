@@ -35,6 +35,8 @@ public class SQLiteConnectionHelper extends SQLiteOpenHelper {
         db.execSQL(Utilities.CREATE_HISTORIAL_INVENTARIO);
         db.execSQL(Utilities.CREATE_ESTADOS_RECOGIDAS);
         db.execSQL(Utilities.CREATE_RECOGIDAS);
+        db.execSQL(Utilities.CREATE_HISTORIAL_RECOGIDAS);
+
 
         db.execSQL(Utilities.REFERENCIAS_REGS);
         db.execSQL(Utilities.REFERENCIAS_REGS2);
@@ -109,6 +111,7 @@ public class SQLiteConnectionHelper extends SQLiteOpenHelper {
         db.execSQL(Utilities.DROP_HISTORIAL_INVENTARIO);
         db.execSQL(Utilities.DROP_ESTADOS_RECOGIDAS);
         db.execSQL(Utilities.DROP_RECOGIDAS);
+        db.execSQL(Utilities.DROP_HISTORIAL_REFERENCIAS);
         onCreate(db);
     }
 }

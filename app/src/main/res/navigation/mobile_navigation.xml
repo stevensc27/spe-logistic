@@ -27,5 +27,25 @@
         android:id="@+id/navigation_references"
         android:name="com.example.spe_logistic.ui.references.ReferencesFragment"
         android:label="@string/title_references"
-        tools:layout="@layout/fragment_references" />
+        tools:layout="@layout/fragment_references" >
+        <action
+            android:id="@+id/action_navigation_references_to_referencesItemFragment"
+            app:destination="@id/referencesItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/collectItemFragment"
+        android:name="com.example.spe_logistic.ui.collect.CollectItemFragment"
+        android:label="fragment_collect_item"
+        tools:layout="@layout/fragment_collect_item" />
+
+    <fragment
+        android:id="@+id/sendItemFragment"
+        android:name="com.example.spe_logistic.ui.send.SendItemFragment"
+        android:label="fragment_send_item"
+        tools:layout="@layout/fragment_send_item" />
+    <fragment
+        android:id="@+id/referencesItemFragment"
+        android:name="com.example.spe_logistic.ui.references.ReferencesItemFragment"
+        android:label="fragment_references_item"
+        tools:layout="@layout/fragment_references_item" />
 </navigation>

@@ -330,4 +330,16 @@ public class Utilities {
             "values ('2019-11-15 08:00:00',1,'calle 12 # 63 11',26,20,40,40,55,'Mercancia saliente de noviembre',360000,1)";
     public static final String RECOGIDAS_REGS15 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
             "values ('2019-11-30 07:00:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de noviembre',850000,1)";
+
+    // HISTORIAL_RECOGIDAS TABLE
+    public static final String HISTORIAL_RECOGIDAS             = "historial_recogidas";
+    public static final String HISTORIAL_RECOGIDAS_ID          = "id";
+    public static final String HISTORIAL_RECOGIDAS_FECHA       = "fecha";
+    public static final String HISTORIAL_RECOGIDAS_DESCRIPCION = "descripcion";
+    public static final String HISTORIAL_RECOGIDAS_RECOGIDA_ID = "recogida_id";
+    public static final String DROP_HISTORIAL_RECOGIDAS        = "DROP TABLE IF EXISTS "+HISTORIAL_RECOGIDAS;
+    public static final String CREATE_HISTORIAL_RECOGIDAS      = "CREATE TABLE "+HISTORIAL_RECOGIDAS+" ("+  HISTORIAL_RECOGIDAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
+                                                                                                            HISTORIAL_RECOGIDAS_FECHA+" TEXT, "+
+                                                                                                            HISTORIAL_RECOGIDAS_DESCRIPCION+" TEXT, "+
+                                                                                                            HISTORIAL_RECOGIDAS_RECOGIDA_ID+" INTEGER)";
 }

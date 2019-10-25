@@ -40,7 +40,6 @@ public class ReferencesViewModel extends AndroidViewModel {
         Cursor cursor = db.rawQuery(search,null);
         try {
             while (cursor.moveToNext()) {
-                Log.i("APP","Nombre: "+cursor.getString(2)+" ID: "+cursor.getString(0));
 
                 references_array_list.add(new ReferencesVo(cursor.getString(0),"",cursor.getString(1),cursor.getString(2)));
             }

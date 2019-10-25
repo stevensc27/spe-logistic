@@ -32,6 +32,7 @@
     <string name="rotationIndicator">Indicador de rotación último mes</string>
     <string name="monthsCellar">Meses con SPE</string>
     <string name="collectDate">Fecha de recogida</string>
+    <string name="collectTime">Hora de recogida</string>
     <string name="collectAddress">Dirección de recogida</string>
     <string name="boxs">Cajas</string>
     <string name="height">Altura</string>
@@ -39,6 +40,16 @@
     <string name="large">Largo</string>
     <string name="weight">Peso</string>
     <string name="statement">Declaración de contenido</string>
+    <string name="valueStatement">Valor declarado</string>
+    <string name="referenceDescription">Descripción de la referencia</string>
+    <string name="valueUnity">Valor unidad</string>
+    <string name="value">Valor</string>
+    <string name="unitsPackage">Unds empaque</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="pleaseJustifyDelete">Por favor justifique la eliminación</string>
+    <string name="characters15">15 caracteres mínimo</string>
+
 
     <string name="title_activity_home">HomeActivity</string>
 
@@ -65,7 +76,7 @@
         <item>3-Oeste</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string-array name="city_options">
         <item>Seleccione</item>
         <item>1-Medellín</item>

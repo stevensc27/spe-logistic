@@ -1,6 +1,7 @@
 package com.example.spe_logistic.ui.references;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spe_logistic.MyApp;
@@ -23,13 +25,19 @@ import com.example.spe_logistic.R;
 
 import java.util.ArrayList;
 
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 public class ReferencesFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     private ReferencesViewModel referencesViewModel;
     private ReferencesAdapter adapter;
     private ArrayList<ReferencesVo> referencesVos = new ArrayList<>();
 
+    private NavController navController;
+
     RecyclerView references_list;
+    FloatingActionButton new_reference;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +52,17 @@ public class ReferencesFragment extends Fragment implements SearchView.OnQueryTe
 
         View root = inflater.inflate(R.layout.fragment_references, container, false);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
+        new_reference = root.findViewById(R.id.new_reference);
+        new_reference.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                navController.navigate(R.id.referencesItemFragment,bundle);
+            }
+        });
+
         references_list = root.findViewById(R.id.references_list);
         references_list.setLayoutManager(new LinearLayoutManager(MyApp.getContext()));
 
@@ -56,16 +75,23 @@ public class ReferencesFragment extends Fragment implements SearchView.OnQueryTe
                 adapter.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getActivity(),""+(references_list.getChildAdapterPosition(v)),Toast.LENGTH_LONG).show();
+
+                        TextView t         = v.findViewById(R.id.references_card_references_code_bar);
+                        String s           = t.getText().toString();
+                        String referenceId = s.split(" - ")[0];
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("referenceId",referenceId);
+
+                        navController.navigate(R.id.referencesItemFragment,bundle);
+
+                        //Toast.makeText(getActivity(),s,Toast.LENGTH_LONG).show();
                     }
                 });
 
                 references_list.setAdapter(adapter);
             }
         });
-
-
-
 
         return root;
     }
