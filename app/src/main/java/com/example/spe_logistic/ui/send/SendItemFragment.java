@@ -21,7 +21,10 @@ import android.widget.Toast;
 
 import com.example.spe_logistic.R;
 import com.example.spe_logistic.SQLiteConnectionHelper;
+import com.example.spe_logistic.entities.Ciudades;
+import com.example.spe_logistic.utilities.Utilities;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,6 +58,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
     private SQLiteConnectionHelper con;
 
+    ArrayList<String> citys;
+
     View root;
 
     private LinearLayout parentLinearLayout;
@@ -63,16 +68,13 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         /*SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
         Integer user_id = preferences.getInt("user_id",0);
         Log.i("APP","USER FRAGMENT VIEW MODEL NEW SEND: "+user_id);*/
-
 
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_send_item, container, false);
@@ -105,9 +107,10 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         orientation_road2 = root.findViewById(R.id.send_item_orientation_road2);
         number3           = root.findViewById(R.id.send_item_number3);*/
 
-
-        ArrayAdapter<CharSequence> adapter_city = ArrayAdapter.createFromResource(this.getActivity(),R.array.city_options,android.R.layout.simple_spinner_item);
+        getCitys();
+        ArrayAdapter<String> adapter_city = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item,citys);
         city.setAdapter(adapter_city);
+
         /*ArrayAdapter<CharSequence> adapter_address_options = ArrayAdapter.createFromResource(this.getActivity(),R.array.address_options,android.R.layout.simple_spinner_item);
         road_type.setAdapter(adapter_address_options);
         ArrayAdapter<CharSequence> orientation_road_options = ArrayAdapter.createFromResource(this.getActivity(),R.array.orientation_road_options,android.R.layout.simple_spinner_item);
@@ -141,6 +144,25 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void getCitys(){
+        con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        citys = new ArrayList<String>();
+
+        String queryCitys = "SELECT     id,nombre " +
+                            "FROM       ciudades " +
+                            "ORDER BY   nombre";
+
+        Cursor cursor = db.rawQuery(queryCitys,null);
+
+        while (cursor.moveToNext() ){
+            String city;
+            city = cursor.getString(1)+" "+cursor.getString(0);
+            citys.add(city);
+        }
+    }
+
     // TODO
     private void getCollectData() {
         con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
@@ -148,7 +170,6 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
         db.close();
     }
-
 
     @SuppressLint("WrongViewCast")
     public void onAddField(View v) {
@@ -202,12 +223,9 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
             return false;
         }
 
-        LinearLayout layout;
-        layout = root.findViewById(R.id.parent_linear_layout);
-        int count = layout.getChildCount();
+        LinearLayout layout = root.findViewById(R.id.parent_linear_layout);
         View row = null;
-        for(int i=1; i<count-2; i++) {
-
+        for(int i=1; i<layout.getChildCount()-2; i++) {
             row = layout.getChildAt(i);
             View field_codebar = null;
             View field_amount  = null;
@@ -216,15 +234,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
                 field_codebar = ((LinearLayout)row).getChildAt(0);
                 field_amount = ((LinearLayout)row).getChildAt(1);
 
-                String codebar_unit = null;
-                if (field_codebar instanceof EditText);{
-                    codebar_unit = ((EditText)field_codebar).getText().toString();
-                }
-
-                String amount_unit = null;
-                if (field_amount instanceof EditText);{
-                    amount_unit = ((EditText)field_amount).getText().toString();
-                }
+                String codebar_unit = ((EditText)field_codebar).getText().toString();
+                String amount_unit  = ((EditText)field_amount).getText().toString();
 
                 if (!validateReference(codebar_unit, amount_unit)){
                     return false;
@@ -255,13 +266,17 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         con = new SQLiteConnectionHelper(this.getContext(),"SPEDB",null,1);
         SQLiteDatabase db = con.getReadableDatabase();
 
-        String[] parameters = {send_id};
+        String or = "";
+        if (!send_id.equals("-1"))
+            or = " OR estado_id = 2 AND referencias_codigo_barras = '"+codebar_unit+"' AND envio_id = "+send_id;
+
+        String[] parameters = {codebar_unit};
         String queryAmountReference =   "SELECT     count(*) "                                  +
                                         "FROM       inventario "                                +
                                         "INNER JOIN referencias "                               +
                                         "ON         referencias.id = inventario.referencia_id " +
-                                        "WHERE      estado_id = 1   AND"                        +
-                                        "           referencias.codigo_barras = ?";
+                                        "WHERE      (estado_id = 1   AND"                       +
+                                        "           referencias.codigo_barras = '?')" + or;
 
         Cursor cursor = db.rawQuery(queryAmountReference,parameters);
 
@@ -281,8 +296,76 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
         Integer user_id = preferences.getInt("user_id",0);
 
+        String city_id = city.getSelectedItem().toString().split(" ")[1];
+
         ContentValues values = new ContentValues();
 
+        values.put(Utilities.ENVIOS_NOMBRE_DESTINATARIO,name.getText().toString());
+        values.put(Utilities.ENVIOS_DIRECCION_DESTINATARIO,address.getText().toString());
+        values.put(Utilities.ENVIOS_CIUDAD_DESTINATARIO_ID,city_id);
+        values.put(Utilities.ENVIOS_TELEFONO_DESTINATARIO,phone.getText().toString());
+        values.put(Utilities.ENVIOS_EMAIL_DESTINATARIO,email.getText().toString());
+        values.put(Utilities.ENVIOS_FACTURA,invoice.getText().toString());
+        values.put(Utilities.ENVIOS_CLIENTE_ID,user_id);
+        values.put(Utilities.ENVIOS_ESTADO_ID,"2");
 
+
+        if (send_id.equals("-1")){
+
+            Long idResult = db.insert(Utilities.ENVIOS, Utilities.ENVIOS_ID, values);
+            reserveInventory(Long.toString(idResult));
+            Toast.makeText(this.getActivity(), "Envio con id " + idResult + " creado", Toast.LENGTH_LONG).show();
+
+        }else {
+
+
+
+            String[] parameters = {send_id};
+            db.update(Utilities.ENVIOS, values, Utilities.ENVIOS_ID + " = ?", parameters);
+            reserveInventory(send_id);
+            Toast.makeText(this.getActivity(), "El envío ha sido actualizado", Toast.LENGTH_LONG).show();
+        }
+
+
+        db.close();
+    }
+
+    private void reserveInventory(String id){
+
+        SQLiteDatabase db = con.getWritableDatabase();
+
+        if (!send_id.equals("-1")){
+            String[] parameters = {send_id};
+            ContentValues values = new ContentValues();
+            values.put(Utilities.INVENTARIO_ESTADO_ID,"1");
+            values.put(Utilities.INVENTARIO_ENVIO_ID,"");
+            db.update(Utilities.INVENTARIO,values,Utilities.INVENTARIO_ENVIO_ID+" = ?",parameters);
+        }
+
+        LinearLayout layout = root.findViewById(R.id.parent_linear_layout);
+        View row = null;
+        for(int i=1; i<layout.getChildCount()-2; i++) {
+            row = layout.getChildAt(i);
+            View field_codebar = null;
+            View field_amount  = null;
+
+            if (row instanceof LinearLayout){
+                field_codebar = ((LinearLayout)row).getChildAt(0);
+                field_amount = ((LinearLayout)row).getChildAt(1);
+
+                String codebar_unit = ((EditText)field_codebar).getText().toString();
+                String amount_unit = ((EditText)field_amount).getText().toString();
+
+                String[] parametersReference = {codebar_unit};
+                Cursor cursor = db.rawQuery("SELECT referencia_id FROM referencias WHERE codigo_barras = ?",parametersReference);
+                cursor.moveToFirst();
+
+                String[] parametersInventory = {"2",id,"1",cursor.getString(0)};
+                cursor = db.rawQuery("UPDATE inventario SET estado_id = ?, envio_id = ? WHERE estado_id = ? AND referencia_id = ?",parametersInventory);
+                cursor.moveToFirst();
+                cursor.close();
+
+            }
+        }
     }
 }

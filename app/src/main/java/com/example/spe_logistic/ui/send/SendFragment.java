@@ -1,19 +1,23 @@
 package com.example.spe_logistic.ui.send;
 
 import android.os.Bundle;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.SearchView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -56,7 +60,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
         new_send = root.findViewById(R.id.new_send);
-        new_send.setOnClickListener(new View.OnClickListener(){
+        new_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /*SendItemFragment send_item = new SendItemFragment();
@@ -67,7 +71,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
                 fragmentTransaction.commit();*/
 
                 Bundle bundle = new Bundle();
-                navController.navigate(R.id.sendItemFragment,bundle);
+                navController.navigate(R.id.sendItemFragment, bundle);
             }
         });
 
@@ -97,7 +101,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Mis Envíos");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mis Envíos");
     }
 
     @Override
@@ -128,7 +132,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
         String userInput = s.toLowerCase();
         ArrayList<SendVo> newList = new ArrayList<>();
 
-        for(int i=0;i<sendVos.size();i++) {
+        for (int i = 0; i < sendVos.size(); i++) {
             SendVo sendVo = sendVos.get(i);
 
             //            String status;
@@ -140,14 +144,14 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
             //                status = "despachado";
             //            }
 
-            if (sendVo.getId().contains(userInput) || sendVo.getAddress().toLowerCase().contains(userInput)){
+            if (sendVo.getId().contains(userInput) || sendVo.getAddress().toLowerCase().contains(userInput)) {
                 newList.add(sendVo);
             }
         }
 
-        if (newList.size() == 0){
+        if (newList.size() == 0) {
             adapter.updateList(sendVos);
-        }else {
+        } else {
             adapter.updateList(newList);
         }
 

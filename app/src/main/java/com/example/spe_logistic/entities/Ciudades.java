@@ -10,6 +10,9 @@ public class Ciudades {
         this.nombre = nombre;
     }
 
+    public Ciudades() {
+    }
+
     public Integer getId() {
         return id;
     }

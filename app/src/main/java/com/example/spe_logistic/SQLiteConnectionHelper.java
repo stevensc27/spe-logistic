@@ -43,7 +43,11 @@ public class SQLiteConnectionHelper extends SQLiteOpenHelper {
         db.execSQL(Utilities.REFERENCIAS_REGS3);
         db.execSQL(Utilities.REFERENCIAS_REGS4);
 
-        db.execSQL(Utilities.RECOGIDAS_REGS0);
+        db.execSQL(Utilities.CIUDADES_REGS1);
+        db.execSQL(Utilities.CIUDADES_REGS2);
+        db.execSQL(Utilities.CIUDADES_REGS3);
+
+        /*db.execSQL(Utilities.RECOGIDAS_REGS0);
         db.execSQL(Utilities.RECOGIDAS_REGS1);
         db.execSQL(Utilities.RECOGIDAS_REGS2);
         db.execSQL(Utilities.RECOGIDAS_REGS3);
@@ -74,7 +78,7 @@ public class SQLiteConnectionHelper extends SQLiteOpenHelper {
         db.execSQL(Utilities.RECOGIDAS_REGS12);
         db.execSQL(Utilities.RECOGIDAS_REGS13);
         db.execSQL(Utilities.RECOGIDAS_REGS14);
-        db.execSQL(Utilities.RECOGIDAS_REGS15);
+        db.execSQL(Utilities.RECOGIDAS_REGS15);*/
 
         /*
         db.execSQL(Utilities.REFERENCIAS_REGS);

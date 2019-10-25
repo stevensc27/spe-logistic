@@ -130,9 +130,9 @@ public class Utilities {
     public static final String DROP_CIUDADES   = "DROP TABLE IF EXISTS "+CIUDADES;
     public static final String CREATE_CIUDADES = "CREATE TABLE "+CIUDADES+" ("+ CIUDADES_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                 CIUDADES_NOMBRE+" TEXT)";
-    //public static final String CIUDADES_REGS = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');"+
-    //                                           "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');"+
-    //                                           "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Bello' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Bello');";
+    public static final String CIUDADES_REGS1 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');";
+    public static final String CIUDADES_REGS2 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');";
+    public static final String CIUDADES_REGS3 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Bello' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Bello');";
 
 
 
@@ -298,7 +298,7 @@ public class Utilities {
                                                                                                 RECOGIDAS_DESCRIPCION_CONTENIDO+" TEXT, "+
                                                                                                 RECOGIDAS_VALOR_DECLARADO+" INTEGER, "+
                                                                                                 RECOGIDAS_ESTADO_ID+" INTEGER)";
-    public static final String RECOGIDAS_REGS0 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
+    /*public static final String RECOGIDAS_REGS0 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
             "values ('2019-09-18 11:30:00',1,'carrera 34A # 75 Sur 03',25,20,40,40,55,'Mercancia saliente de septiembre',699000,3)";
     public static final String RECOGIDAS_REGS1 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
             "values ('2019-09-21 15:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de septiembre',500000,3)";
@@ -329,7 +329,7 @@ public class Utilities {
     public static final String RECOGIDAS_REGS14 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
             "values ('2019-11-15 08:00:00',1,'calle 12 # 63 11',26,20,40,40,55,'Mercancia saliente de noviembre',360000,1)";
     public static final String RECOGIDAS_REGS15 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-11-30 07:00:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de noviembre',850000,1)";
+            "values ('2019-11-30 07:00:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de noviembre',850000,1)";*/
 
     // HISTORIAL_RECOGIDAS TABLE
     public static final String HISTORIAL_RECOGIDAS             = "historial_recogidas";

@@ -2,6 +2,7 @@ package com.example.spe_logistic.ui.inventory;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
@@ -43,21 +44,21 @@ public class InventoryFragment extends Fragment {
     private InventoryViewModel inventoryViewModel;
 
     HorizontalBarChart horizontalBarChartInventory;
-    BarDataSet         horizontalBarDataSet;
-    BarData            horizontalBarData;
-    XAxis              horizontalBarChartXAxis;
-    
-    BarChart   barChartSend;
+    BarDataSet horizontalBarDataSet;
+    BarData horizontalBarData;
+    XAxis horizontalBarChartXAxis;
+
+    BarChart barChartSend;
     BarDataSet barDataSetIn;
     BarDataSet barDataSetOut;
-    BarData    barData;
-    XAxis      barChartXAxis;
-    float      barSpace = 0.01f;
-    float      groupSpace = 0.08f;
+    BarData barData;
+    XAxis barChartXAxis;
+    float barSpace = 0.01f;
+    float groupSpace = 0.08f;
 
-    PieChart    pieChartInventory;
-    PieDataSet  pieDataSet;
-    PieData     pieData;
+    PieChart pieChartInventory;
+    PieDataSet pieDataSet;
+    PieData pieData;
     Description pieDes;
 
     Button buttomHorizontalBar;
@@ -72,8 +73,8 @@ public class InventoryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_inventory, container, false);
 
         buttomHorizontalBar = root.findViewById(R.id.buttonHorizontalBar);
-        buttonBar           = root.findViewById(R.id.buttonBar);
-        buttonPie           = root.findViewById(R.id.buttonPie);
+        buttonBar = root.findViewById(R.id.buttonBar);
+        buttonPie = root.findViewById(R.id.buttonPie);
 
         buttomHorizontalBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +82,7 @@ public class InventoryFragment extends Fragment {
                 InventoryInventoryFragment send_item = new InventoryInventoryFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment,send_item);
+                fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -93,28 +94,24 @@ public class InventoryFragment extends Fragment {
                 InventorySendFragment send_item = new InventorySendFragment();
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment,send_item);
+                fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
         });
 
-        buttonPie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                InventoryRotationFragment send_item = new InventoryRotationFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment,send_item);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
+        buttonPie.setOnClickListener(v -> {
+            InventoryRotationFragment send_item = new InventoryRotationFragment();
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
         });
 
         fillBarChartInventory(root);
         fillBarChartSend(root);
         fillPieChartInventory(root);
-
 
 
         return root;
@@ -123,7 +120,7 @@ public class InventoryFragment extends Fragment {
     private void fillBarChartInventory(View root) {
 
         horizontalBarChartInventory = (HorizontalBarChart) root.findViewById(R.id.horizontalBarChartInventory);
-        
+
         // find labels for bar chart of inventory
         inventoryViewModel.getBarInventoryListLabel().observe(this, new Observer<ArrayList<String>>() {
             @Override
@@ -138,30 +135,29 @@ public class InventoryFragment extends Fragment {
                 horizontalBarChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_inventory_array_list_label));
             }
         });
-        
+
         // find values for bar chart of inventory
         inventoryViewModel.getBarInventoryList().observe(this, new Observer<ArrayList<BarEntry>>() {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_inventory_array_list) {
-                horizontalBarDataSet = new BarDataSet(bar_inventory_array_list,"");
+                horizontalBarDataSet = new BarDataSet(bar_inventory_array_list, "");
                 horizontalBarDataSet.setColor(getResources().getColor(colorOrangeSpe));
                 horizontalBarData = new BarData(horizontalBarDataSet);
                 horizontalBarChartInventory.setData(horizontalBarData);
             }
         });
-        
+
         horizontalBarChartInventory.getAxisRight().setEnabled(false);
         horizontalBarChartInventory.getAxisLeft().setEnabled(false);
         horizontalBarChartInventory.getLegend().setEnabled(false);
         horizontalBarChartInventory.getDescription().setEnabled(false);
         horizontalBarChartInventory.animateY(1500);
-        
+
     }
 
     private void fillBarChartSend(View root) {
-        
-        barChartSend = (BarChart) root.findViewById(R.id.barChartSend);
 
+        barChartSend = (BarChart) root.findViewById(R.id.barChartSend);
 
 
         // find labels for bar chart of sends
@@ -172,7 +168,7 @@ public class InventoryFragment extends Fragment {
                 barChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_send_array_list_label));
                 barChartXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                 barChartXAxis.setDrawLabels(false);
-                barChartXAxis.setLabelCount(6,true);
+                barChartXAxis.setLabelCount(6, true);
                 barChartXAxis.setDrawAxisLine(false);
                 barChartXAxis.setDrawGridLines(false);
                 barChartXAxis.setCenterAxisLabels(true);
@@ -185,7 +181,7 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_send_array_list_in) {
                 if (bar_send_array_list_in != null) {
-                    barDataSetIn = new BarDataSet(bar_send_array_list_in,"Entradas");
+                    barDataSetIn = new BarDataSet(bar_send_array_list_in, "Entradas");
                     barDataSetIn.setColor(getResources().getColor(colorPurpleSpe));
                 }
             }
@@ -194,17 +190,17 @@ public class InventoryFragment extends Fragment {
         inventoryViewModel.getBarSendListOut().observe(this, new Observer<ArrayList<BarEntry>>() {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_send_array_list_out) {
-                barDataSetOut = new BarDataSet(bar_send_array_list_out,"Salidas");
+                barDataSetOut = new BarDataSet(bar_send_array_list_out, "Salidas");
                 barDataSetOut.setColor(getResources().getColor(colorGreenSpe));
-                barData = new BarData(barDataSetIn,barDataSetOut);
+                barData = new BarData(barDataSetIn, barDataSetOut);
                 barChartSend.setData(barData);
                 barChartSend.setDragEnabled(true);
                 barChartSend.setVisibleXRangeMaximum(6);
                 barData.setBarWidth(0.2f);
                 barChartSend.getXAxis().setAxisMinimum(0);
-                barChartSend.getXAxis().setAxisMaximum(barChartSend.getBarData().getGroupWidth(groupSpace,barSpace)*6);
+                barChartSend.getXAxis().setAxisMaximum(barChartSend.getBarData().getGroupWidth(groupSpace, barSpace) * 6);
                 barChartSend.getAxisLeft().setAxisMinimum(0);
-                barChartSend.groupBars(0,groupSpace,barSpace);
+                barChartSend.groupBars(0, groupSpace, barSpace);
                 barChartSend.invalidate();
             }
         });
@@ -222,7 +218,7 @@ public class InventoryFragment extends Fragment {
         inventoryViewModel.getPieInventoryList().observe(this, new Observer<ArrayList<PieEntry>>() {
             @Override
             public void onChanged(@Nullable ArrayList<PieEntry> pie_inventory_array_list) {
-                pieDataSet = new PieDataSet(pie_inventory_array_list,"");
+                pieDataSet = new PieDataSet(pie_inventory_array_list, "");
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
                 pieData = new PieData(pieDataSet);
                 pieData.setValueTextSize(9f);
@@ -248,11 +244,12 @@ public class InventoryFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 }

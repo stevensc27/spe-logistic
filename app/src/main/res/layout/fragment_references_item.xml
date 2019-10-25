@@ -54,6 +54,7 @@
         android:hint="@string/value"
         android:inputType="number|textPersonName"
         android:textColor="@color/colorPurpleSpe"
+        android:imeOptions="actionNext"
         android:textColorHint="@color/colorClearPurpleSpe"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reference_item_bar_code" />
@@ -68,6 +69,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:ems="10"
+        android:imeOptions="actionSend"
         android:hint="@string/unitsPackage"
         android:inputType="number|textPersonName"
         android:textColor="@color/colorPurpleSpe"
