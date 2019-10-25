@@ -13,7 +13,7 @@
     app:layout_constraintVertical_bias="1.0">
 
     <EditText
-        android:id="@+id/reference_field"
+        android:id="@+id/send_item_codebar_dinamic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".70"
@@ -25,14 +25,14 @@
         android:textColorHint="@color/colorClearPurpleSpe" />
 
     <EditText
-        android:id="@+id/amount_field"
+        android:id="@+id/send_item_amount_dinamic"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".30"
         android:backgroundTint="@color/colorGreenSpe"
         android:ems="10"
         android:hint="@string/number_simbol"
-        android:inputType="textPersonName"
+        android:inputType="number|textPersonName"
         android:textColor="@color/colorPurpleSpe"
         android:textColorHint="@color/colorClearPurpleSpe" />
 

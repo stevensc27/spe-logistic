@@ -304,38 +304,27 @@
         app:layout_constraintStart_toEndOf="@+id/send_item_orientation_road2"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/abc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/send_item_number1">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="396dp"
         android:layout_height="347dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/send_item_number2">
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
-
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:scrollbars="vertical"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="@+id/abc">
 
             <LinearLayout
                 android:id="@+id/parent_linear_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
+                android:layout_margin="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -346,6 +335,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:layout_margin="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -387,7 +377,7 @@
                     app:layout_constraintVertical_bias="1.0">
 
                     <EditText
-                        android:id="@+id/reference_field"
+                        android:id="@+id/send_item_codebar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".70"
@@ -399,14 +389,14 @@
                         android:textColorHint="@color/colorClearPurpleSpe" />
 
                     <EditText
-                        android:id="@+id/amount_field"
+                        android:id="@+id/send_item_amount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight=".30"
                         android:backgroundTint="@color/colorGreenSpe"
                         android:ems="10"
                         android:hint="@string/number_simbol"
-                        android:inputType="textPersonName"
+                        android:inputType="number|textPersonName"
                         android:textColor="@color/colorPurpleSpe"
                         android:textColorHint="@color/colorClearPurpleSpe" />
 
@@ -415,8 +405,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
@@ -427,14 +418,14 @@
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/add_field_button"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
                         android:layout_weight=".5"
-                        android:background="#555"
                         android:onClick="onAddField"
+                        android:background="@drawable/button_rounded"
                         android:paddingLeft="5dp"
                         android:text="@string/add"
                         android:textColor="#FFF" />
@@ -442,13 +433,13 @@
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/delete_button"
                         android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="bottom"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_marginBottom="5dp"
+                        android:background="@drawable/button_rounded"
                         android:layout_weight=".5"
-                        android:background="#555"
                         android:onClick="onAddField"
                         android:paddingLeft="5dp"
                         android:text="@string/remove"
@@ -456,11 +447,44 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center">
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0">
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/send_item_save"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/button_rounded_orange"
+                        android:paddingLeft="5dp"
+                        android:text="@string/save"
+                        android:textColor="#FFF" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
-        </android.support.constraint.ConstraintLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>
