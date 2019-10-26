@@ -242,7 +242,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         }
 
         saveCollect();
-
         navController.navigate(R.id.navigation_collect);
 
     }
@@ -332,9 +331,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
             description += "Cambia valor declarado '" + cursor.getString(8) + "' por '" + textValue + "'. ";
         }
 
-
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-
 
         ContentValues values = new ContentValues();
 
@@ -405,13 +402,13 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
                 mapboxMap.setMinZoomPreference(10);
                 mapboxMap.addOnMapClickListener(CollectItemFragment.this);
 
-                habilitarUbicacion(style);
+                enableLocation(style);
             }
         });
     }
 
     @SuppressWarnings({"MissingPermission"})
-    private void habilitarUbicacion(@NonNull Style loadedMapStyle) {
+    private void enableLocation(@NonNull Style loadedMapStyle) {
         if (PermissionsManager.areLocationPermissionsGranted(fragmentActivity)) {
 
             locationComponent = mapboxMap.getLocationComponent();
@@ -453,7 +450,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         fragmentActivity = getActivity();
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -492,7 +488,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onPermissionGranted(PermissionGrantedResponse response) {
-        mapboxMap.getStyle(this::habilitarUbicacion);
+        mapboxMap.getStyle(this::enableLocation);
     }
 
     @Override
@@ -508,7 +504,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
         token.continuePermissionRequest();
     }
-
 
     @Override
     public boolean onMapClick(@NonNull LatLng point) {

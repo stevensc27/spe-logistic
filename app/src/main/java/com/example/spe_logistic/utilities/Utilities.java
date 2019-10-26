@@ -1,5 +1,11 @@
 package com.example.spe_logistic.utilities;
 
+import android.database.sqlite.SQLiteDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Utilities {
 
     // ESTADOS_INVENTARIO TABLE
@@ -130,9 +136,7 @@ public class Utilities {
     public static final String DROP_CIUDADES   = "DROP TABLE IF EXISTS "+CIUDADES;
     public static final String CREATE_CIUDADES = "CREATE TABLE "+CIUDADES+" ("+ CIUDADES_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                 CIUDADES_NOMBRE+" TEXT)";
-    public static final String CIUDADES_REGS1 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');";
-    public static final String CIUDADES_REGS2 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');";
-    public static final String CIUDADES_REGS3 = "INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Bello' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Bello');";
+
 
 
 
@@ -152,11 +156,153 @@ public class Utilities {
                                                                                                 REFERENCIAS_CODIGO_BARRAS+" TEXT, "+
                                                                                                 REFERENCIAS_UNIDADES_EMPAQUE+" INTEGER, "+
                                                                                                 REFERENCIAS_CLIENTE_ID+" INTEGER)";
-    public static final String REFERENCIAS_REGS = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Harina de lentejas x 500gr', 12128,'7707345200098',1,1);";
 
-    public static final String REFERENCIAS_REGS2 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Arroz SAN TOMAS JR intgr.ltja.almen.300g', 7586,'7709219137882',1,1);";
-    public static final String REFERENCIAS_REGS3 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Frijoles negros en paca', 62000,'7768795854268',1,1);";
-    public static final String REFERENCIAS_REGS4 = "INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Lentejas con salsa negra', 3600,'7709853259869',1,1);";
+
+    public static final void insertInventory(SQLiteDatabase db){
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,-30);
+        String date30 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
+        calendar.add(Calendar.DATE,-60);
+        String date60 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
+
+
+        db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');");
+        db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');");
+        db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Bello' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Bello');");
+
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Harina de lentejas x 500gr', 12128,'7707345200098',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Arroz SAN TOMAS JR intgr.ltja.almen.300g', 7586,'7709219137882',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Frijoles negros en paca', 62000,'7768795854268',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Lentejas con salsa negra', 3600,'7709853259869',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Jamon cerrano 800gm', 30000,'7707958412365',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Paca papitas mekato x8', 3800,'7707957654321',1,1);");
+        db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Galletas tosh crugientes', 1000,'770789654785',1,1);");
+
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(1,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(2,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(3,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(4,1,'A-1-1','"+date30+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(5,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(6,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(6,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(6,1,'A-1-1','"+date+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(6,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+    }
+
+
+
+
+
+
 
     // CLIENTES TABLE
     public static final String CLIENTES                = "clientes";
@@ -298,38 +444,6 @@ public class Utilities {
                                                                                                 RECOGIDAS_DESCRIPCION_CONTENIDO+" TEXT, "+
                                                                                                 RECOGIDAS_VALOR_DECLARADO+" INTEGER, "+
                                                                                                 RECOGIDAS_ESTADO_ID+" INTEGER)";
-    /*public static final String RECOGIDAS_REGS0 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-09-18 11:30:00',1,'carrera 34A # 75 Sur 03',25,20,40,40,55,'Mercancia saliente de septiembre',699000,3)";
-    public static final String RECOGIDAS_REGS1 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-09-21 15:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de septiembre',500000,3)";
-    public static final String RECOGIDAS_REGS2 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-09-29 08:00:00',1,'calle 12 # 63 11',25,20,22,40,55,'Mercancia saliente de septiembre',750000,3)";
-    public static final String RECOGIDAS_REGS3 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-02 14:30:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',800000,3)";
-    public static final String RECOGIDAS_REGS4 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-05 14:30:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',950000,3)";
-    public static final String RECOGIDAS_REGS5 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-11 07:00:00',1,'calle 12 # 63 11',18,20,40,40,55,'Mercancia saliente de octubre',699000,3)";
-    public static final String RECOGIDAS_REGS6 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-14 17:30:00',1,'carrera 34A # 75 Sur 03',25,20,40,40,55,'Mercancia saliente de octubre',940000,3)";
-    public static final String RECOGIDAS_REGS7 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-18 11:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de octubre',950000,3)";
-    public static final String RECOGIDAS_REGS8 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-22 13:30:00',1,'carrera 34A # 75 Sur 03',32,20,40,40,55,'Mercancia saliente de octubre',500000,3)";
-    public static final String RECOGIDAS_REGS9 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-23 13:30:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de octubre',280000,3)";
-    public static final String RECOGIDAS_REGS10 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-25 14:00:00',1,'carrera 34A # 75 Sur 03',28,20,40,40,55,'Mercancia saliente de octubre',850000,2)";
-    public static final String RECOGIDAS_REGS11 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-10-31 13:00:00',1,'carrera 34A # 75 Sur 03',18,20,40,40,55,'Mercancia saliente de octubre',740000,1)";
-    public static final String RECOGIDAS_REGS12 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-11-01 07:00:00',1,'carrera 34A # 75 Sur 03',22,20,40,40,55,'Mercancia saliente de noviembre',720000,2)";
-    public static final String RECOGIDAS_REGS13 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-11-12 17:30:00',1,'calle 12 # 63 11',24,20,40,40,55,'Mercancia saliente de noviembre',620000,1)";
-    public static final String RECOGIDAS_REGS14 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-11-15 08:00:00',1,'calle 12 # 63 11',26,20,40,40,55,'Mercancia saliente de noviembre',360000,1)";
-    public static final String RECOGIDAS_REGS15 = "insert into recogidas (fecha,cliente_id,direccion,cantidad_cajas,alto_caja,ancho_caja,largo_caja,peso,descripcion_contenido,valor_declarado,estado_id) "+
-            "values ('2019-11-30 07:00:00',1,'carrera 34A # 75 Sur 03',30,20,40,40,55,'Mercancia saliente de noviembre',850000,1)";*/
 
     // HISTORIAL_RECOGIDAS TABLE
     public static final String HISTORIAL_RECOGIDAS             = "historial_recogidas";

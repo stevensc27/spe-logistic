@@ -313,8 +313,6 @@
                 app:layout_constraintStart_toEndOf="@+id/textView10"
                 app:layout_constraintTop_toBottomOf="@+id/id" /> -->
 
-
-
             <!--<Spinner
                 android:id="@+id/send_item_road_type"
                 android:layout_width="90dp"
@@ -522,13 +520,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/send_item_address"
                 app:layout_constraintVertical_bias="0.0"> -->
 
-
-
-
             <!--</android.support.v4.widget.NestedScrollView> -->
 
             <!--</android.support.constraint.ConstraintLayout> -->
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

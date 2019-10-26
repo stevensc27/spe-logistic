@@ -48,4 +48,24 @@
         android:name="com.example.spe_logistic.ui.references.ReferencesItemFragment"
         android:label="fragment_references_item"
         tools:layout="@layout/fragment_references_item" />
+    <fragment
+        android:id="@+id/inventorySendFragment"
+        android:name="com.example.spe_logistic.ui.inventory.InventorySendFragment"
+        android:label="fragment_inventory_send"
+        tools:layout="@layout/fragment_inventory_send" />
+    <fragment
+        android:id="@+id/inventoryInventoryFragment"
+        android:name="com.example.spe_logistic.ui.inventory.InventoryInventoryFragment"
+        android:label="fragment_inventory_inventory"
+        tools:layout="@layout/fragment_inventory_inventory" />
+    <fragment
+        android:id="@+id/inventoryRotationFragment"
+        android:name="com.example.spe_logistic.ui.inventory.InventoryRotationFragment"
+        android:label="fragment_inventory_rotation"
+        tools:layout="@layout/fragment_inventory_rotation" />
+    <fragment
+        android:id="@+id/inventoryDammedFragment"
+        android:name="com.example.spe_logistic.ui.inventory.InventoryDammedFragment"
+        android:label="fragment_inventory_dammed"
+        tools:layout="@layout/fragment_inventory_dammed" />
 </navigation>

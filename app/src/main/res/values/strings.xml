@@ -50,6 +50,8 @@
     <string name="pleaseJustifyDelete">Por favor justifique la eliminación</string>
     <string name="characters15">15 caracteres mínimo</string>
     <string name="invoice">Factura</string>
+    <string name="entryDate">Fecha de ingreso</string>
+    <string name="dammedInventory">Inventario represado</string>
 
     <string name="key_map">pk.eyJ1Ijoic3RldmVuc2MyNyIsImEiOiJjazI2ZG5hZzQzMGd4M2JwaTcyM3VpYmlnIn0.6H0hEqE1CCePN2kCQWllxw</string>
 

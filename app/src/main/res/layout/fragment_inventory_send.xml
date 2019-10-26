@@ -83,40 +83,6 @@
 
                 </TableRow>
 
-                <!--            <TableRow-->
-                <!--                xmlns:android="http://schemas.android.com/apk/res/android">-->
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:text="aaaa"-->
-                <!--                    android:background="@color/colorWhite"-->
-                <!--                    android:layout_marginBottom="1dp"-->
-                <!--                    android:layout_marginHorizontal="1dp"/>-->
-
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:text="bbbb"-->
-                <!--                    android:background="@color/colorWhite"-->
-                <!--                    android:layout_marginBottom="1dp"-->
-                <!--                    android:layout_marginRight="1dp"/>-->
-
-                <!--                <TextView-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_weight="1"-->
-                <!--                    android:gravity="center"-->
-                <!--                    android:text="cccc"-->
-                <!--                    android:background="@color/colorWhite"-->
-                <!--                    android:layout_marginBottom="1dp"-->
-                <!--                    android:layout_marginRight="1dp"/>-->
-                <!--            </TableRow>-->
-
-
             </TableLayout>
 
         </ScrollView>

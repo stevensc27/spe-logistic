@@ -1,15 +1,27 @@
 package com.example.spe_logistic.ui.inventory;
 
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.spe_logistic.SQLiteConnectionHelper;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class InventoryViewModel extends ViewModel {
+public class InventoryViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<BarEntry>> bar_inventory_list;
     private MutableLiveData<ArrayList<String>>   bar_inventory_list_label;
@@ -20,8 +32,17 @@ public class InventoryViewModel extends ViewModel {
 
     private MutableLiveData<ArrayList<PieEntry>> pie_inventory_list;
 
+    private MutableLiveData<ArrayList<String[]>>   table_inventory_list;
 
-    public InventoryViewModel() {
+    private SQLiteConnectionHelper con;
+
+    private int user_id;
+
+    public InventoryViewModel(@NonNull Application application) {
+        super(application);
+
+        SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id",0);
 
         bar_inventory_list       = new MutableLiveData<>();
         bar_inventory_list_label = new MutableLiveData<>();
@@ -32,43 +53,50 @@ public class InventoryViewModel extends ViewModel {
 
         pie_inventory_list       = new MutableLiveData<>();
 
+        table_inventory_list     = new MutableLiveData<>();
+
+        con = new SQLiteConnectionHelper(getApplication(),"SPEDB",null,1);
+
         getDataInventory();
         getDataSend();
         getDataPie();
-
+        getDataTable();
 
     }
 
     private void getDataInventory() {
+
+        SQLiteDatabase db = con.getReadableDatabase();
+
         ArrayList<BarEntry> bar_inventory_array_list       = new ArrayList<>();
         ArrayList<String>   bar_inventory_array_list_label = new ArrayList<>();
         
-        /*
-        SELECT      count(*),
-                    referencias.codigo_barras
-        FROM        inventario
-        INNER JOIN  referencias
-                ON  referencias.id = inventario.referencia_id
-        GROUP BY    codigo_barras
-        LIMIT       5
-        */
+        String[] parameters = {String.valueOf(user_id)};
+        String queryReferences =    "SELECT     count(*) AS amount, "                       +
+                                    "           referencias.codigo_barras "                 +
+                                    "FROM       inventario "                                +
+                                    "INNER JOIN referencias "                               +
+                                    "ON         referencias.id = inventario.referencia_id " +
+                                    "WHERE      referencias.cliente_id = ? AND "            +
+                                    "           inventario.estado_id = 1 "                  +
+                                    "GROUP BY   codigo_barras "                             +
+                                    "ORDER BY   amount "                                    +
+                                    "LIMIT      5";
 
+        Cursor cursor = db.rawQuery(queryReferences,parameters);
+
+        int i = 0;
         // here desc, in chart asc
         // x order
         // y quantities per unit
-        bar_inventory_array_list.add(new BarEntry(1,5));
-        bar_inventory_array_list.add(new BarEntry(2,10));
-        bar_inventory_array_list.add(new BarEntry(3,30));
-        bar_inventory_array_list.add(new BarEntry(4,60));
-        bar_inventory_array_list.add(new BarEntry(5,90));
+        while (cursor.moveToNext()){
 
-        //there must be a joker item with blank value
-        bar_inventory_array_list_label.add("");
-        bar_inventory_array_list_label.add("223355114466");
-        bar_inventory_array_list_label.add("222299995555");
-        bar_inventory_array_list_label.add("556622884400");
-        bar_inventory_array_list_label.add("335558889999");
-        bar_inventory_array_list_label.add("995588774466");
+            bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
+            bar_inventory_array_list_label.add(cursor.getString(1));
+            i++;
+        }
+
+        db.close();
 
         bar_inventory_list.setValue(bar_inventory_array_list);
         bar_inventory_list_label.setValue(bar_inventory_array_list_label);
@@ -197,6 +225,40 @@ public class InventoryViewModel extends ViewModel {
 
     }
 
+    private void getDataTable(){
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        ArrayList<String[]> table_inventory_array_list = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE,-15);
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(calendar.getTime());
+
+        String[] parameters = {String.valueOf(user_id),date};
+        String queryInventoryDammed =   "SELECT     referencias.codigo_barras, " +
+                                        "           count(*), " +
+                                        "           fecha_ingreso " +
+                                        "FROM       inventario " +
+                                        "INNER JOIN referencias " +
+                                        "ON         referencias.id = inventario.referencia_id " +
+                                        "WHERE      referencias.cliente_id = ? AND " +
+                                        "           Datetime(fecha_ingreso) <  Datetime(?) " +
+                                        "GROUP BY   referencias.codigo_barras," +
+                                        "           fecha_ingreso " +
+                                        "LIMIT      8";
+
+        Cursor cursor = db.rawQuery(queryInventoryDammed,parameters);
+
+        while (cursor.moveToNext()){
+
+            table_inventory_array_list.add(new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)});
+        }
+
+        db.close();
+
+        table_inventory_list.setValue(table_inventory_array_list);
+    }
+
     public LiveData<ArrayList<BarEntry>> getBarInventoryList() {
         return bar_inventory_list;
     }
@@ -219,5 +281,9 @@ public class InventoryViewModel extends ViewModel {
 
     public LiveData<ArrayList<PieEntry>> getPieInventoryList() {
         return pie_inventory_list;
+    }
+
+    public LiveData<ArrayList<String[]>> getTableInventoryList() {
+        return table_inventory_list;
     }
 }

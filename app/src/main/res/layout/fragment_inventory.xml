@@ -5,114 +5,239 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_margin="8dp"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.github.mikephil.charting.charts.HorizontalBarChart
-            android:id="@+id/horizontalBarChartInventory"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </com.github.mikephil.charting.charts.HorizontalBarChart>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
-    </androidx.cardview.widget.CardView>
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/horizontalBarChartInventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/buttonHorizontalBar"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/transparent"
-        android:text="@string/seemore"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+                </com.github.mikephil.charting.charts.HorizontalBarChart>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:layout_margin="8dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHorizontalBar"
-        app:layout_constraintVertical_bias="0.0">
+            </androidx.cardview.widget.CardView>
 
+            <Button
+                android:id="@+id/buttonHorizontalBar"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/transparent"
+                android:text="@string/seemore"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartSend"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="309dp">
-
-        </com.github.mikephil.charting.charts.BarChart>
-
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/buttonBar"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/transparent"
-        android:text="@string/seemore"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_margin="8dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonBar"
-        app:layout_constraintVertical_bias="0.0">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_margin="8dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView"
+                app:layout_constraintStart_toStartOf="@+id/cardView"
+                app:layout_constraintTop_toBottomOf="@+id/buttonHorizontalBar">
 
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/pieChartInventory"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="309dp">
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartSend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="309dp">
 
-        </com.github.mikephil.charting.charts.PieChart>
+                </com.github.mikephil.charting.charts.BarChart>
 
-    </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/buttonPie"
-        android:layout_width="80dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="1dp"
-        android:background="@android:color/transparent"
-        android:text="@string/seemore"
-        android:textColor="@android:color/holo_blue_light"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3"
-        app:layout_constraintVertical_bias="0.0" />
+            <Button
+                android:id="@+id/buttonBar"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/transparent"
+                android:text="@string/seemore"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_margin="8dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView2"
+                app:layout_constraintStart_toStartOf="@+id/cardView2"
+                app:layout_constraintTop_toBottomOf="@+id/buttonBar">
+
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChartInventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="309dp">
+
+                </com.github.mikephil.charting.charts.PieChart>
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/buttonPie"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/transparent"
+                android:text="@string/seemore"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/cardView3"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView4"
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:layout_margin="8dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintEnd_toEndOf="@+id/cardView3"
+                app:layout_constraintStart_toStartOf="@+id/cardView3"
+                app:layout_constraintTop_toBottomOf="@+id/buttonPie">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:layout_margin="8dp"
+                    >
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TableLayout
+                            android:id="@+id/tableDammed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TableRow
+                                android:background="@color/colorOrangeSpe">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_margin="1dp"
+                                    android:gravity="center"
+                                    android:text="@string/dammedInventory"
+                                    android:textAllCaps="true"
+                                    android:textSize="10dp"
+                                    android:textStyle="bold"/>
+                            </TableRow>
+
+                            <TableRow
+                                android:background="@color/colorOrangeSpe">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_margin="1dp"
+                                    android:gravity="center"
+                                    android:text="@string/barcode"
+                                    android:textAllCaps="true"
+                                    android:textSize="10dp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_margin="1dp"
+                                    android:textAllCaps="true"
+                                    android:textSize="10dp"
+                                    android:text="@string/cont"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_margin="1dp"
+                                    android:textAllCaps="true"
+                                    android:textSize="10dp"
+                                    android:text="@string/entryDate"
+                                    android:textStyle="bold"/>
+
+
+                            </TableRow>
+
+                        </TableLayout>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/buttonDammed"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="1dp"
+                android:background="@android:color/transparent"
+                android:text="@string/seemore"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cardView4"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/cardView4"
+                app:layout_constraintTop_toBottomOf="@+id/cardView4"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

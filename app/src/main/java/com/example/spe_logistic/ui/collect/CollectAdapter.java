@@ -37,8 +37,6 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
 
     private NavController navController;
 
-    private Context context;
-
     private EditText justify;
     private String   collect_id;
 
@@ -145,9 +143,9 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         final AlertDialog.Builder alert = new AlertDialog.Builder(v.getContext());
         View view = LayoutInflater.from(v.getContext()).inflate(R.layout.dialog_text,null,false);
 
-        justify          = view.findViewById(R.id.dialog_justify);
-        Button   confirm = view.findViewById(R.id.dialog_confirm);
-        Button   cancel  = view.findViewById(R.id.dialog_cancel);
+        justify        = view.findViewById(R.id.dialog_justify);
+        Button confirm = view.findViewById(R.id.dialog_confirm);
+        Button cancel  = view.findViewById(R.id.dialog_cancel);
 
         alert.setView(view);
 

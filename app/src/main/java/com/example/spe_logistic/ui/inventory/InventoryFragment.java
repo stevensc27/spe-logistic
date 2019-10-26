@@ -3,26 +3,31 @@ package com.example.spe_logistic.ui.inventory;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.spe_logistic.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -40,6 +45,8 @@ import static com.example.spe_logistic.R.color.colorOrangeSpe;
 import static com.example.spe_logistic.R.color.colorPurpleSpe;
 
 public class InventoryFragment extends Fragment {
+
+    private NavController navController;
 
     private InventoryViewModel inventoryViewModel;
 
@@ -59,11 +66,13 @@ public class InventoryFragment extends Fragment {
     PieChart pieChartInventory;
     PieDataSet pieDataSet;
     PieData pieData;
+    TableLayout tableDammed;
     Description pieDes;
 
     Button buttomHorizontalBar;
     Button buttonBar;
     Button buttonPie;
+    Button buttonDammed;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -72,46 +81,42 @@ public class InventoryFragment extends Fragment {
                 ViewModelProviders.of(this).get(InventoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_inventory, container, false);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
         buttomHorizontalBar = root.findViewById(R.id.buttonHorizontalBar);
         buttonBar = root.findViewById(R.id.buttonBar);
         buttonPie = root.findViewById(R.id.buttonPie);
+        buttonDammed = root.findViewById(R.id.buttonDammed);
 
         buttomHorizontalBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InventoryInventoryFragment send_item = new InventoryInventoryFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                navController.navigate(R.id.inventoryInventoryFragment);
             }
         });
 
         buttonBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InventorySendFragment send_item = new InventorySendFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                navController.navigate(R.id.inventorySendFragment);
             }
         });
 
         buttonPie.setOnClickListener(v -> {
-            InventoryRotationFragment send_item = new InventoryRotationFragment();
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.nav_host_fragment, send_item);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            navController.navigate(R.id.inventoryRotationFragment);
+        });
+
+        buttonDammed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navController.navigate(R.id.inventoryDammedFragment);
+            }
         });
 
         fillBarChartInventory(root);
         fillBarChartSend(root);
         fillPieChartInventory(root);
+        fillTableDammed(root);
 
 
         return root;
@@ -126,13 +131,12 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final ArrayList<String> bar_inventory_array_list_label) {
                 horizontalBarChartXAxis = horizontalBarChartInventory.getXAxis();
-                horizontalBarChartXAxis.setDrawGridLines(false);
+                horizontalBarChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_inventory_array_list_label));
                 horizontalBarChartXAxis.setPosition(XAxis.XAxisPosition.TOP);
                 horizontalBarChartXAxis.setGranularity(1f);
                 horizontalBarChartXAxis.setDrawLabels(true);
                 horizontalBarChartXAxis.setDrawAxisLine(false);
                 horizontalBarChartXAxis.setDrawGridLines(false);
-                horizontalBarChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_inventory_array_list_label));
             }
         });
 
@@ -147,8 +151,11 @@ public class InventoryFragment extends Fragment {
             }
         });
 
+
         horizontalBarChartInventory.getAxisRight().setEnabled(false);
-        horizontalBarChartInventory.getAxisLeft().setEnabled(false);
+        horizontalBarChartInventory.getAxisLeft().setEnabled(true);
+        horizontalBarChartInventory.getAxisLeft().setAxisMinimum(0);
+        horizontalBarChartInventory.getAxisLeft().setTextSize(4);
         horizontalBarChartInventory.getLegend().setEnabled(false);
         horizontalBarChartInventory.getDescription().setEnabled(false);
         horizontalBarChartInventory.animateY(1500);
@@ -181,7 +188,7 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_send_array_list_in) {
                 if (bar_send_array_list_in != null) {
-                    barDataSetIn = new BarDataSet(bar_send_array_list_in, "Entradas");
+                    barDataSetIn = new BarDataSet(bar_send_array_list_in, "Entradas de inventario");
                     barDataSetIn.setColor(getResources().getColor(colorPurpleSpe));
                 }
             }
@@ -190,7 +197,7 @@ public class InventoryFragment extends Fragment {
         inventoryViewModel.getBarSendListOut().observe(this, new Observer<ArrayList<BarEntry>>() {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_send_array_list_out) {
-                barDataSetOut = new BarDataSet(bar_send_array_list_out, "Salidas");
+                barDataSetOut = new BarDataSet(bar_send_array_list_out, "Salidas de inventario");
                 barDataSetOut.setColor(getResources().getColor(colorGreenSpe));
                 barData = new BarData(barDataSetIn, barDataSetOut);
                 barChartSend.setData(barData);
@@ -224,20 +231,74 @@ public class InventoryFragment extends Fragment {
                 pieData.setValueTextSize(9f);
                 pieData.setValueTextColor(Color.WHITE);
 
-                pieChartInventory.getDescription().setEnabled(false);
                 pieChartInventory.setData(pieData);
 
                 pieDes = new Description();
                 pieDes.setText("Rotación de inventario");
                 pieChartInventory.setDescription(pieDes);
-
             }
 
         });
 
+
+        pieChartInventory.getLegend().setTextSize(9);
+        pieChartInventory.getLegend().setVerticalAlignment(Legend.LegendVerticalAlignment.CENTER);
+        pieChartInventory.getLegend().setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        pieChartInventory.getLegend().setOrientation(Legend.LegendOrientation.VERTICAL);
+        pieChartInventory.getLegend().setDrawInside(false);
+
         pieChartInventory.setDrawSliceText(false);
         pieChartInventory.setDrawHoleEnabled(false);
         pieChartInventory.animateY(1500);
+
+
+    }
+
+    private void fillTableDammed(View root){
+
+        tableDammed = (TableLayout) root.findViewById(R.id.tableDammed);
+
+        inventoryViewModel.getTableInventoryList().observe(this, new Observer<ArrayList<String[]>>() {
+            @Override
+            public void onChanged(ArrayList<String[]> table_inventory_array_list) {
+
+                TableRow tableRow;
+                TextView textCell;
+
+                int indexRow;
+                int indexCell;
+
+                for (indexRow = 0; indexRow < table_inventory_array_list.size(); indexRow++){
+                    tableRow = new TableRow(getContext());
+                    indexCell = 0;
+                    while (indexCell<3) {
+
+                        textCell = new TextView(getContext());
+
+                        textCell.setGravity(Gravity.CENTER);
+                        textCell.setText(table_inventory_array_list.get(indexRow)[indexCell]);
+                        textCell.setBackgroundColor(Color.WHITE);
+                        textCell.setTextSize(15);
+
+                        tableRow.addView(textCell, newTableRowParams());
+
+                        indexCell++;
+                    }
+
+                    tableRow.setBackgroundColor(getResources().getColor(colorOrangeSpe));
+
+                    tableDammed.addView(tableRow);
+                }
+
+            }
+        });
+    }
+
+    private TableRow.LayoutParams newTableRowParams() {
+        TableRow.LayoutParams params = new TableRow.LayoutParams();
+        params.setMargins(1,1,1,1);
+        params.weight = 1;
+        return params;
     }
 
 
