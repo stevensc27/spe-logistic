@@ -27,11 +27,12 @@
         android:id="@+id/navigation_references"
         android:name="com.example.spe_logistic.ui.references.ReferencesFragment"
         android:label="@string/title_references"
-        tools:layout="@layout/fragment_references" >
-        <action
-            android:id="@+id/action_navigation_references_to_referencesItemFragment"
-            app:destination="@id/referencesItemFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_references" />
+    <fragment
+        android:id="@+id/navigation_perfil"
+        android:name="com.example.spe_logistic.ui.perfil.PerfilFragment"
+        android:label="@string/title_perfil"
+        tools:layout="@layout/fragment_perfil" />
     <fragment
         android:id="@+id/collectItemFragment"
         android:name="com.example.spe_logistic.ui.collect.CollectItemFragment"

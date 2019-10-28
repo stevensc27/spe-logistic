@@ -3,6 +3,10 @@ package com.example.spe_logistic.ui.inventory;
 
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -137,6 +141,12 @@ public class InventoryRotationFragment extends Fragment {
 
 
         return data;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Rotación De inventario");
     }
     
 }

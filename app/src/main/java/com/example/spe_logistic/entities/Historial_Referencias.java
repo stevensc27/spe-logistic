@@ -6,8 +6,9 @@ public class Historial_Referencias {
 
     private Integer id;
     private Date    fecha;
-    private Integer referencia_id;
     private String  descripcion;
+    private Integer referencia_id;
+
 
     public Historial_Referencias(Integer id, Date fecha, Integer referencia_id, String descripcion) {
         this.id = id;

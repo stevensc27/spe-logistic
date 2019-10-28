@@ -1,6 +1,7 @@
 package com.example.spe_logistic.ui.inventory;
 
 import android.app.Application;
+import android.content.ContentUris;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,7 @@ import com.example.spe_logistic.SQLiteConnectionHelper;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,8 +82,8 @@ public class InventoryViewModel extends AndroidViewModel {
                                     "WHERE      referencias.cliente_id = ? AND "            +
                                     "           inventario.estado_id = 1 "                  +
                                     "GROUP BY   codigo_barras "                             +
-                                    "ORDER BY   amount "                                    +
-                                    "LIMIT      5";
+                                    "ORDER BY   amount DESC "                               +
+                                    "LIMIT      6";
 
         Cursor cursor = db.rawQuery(queryReferences,parameters);
 
@@ -89,7 +91,8 @@ public class InventoryViewModel extends AndroidViewModel {
         // here desc, in chart asc
         // x order
         // y quantities per unit
-        while (cursor.moveToNext()){
+        cursor.moveToLast();
+        while (cursor.moveToPrevious()){
 
             bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
             bar_inventory_array_list_label.add(cursor.getString(1));
@@ -103,48 +106,91 @@ public class InventoryViewModel extends AndroidViewModel {
     }
 
     private void getDataSend() {
+
+        SQLiteDatabase db = con.getReadableDatabase();
+
         ArrayList<BarEntry> bar_send_array_list_in    = new ArrayList<>();
         ArrayList<BarEntry> bar_send_array_list_out   = new ArrayList<>();
         ArrayList<String>   bar_send_array_list_label = new ArrayList<>();
         
-        /*
+
         Date afterSixMonth = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(afterSixMonth);
         calendar.add(Calendar.MONTH, -5);
-        
-        String monthAfterSix = String.format("%02d", String.valueOf(calendar.get(Calendar.MONTH)));
-        String yearAfterSix  = String.format("%04d", String.valueOf(calendar.get(Calendar.YEAR)));
-        
-        
-        SELECT      count(*),
-                    strftime("%m_%Y", fecha_ingreso) as month_year
-        FROM        inventario
-        GROUP BY    month_year
-        WHERE       strftime("%m", fecha_ingreso) >= monthAfterSix AND
-                    strftime("%Y", fecha_ingreso) >= yearAfterSix                            
-        */
 
-        bar_send_array_list_in.add(new BarEntry(1,12));
+
+        DecimalFormat formatter = new DecimalFormat("00");
+        String monthAfterSix = formatter.format(calendar.get(Calendar.MONTH)+1);
+        String dateAfterSix  = calendar.get(Calendar.YEAR)+""+monthAfterSix;
+
+        String[] parameters = {dateAfterSix,String.valueOf(user_id)};
+        String queryIn =    "SELECT     count(*), " +
+                            "           strftime('%Y%m', fecha_ingreso) as month " +
+                            "FROM       inventario " +
+                            "INNER JOIN referencias " +
+                            "ON         referencias.id = inventario.referencia_id " +
+                            "WHERE      strftime('%Y%m', fecha_ingreso) >= ? AND" +
+                            "           referencias.cliente_id = ? " +
+                            "GROUP BY   month " +
+                            "ORDER BY   month";
+
+        Cursor cursor = db.rawQuery(queryIn,parameters);
+
+        int i = 1;
+        while (cursor.moveToNext()){
+
+            bar_send_array_list_in.add(new BarEntry(i,cursor.getInt(0)));
+        }
+
+        /*bar_send_array_list_in.add(new BarEntry(1,12));
         bar_send_array_list_in.add(new BarEntry(2,35));
         bar_send_array_list_in.add(new BarEntry(3,51));
         bar_send_array_list_in.add(new BarEntry(4,13));
         bar_send_array_list_in.add(new BarEntry(5,68));
         bar_send_array_list_in.add(new BarEntry(6,22));
+         */
         
-        /*
-        SELECT      count(*),
-                    strftime("%m_%Y", despachos.fecha) as month_year
-        FROM        inventario
-        INNER JOIN  envios
-                ON  envios.id = inventario.envio_id
-        INNER JOIN  despachos
-                ON  despachos.id = envios.despacho_id
-        GROUP BY    month_year
-        WHERE       strftime("%m", despachos.fecha) >= monthAfterSix AND
-                    strftime("%Y", despachos.fecha) >= yearAfterSix  
-        */
 
+        String queryOut =   "SELECT     count(*), " +
+                            "           strftime('%Y_%m', despachos.fecha) as month, " +
+                            "           CASE strftime('%m', despachos.fecha) " +
+                            "               WHEN '01' then 'ENE' " +
+                            "               WHEN '02' then 'FEB' " +
+                            "               WHEN '03' then 'MAR' " +
+                            "               WHEN '04' then 'ABR' " +
+                            "               WHEN '05' then 'MAY' " +
+                            "               WHEN '06' then 'JUN' " +
+                            "               WHEN '07' then 'JUL' " +
+                            "               WHEN '08' then 'AGO' " +
+                            "               WHEN '09' then 'SEP' " +
+                            "               WHEN '10' then 'OCT' " +
+                            "               WHEN '11' then 'NOV' " +
+                            "               WHEN '12' then 'DIC' " +
+                            "           END " +
+                            "FROM       inventario " +
+                            "INNER JOIN referencias " +
+                            "ON         referencias.id = inventario.referencia_id " +
+                            "INNER JOIN envios " +
+                            "ON         envios.id = inventario.envio_id " +
+                            "INNER JOIN despachos " +
+                            "ON         despachos.id = envios.despacho_id " +
+                            "WHERE      strftime('%Y%m', fecha_ingreso) >= ? AND " +
+                            "           referencias.cliente_id = ? " +
+                            "GROUP BY   month " +
+                            "ORDER BY   month";
+
+        Cursor cursor1 = db.rawQuery(queryOut,parameters);
+
+        i = 1;
+        //Log.i("APP","in: "+cursor1.getString(0));
+        while (cursor1.moveToNext()){
+            Log.i("APP","out: "+cursor1.getString(0));
+            bar_send_array_list_out.add(new BarEntry(i,cursor1.getInt(0)));
+            bar_send_array_list_label.add(cursor1.getString(2));
+        }
+
+        /*
         bar_send_array_list_out.add(new BarEntry(1,93));
         bar_send_array_list_out.add(new BarEntry(2,62));
         bar_send_array_list_out.add(new BarEntry(3,30));
@@ -159,6 +205,9 @@ public class InventoryViewModel extends AndroidViewModel {
         bar_send_array_list_label.add("SEP");
         bar_send_array_list_label.add("OCT");
         bar_send_array_list_label.add("NOV");
+        */
+
+        db.close();
 
         bar_send_list_in.setValue(bar_send_array_list_in);
         bar_send_list_out.setValue(bar_send_array_list_out);
@@ -167,59 +216,99 @@ public class InventoryViewModel extends AndroidViewModel {
     }
 
     private void getDataPie() {
+
+        SQLiteDatabase db = con.getReadableDatabase();
+
         ArrayList<PieEntry> pie_inventory_arrat_list = new ArrayList<>();
-        
+        ArrayList<String[]> data = new ArrayList<>();
+
         /*
-        Date firstDayMonth = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(firstDayMonth);
-        
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String currentDay = format.format(cal.getTime());
-        
+        Date date = new Date();
+        Calendar calendar  = Calendar.getInstance();
+        calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+
+
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String firstDay   = format.format(calendar.getTime());
+
         
-        String firstDay = format.format(cal.getTime());
-        
-        
-        SELECT  id,codigo_barras
-        FROM    referencias
-        WHERE   cliente_id = ***
-        
-        for(every referencias){
-        
-            SELECT      count(*) AS amountFirstDay
-            FROM        inventario
-            INNER JOIN  envios
-                    ON  envios.id = inventario.envio_id
-            WHERE       fecha_ingreso <= firstDay                                           AND
-                        (envios.fecha_alistado = null OR envios.fecha_alistados > firstDay) AND
-                        referencia_id = id
-                        
-            SELECE  count(*) AS amountCurrentDay
-            FROM    inventario
-            WHERE   estado = 1          AND
-                    referencia_id = id
-            
-            averageInventory = ( amountFirstDay + amountCurrentDay ) / 2
-            
-            SELECT      count(*) amountDispatchedCurrentMount
-            FROM        inventario
-            INNER JOIN  envios
-                    ON  envios.id = inventario.envio_id
-            WHERE       envios.fecha_alistados > firstDay   AND
-                        referencia_id = id
-            
-            rotationIndicator = amountDispatchedCurrentMount / averageInventory
-        
+        String[] parameters = {String.valueOf(user_id)};
+        String queryReferences =    "SELECT id,codigo_barras " +
+                                    "FROM   referencias " +
+                                    "WHERE  cliente_id = ?";
+
+        Cursor cursor = db.rawQuery(queryReferences, parameters);
+
+        while (cursor.moveToNext()){
+
+            String[] parametersInitial = {firstDay,firstDay,cursor.getString(0)};
+            String queryInventoryInitial =  "SELECT     count(*) AS amountFirstDay " +
+                                            "FROM       inventario " +
+                                            "INNER JOIN envios " +
+                                            "ON         envios.id = inventario.envio_id " +
+                                            "WHERE      Datetime(fecha_ingreso) <= Datetime(?)                  AND " +
+                                            "               (Datetime(envios.fecha_alistado) = null             OR " +
+                                            "                Datetime(envios.fecha_alistados) > Datetime(?))    AND " +
+                                            "           referencia_id = ?";
+            Cursor cursorInitial = db.rawQuery(queryInventoryInitial,parametersInitial);
+            cursorInitial.moveToFirst();
+            Float amountFirstDay = cursorInitial.getFloat(0);
+
+
+
+            String[] parametersCurrent = {"1",cursor.getString(0)};
+            String queryInventoryCurrent =  "SELECT count(*) AS amountCurrentDay " +
+                                            "FROM   inventario " +
+                                            "WHERE  estado_id = ?       AND " +
+                                            "       referencia_id = ?";
+            Cursor cursorCurrent = db.rawQuery(queryInventoryCurrent,parametersCurrent);
+            cursorCurrent.moveToFirst();
+            Float amountCurrentDay = cursorCurrent.getFloat(0);
+
+
+
+            Float averageInventory = ( amountFirstDay + amountCurrentDay ) / 2;
+
+
+
+            String[] parametersDispatched = {firstDay,cursor.getString(0)};
+            String queryDispatched =    "SELECT     count(*) AS amountDispatched " +
+                                        "FROM       inventario " +
+                                        "INNER JOIN envios " +
+                                        "ON         envios.id = inventario.envio_id " +
+                                        "WHERE      Datetime(envios.fecha_alistamiento) > Datatime(?) AND " +
+                                        "           referencia_id = ?";
+            Cursor cursorDispatched = db.rawQuery(queryDispatched,parametersDispatched);
+            cursorDispatched.moveToFirst();
+            Float amountDispatched = cursorDispatched.getFloat(0);
+
+
+
+            Float rotationIndicator = amountDispatched / averageInventory;
+            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+
+
+            String rotationIndicatorString = decimalFormat.format(rotationIndicator);
+            String barCode = cursor.getString(1);
+
+
+
+            data.add(new String[]{rotationIndicatorString,barCode});
+
         }
-        */
+*/
 
         pie_inventory_arrat_list.add(new PieEntry(6, "1232365985645"));
         pie_inventory_arrat_list.add(new PieEntry(5, "6688522994477"));
         pie_inventory_arrat_list.add(new PieEntry(3, "9325365984561"));
         pie_inventory_arrat_list.add(new PieEntry(2, "3366885544223"));
         pie_inventory_arrat_list.add(new PieEntry(2, "3366885534223"));
+
+
+        db.close();
 
         pie_inventory_list.setValue(pie_inventory_arrat_list);
 
@@ -245,7 +334,7 @@ public class InventoryViewModel extends AndroidViewModel {
                                         "           Datetime(fecha_ingreso) <  Datetime(?) " +
                                         "GROUP BY   referencias.codigo_barras," +
                                         "           fecha_ingreso " +
-                                        "LIMIT      8";
+                                        "LIMIT      7";
 
         Cursor cursor = db.rawQuery(queryInventoryDammed,parameters);
 

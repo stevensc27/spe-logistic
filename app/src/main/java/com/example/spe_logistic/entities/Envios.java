@@ -13,7 +13,7 @@ public class Envios {
     private String  factura;
     private String  archivo;
     private Integer despacho_id;
-    private Date    fecha_alistamiento;
+    private Date    fecha_alistado;
     private Date    fecha_empacado;
     private Integer cliente_id;
     private Integer estado_id;
@@ -21,7 +21,7 @@ public class Envios {
     public Envios() {
     }
 
-    public Envios(Integer id, String nombre_destinatario, String direccion_destinatario, Integer ciudad_destinatario_id, String telefono_destinatario, String email_destinatario, String factura, String archivo, Integer despacho_id, Date fecha_alistamiento, Date fecha_empacado, Integer cliente_id, Integer estado_id) {
+    public Envios(Integer id, String nombre_destinatario, String direccion_destinatario, Integer ciudad_destinatario_id, String telefono_destinatario, String email_destinatario, String factura, String archivo, Integer despacho_id, Date fecha_alistado, Date fecha_empacado, Integer cliente_id, Integer estado_id) {
         this.id = id;
         this.nombre_destinatario = nombre_destinatario;
         this.direccion_destinatario = direccion_destinatario;
@@ -31,7 +31,7 @@ public class Envios {
         this.factura = factura;
         this.archivo = archivo;
         this.despacho_id = despacho_id;
-        this.fecha_alistamiento = fecha_alistamiento;
+        this.fecha_alistado = fecha_alistado;
         this.fecha_empacado = fecha_empacado;
         this.cliente_id = cliente_id;
         this.estado_id = estado_id;
@@ -109,12 +109,12 @@ public class Envios {
         this.despacho_id = despacho_id;
     }
 
-    public Date getFecha_alistamiento() {
-        return fecha_alistamiento;
+    public Date getFecha_alistado() {
+        return fecha_alistado;
     }
 
-    public void setFecha_alistamiento(Date fecha_alistamiento) {
-        this.fecha_alistamiento = fecha_alistamiento;
+    public void setFecha_alistado(Date fecha_alistado) {
+        this.fecha_alistado = fecha_alistado;
     }
 
     public Date getFecha_empacado() {

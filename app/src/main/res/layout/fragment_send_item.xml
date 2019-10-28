@@ -283,7 +283,7 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/send_item_save"
-                        android:layout_width="150dp"
+                        android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginLeft="5dp"

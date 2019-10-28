@@ -296,6 +296,18 @@ public class Utilities {
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
+
+
+
+        db.execSQL("INSERT INTO despachos(fecha,guia,peso,cajas) values('"+date30+"','99915415','5','3');");
+        db.execSQL("INSERT INTO envios(nombre_destinatario,direccion_destinatario,ciudad_destinatario_id,telefono_destinatario,email_destinatario,factura," +
+                "despacho_id,fecha_alistado,cliente_id,estado_id) values('Steven Suarez','Crra34A','2','3207116','ssc@gmail.com','659323'," +
+                "1,'2019-09-27 15:00:00',1,4);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
     }
 
 

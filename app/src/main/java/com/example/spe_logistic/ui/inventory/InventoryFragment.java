@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -227,6 +231,7 @@ public class InventoryFragment extends Fragment {
             public void onChanged(@Nullable ArrayList<PieEntry> pie_inventory_array_list) {
                 pieDataSet = new PieDataSet(pie_inventory_array_list, "");
                 pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+
                 pieData = new PieData(pieDataSet);
                 pieData.setValueTextSize(9f);
                 pieData.setValueTextColor(Color.WHITE);
@@ -301,16 +306,10 @@ public class InventoryFragment extends Fragment {
         return params;
     }
 
-
     @Override
-    public void onResume() {
-        super.onResume();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Resumen");
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-    }
 }
