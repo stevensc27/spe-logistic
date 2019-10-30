@@ -7,18 +7,27 @@ public class Historial_Referencias {
     private Integer id;
     private Date    fecha;
     private String  descripcion;
+    private Integer cliente_id;
     private Integer referencia_id;
 
-
-    public Historial_Referencias(Integer id, Date fecha, Integer referencia_id, String descripcion) {
+    public Historial_Referencias(Integer id, Date fecha, String descripcion, Integer cliente_id, Integer referencia_id) {
         this.id = id;
         this.fecha = fecha;
-        this.referencia_id = referencia_id;
         this.descripcion = descripcion;
+        this.cliente_id = cliente_id;
+        this.referencia_id = referencia_id;
     }
 
     public Integer getId() {
         return id;
+    }
+
+    public Integer getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(Integer cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public void setId(Integer id) {

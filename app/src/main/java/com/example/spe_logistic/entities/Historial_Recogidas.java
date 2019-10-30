@@ -7,13 +7,23 @@ public class Historial_Recogidas {
     private Integer id;
     private Date    fecha;
     private String  descripcion;
+    private Integer cliente_id;
     private Integer recogida_id;
 
-    public Historial_Recogidas(Integer id, Date fecha, String descripcion, Integer recogida_id) {
+    public Historial_Recogidas(Integer id, Date fecha, String descripcion, Integer cliente_id, Integer recogida_id) {
         this.id = id;
         this.fecha = fecha;
         this.descripcion = descripcion;
+        this.cliente_id = cliente_id;
         this.recogida_id = recogida_id;
+    }
+
+    public Integer getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(Integer cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public Integer getId() {

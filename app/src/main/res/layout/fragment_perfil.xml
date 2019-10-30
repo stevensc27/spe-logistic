@@ -158,7 +158,7 @@
             android:id="@+id/scroll">
 
             <TableLayout
-                android:id="@+id/tableSend"
+                android:id="@+id/tableHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -169,7 +169,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".3"
+                        android:layout_weight=".1"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="@string/id"
+                        android:textAllCaps="true"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".1"
                         android:layout_margin="1dp"
                         android:gravity="center"
                         android:text="@string/date"
@@ -179,7 +189,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".7"
+                        android:layout_weight=".8"
                         android:gravity="center"
                         android:layout_margin="1dp"
                         android:textAllCaps="true"
@@ -198,7 +208,7 @@
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/perfil_EXPORT_history"
+                android:id="@+id/perfil_export_history"
                 android:layout_width="80dp"
                 android:layout_height="30dp"
                 android:layout_gravity="bottom"

@@ -68,6 +68,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     ArrayAdapter<String> adapter_city;
     ArrayList<String> citys;
 
+    private int user_id;
+
     View root;
 
     private LinearLayout parentLinearLayout;
@@ -80,9 +82,9 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        /*SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
-        Integer user_id = preferences.getInt("user_id",0);
-        Log.i("APP","USER FRAGMENT VIEW MODEL NEW SEND: "+user_id);*/
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id",0);
+
 
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_send_item, container, false);
@@ -361,9 +363,6 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
         SQLiteDatabase db = con.getWritableDatabase();
 
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
-        Integer user_id = preferences.getInt("user_id", 0);
-
         String city_id = city.getSelectedItem().toString().split(" ")[1];
 
         ContentValues values = new ContentValues();
@@ -489,6 +488,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
         values.put(Utilities.HISTORIAL_ENVIOS_FECHA, date);
         values.put(Utilities.HISTORIAL_ENVIOS_DESCRIPCION, description);
+        values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID,user_id);
         values.put(Utilities.HISTORIAL_ENVIOS_ENVIO_ID, send_id);
 
         Long idResult = db.insert(Utilities.HISTORIAL_ENVIOS, Utilities.HISTORIAL_ENVIOS_ID, values);

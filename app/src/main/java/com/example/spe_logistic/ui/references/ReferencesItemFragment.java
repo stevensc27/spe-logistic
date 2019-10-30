@@ -213,6 +213,7 @@ public class ReferencesItemFragment extends Fragment implements View.OnClickList
 
             values.put(Utilities.HISTORIAL_REFERENCIAS_FECHA,date);
             values.put(Utilities.HISTORIAL_REFERENCIAS_DESCRIPCION,description);
+            values.put(Utilities.HISTORIAL_REFERENCIAS_CLIENTE_ID,user_id);
             values.put(Utilities.HISTORIAL_REFERENCIAS_REFERENCIA_ID,reference_id);
 
             Long idResult = db.insert(Utilities.HISTORIAL_REFERENCIAS, Utilities.HISTORIAL_REFERENCIAS_ID,values);

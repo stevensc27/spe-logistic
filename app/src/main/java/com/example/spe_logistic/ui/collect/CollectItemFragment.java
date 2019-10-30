@@ -92,6 +92,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     private MapboxMap mapboxMap;
     private LocationComponent locationComponent;
     private FragmentActivity fragmentActivity;
+    private int user_id;
 
     private SQLiteConnectionHelper con;
 
@@ -112,6 +113,9 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_collect_item, container, false);
+
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id", 0);
 
         collect_id = (getArguments().getString("collectId", "-1"));
 
@@ -187,7 +191,9 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         cursor.moveToFirst();
 
         date.setText(cursor.getString(0).split(" ")[0]);
+        textDate = cursor.getString(0).split(" ")[0];
         time.setText(cursor.getString(0).split(" ")[1]);
+        textTime = cursor.getString(0).split(" ")[1];
         address.setText(cursor.getString(1));
         amount.setText(cursor.getString(2));
         height.setText(cursor.getString(3));
@@ -249,9 +255,6 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     private void saveCollect() {
         con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
         SQLiteDatabase db = con.getWritableDatabase();
-
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
-        Integer user_id = preferences.getInt("user_id", 0);
 
         ContentValues values = new ContentValues();
 
@@ -337,6 +340,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
         values.put(Utilities.HISTORIAL_RECOGIDAS_FECHA, date);
         values.put(Utilities.HISTORIAL_RECOGIDAS_DESCRIPCION, description);
+        values.put(Utilities.HISTORIAL_RECOGIDAS_CLIENTE_ID, user_id);
         values.put(Utilities.HISTORIAL_RECOGIDAS_RECOGIDA_ID, collect_id);
 
         Long idResult = db.insert(Utilities.HISTORIAL_RECOGIDAS, Utilities.HISTORIAL_RECOGIDAS_ID, values);

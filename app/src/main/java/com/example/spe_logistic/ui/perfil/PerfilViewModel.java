@@ -17,14 +17,22 @@ import androidx.lifecycle.MutableLiveData;
 public class PerfilViewModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<String>> perfil_list;
+    private MutableLiveData<ArrayList<String[]>> send_history;
+    private MutableLiveData<ArrayList<String[]>> collect_history;
+    private MutableLiveData<ArrayList<String[]>> references_history;
+
     private SQLiteConnectionHelper con;
     private SQLiteDatabase db;
     private int user_id;
+    private String[] parameters;
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
 
-        perfil_list = new MutableLiveData<>();
+        perfil_list        = new MutableLiveData<>();
+        send_history       = new MutableLiveData<>();
+        collect_history    = new MutableLiveData<>();
+        references_history = new MutableLiveData<>();
 
         ArrayList<String> perfil_array_list = new ArrayList<>();
 
@@ -34,12 +42,14 @@ public class PerfilViewModel extends AndroidViewModel {
         SharedPreferences preferences = getApplication().getSharedPreferences("credentials", getApplication().MODE_PRIVATE);
         user_id = preferences.getInt("user_id", 0);
 
-        String[] parameters = {String.valueOf(user_id)};
-        String queryPerfil =    "SELECT razon_social,nit " +
-                                "FROM   clientes " +
-                                "WHERE  id = ? ";
+        parameters = new String[]{String.valueOf(user_id)};
 
-        Cursor cursor = db.rawQuery(queryPerfil,parameters);
+        String[] parameters = {String.valueOf(user_id)};
+        String queryPerfil = "SELECT razon_social,nit " +
+                "FROM   clientes " +
+                "WHERE  id = ? ";
+
+        Cursor cursor = db.rawQuery(queryPerfil, parameters);
         cursor.moveToFirst();
 
         perfil_array_list.add(cursor.getString(0));
@@ -56,33 +66,56 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     private void getDataHistorySend() {
-        String[] parameters = {String.valueOf(user_id)};
-        Cursor cursor = db.rawQuery("SELECT     historial_envios.fecha,descripcion " +
-                                         "FROM       historial_envios " +
-                                         "INNER JOIN envios " +
-                                         "ON         envios.id = historial_envios.envio_id " +
-                                         "WHERE      envios.cliente_id = ?", parameters);
+        ArrayList<String[]> data = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT     envio_id,fecha,descripcion " +
+                "FROM       historial_envios " +
+                "WHERE      cliente_id = ? " +
+                "ORDER BY   id DESC", parameters);
+        data = getRows(cursor);
+        send_history.setValue(data);
     }
 
     private void getDataHistoryCollect() {
-        String[] parameters = {String.valueOf(user_id)};
-        Cursor cursor = db.rawQuery("SELECT     historial_recogidas.fecha,descripcion " +
-                                         "FROM       historial_recogidas " +
-                                         "INNER JOIN recogidas " +
-                                         "ON         recogidas.id = historial_recogidas.recogida_id " +
-                                         "WHERE      recogidas.cliente_id = ?", parameters);
+        ArrayList<String[]> data = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT     recogida_id,fecha,descripcion " +
+                "FROM       historial_recogidas " +
+                "WHERE      cliente_id = ? " +
+                "ORDER BY   id DESC", parameters);
+        data = getRows(cursor);
+        collect_history.setValue(data);
     }
 
     private void getDataHistoryReferences() {
-        String[] parameters = {String.valueOf(user_id)};
-        Cursor cursor = db.rawQuery("SELECT     historial_referencias.fecha,descripcion " +
-                                         "FROM       historial_referencias " +
-                                         "INNER JOIN referencias " +
-                                         "ON         referencias.id = historial_referencias.referencia_id " +
-                                         "WHERE      referencias.cliente_id = ?", parameters);
+        ArrayList<String[]> data = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT     referencia_id,historial_referencias.fecha,descripcion " +
+                "FROM       historial_referencias " +
+                "WHERE      cliente_id = ? " +
+                "ORDER BY   id DESC", parameters);
+        data = getRows(cursor);
+        references_history.setValue(data);
+    }
+
+    private ArrayList<String[]> getRows(Cursor cursor) {
+        ArrayList<String[]> data = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            data.add(new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)});
+        }
+        return data;
     }
 
     public LiveData<ArrayList<String>> getPerfil() {
         return perfil_list;
+    }
+
+    public LiveData<ArrayList<String[]>> getSend_history() {
+        return send_history;
+    }
+
+    public LiveData<ArrayList<String[]>> getCollect_history() {
+        return collect_history;
+    }
+
+    public LiveData<ArrayList<String[]>> getReferences_history() {
+        return references_history;
     }
 }

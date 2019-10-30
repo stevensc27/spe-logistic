@@ -110,11 +110,13 @@ public class Utilities {
     public static final String HISTORIAL_ENVIOS_ID          = "id";
     public static final String HISTORIAL_ENVIOS_FECHA       = "fecha";
     public static final String HISTORIAL_ENVIOS_DESCRIPCION = "descripcion";
+    public static final String HISTORIAL_ENVIOS_CLIENTE_ID  = "cliente_id";
     public static final String HISTORIAL_ENVIOS_ENVIO_ID    = "envio_id";
     public static final String DROP_HISTORIAL_ENVIOS        = "DROP TABLE IF EXISTS "+HISTORIAL_ENVIOS;
     public static final String CREATE_HISTORIAL_ENVIOS      = "CREATE TABLE "+HISTORIAL_ENVIOS+" ("+HISTORIAL_ENVIOS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                     HISTORIAL_ENVIOS_FECHA+" TEXT, "+
                                                                                                     HISTORIAL_ENVIOS_DESCRIPCION+" TEXT, "+
+                                                                                                    HISTORIAL_ENVIOS_CLIENTE_ID+" INTEGER, "+
                                                                                                     HISTORIAL_ENVIOS_ENVIO_ID+" INTEGER)";
 
     // DETALLE_HISTORIAL_ENVIOS TABLE
@@ -386,10 +388,12 @@ public class Utilities {
     public static final String HISTORIAL_REFERENCIAS_FECHA         = "fecha";
     public static final String HISTORIAL_REFERENCIAS_REFERENCIA_ID = "referencia_id";
     public static final String HISTORIAL_REFERENCIAS_DESCRIPCION   = "descripcion";
+    public static final String HISTORIAL_REFERENCIAS_CLIENTE_ID    = "cliente_id";
     public static final String DROP_HISTORIAL_REFERENCIAS          = "DROP TABLE IF EXISTS "+HISTORIAL_REFERENCIAS;
     public static final String CREATE_HISTORIAL_REFERENCIAS        = "CREATE TABLE "+HISTORIAL_REFERENCIAS+" ("+HISTORIAL_REFERENCIAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                                 HISTORIAL_REFERENCIAS_FECHA+" TEXT, "+
                                                                                                                 HISTORIAL_REFERENCIAS_REFERENCIA_ID+" INTEGER, "+
+                                                                                                                HISTORIAL_REFERENCIAS_CLIENTE_ID+" INTEGER, "+
                                                                                                                 HISTORIAL_REFERENCIAS_DESCRIPCION+" TEXT)";
 
     // PQRS TABLE
@@ -462,10 +466,12 @@ public class Utilities {
     public static final String HISTORIAL_RECOGIDAS_ID          = "id";
     public static final String HISTORIAL_RECOGIDAS_FECHA       = "fecha";
     public static final String HISTORIAL_RECOGIDAS_DESCRIPCION = "descripcion";
+    public static final String HISTORIAL_RECOGIDAS_CLIENTE_ID  = "cliente_id";
     public static final String HISTORIAL_RECOGIDAS_RECOGIDA_ID = "recogida_id";
     public static final String DROP_HISTORIAL_RECOGIDAS        = "DROP TABLE IF EXISTS "+HISTORIAL_RECOGIDAS;
     public static final String CREATE_HISTORIAL_RECOGIDAS      = "CREATE TABLE "+HISTORIAL_RECOGIDAS+" ("+  HISTORIAL_RECOGIDAS_ID+" INTEGER NOT NULL PRIMARY KEY, "+
                                                                                                             HISTORIAL_RECOGIDAS_FECHA+" TEXT, "+
                                                                                                             HISTORIAL_RECOGIDAS_DESCRIPCION+" TEXT, "+
+                                                                                                            HISTORIAL_RECOGIDAS_CLIENTE_ID+" INTEGER, "+
                                                                                                             HISTORIAL_RECOGIDAS_RECOGIDA_ID+" INTEGER)";
 }

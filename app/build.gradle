@@ -43,4 +43,5 @@ dependencies {
     //Dexter permission
     implementation 'com.karumi:dexter:6.0.0'
     implementation 'org.jetbrains:annotations-java5:15.0'
+    implementation 'com.itextpdf:itextg:5.5.10'
 }
