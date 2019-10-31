@@ -7,9 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -19,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,6 +23,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.spe_logistic.R;
+import com.example.spe_logistic.utilities.Utilities;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
@@ -54,29 +51,29 @@ public class InventoryFragment extends Fragment {
 
     private InventoryViewModel inventoryViewModel;
 
-    HorizontalBarChart horizontalBarChartInventory;
-    BarDataSet horizontalBarDataSet;
-    BarData horizontalBarData;
-    XAxis horizontalBarChartXAxis;
+    private HorizontalBarChart horizontalBarChartInventory;
+    private BarDataSet horizontalBarDataSet;
+    private BarData horizontalBarData;
+    private XAxis horizontalBarChartXAxis;
 
-    BarChart barChartSend;
-    BarDataSet barDataSetIn;
-    BarDataSet barDataSetOut;
-    BarData barData;
-    XAxis barChartXAxis;
-    float barSpace = 0.01f;
-    float groupSpace = 0.08f;
+    private BarChart barChartSend;
+    private BarDataSet barDataSetIn;
+    private BarDataSet barDataSetOut;
+    private BarData barData;
+    private XAxis barChartXAxis;
+    private float barSpace = 0.02f;
+    private float groupSpace = 0.55f;
 
-    PieChart pieChartInventory;
-    PieDataSet pieDataSet;
-    PieData pieData;
-    TableLayout tableDammed;
-    Description pieDes;
+    private PieChart pieChartInventory;
+    private PieDataSet pieDataSet;
+    private PieData pieData;
+    private TableLayout tableDammed;
+    private Description pieDes;
 
-    Button buttomHorizontalBar;
-    Button buttonBar;
-    Button buttonPie;
-    Button buttonDammed;
+    private Button buttomHorizontalBar;
+    private Button buttonBar;
+    private Button buttonPie;
+    private Button buttonDammed;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -162,7 +159,7 @@ public class InventoryFragment extends Fragment {
         horizontalBarChartInventory.getAxisLeft().setTextSize(4);
         horizontalBarChartInventory.getLegend().setEnabled(false);
         horizontalBarChartInventory.getDescription().setEnabled(false);
-        horizontalBarChartInventory.animateY(1500);
+        horizontalBarChartInventory.animateY(Utilities.ANIMATION);
 
     }
 
@@ -172,29 +169,25 @@ public class InventoryFragment extends Fragment {
 
 
         // find labels for bar chart of sends
-        inventoryViewModel.getBarSendListLabel().observe(this, new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<String> bar_send_array_list_label) {
-                barChartXAxis = barChartSend.getXAxis();
-                barChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_send_array_list_label));
-                barChartXAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                barChartXAxis.setDrawLabels(false);
-                barChartXAxis.setLabelCount(6, true);
-                barChartXAxis.setDrawAxisLine(false);
-                barChartXAxis.setDrawGridLines(false);
-                barChartXAxis.setCenterAxisLabels(true);
-            }
+        inventoryViewModel.getBarSendListLabel().observe(this, bar_send_array_list_label -> {
+            barChartXAxis = barChartSend.getXAxis();
+            barChartXAxis.setValueFormatter(new IndexAxisValueFormatter(bar_send_array_list_label));
+            barChartXAxis.setDrawLabels(true);
+            barChartXAxis.setPosition(XAxis.XAxisPosition.TOP);
+            barChartXAxis.setCenterAxisLabels(true);
+            barChartXAxis.setGranularity(1);
+            barChartXAxis.setGranularityEnabled(true);
+            //barChartXAxis.setLabelCount(6, true);
+            barChartXAxis.setDrawAxisLine(false);
+            barChartXAxis.setDrawGridLines(false);
         });
 
 
         // find values for bar chart of sends
-        inventoryViewModel.getBarSendListIn().observe(this, new Observer<ArrayList<BarEntry>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<BarEntry> bar_send_array_list_in) {
-                if (bar_send_array_list_in != null) {
-                    barDataSetIn = new BarDataSet(bar_send_array_list_in, "Entradas de inventario");
-                    barDataSetIn.setColor(getResources().getColor(colorPurpleSpe));
-                }
+        inventoryViewModel.getBarSendListIn().observe(this, bar_send_array_list_in -> {
+            if (bar_send_array_list_in != null) {
+                barDataSetIn = new BarDataSet(bar_send_array_list_in, "Entradas de inventario");
+                barDataSetIn.setColor(getResources().getColor(colorPurpleSpe));
             }
         });
 
@@ -220,7 +213,7 @@ public class InventoryFragment extends Fragment {
         barChartSend.getAxisLeft().setEnabled(false);
         //barChartSend.getLegend().setEnabled(false);
         barChartSend.getDescription().setEnabled(false);
-        barChartSend.animateY(1500);
+        barChartSend.animateY(Utilities.ANIMATION);
     }
 
     private void fillPieChartInventory(View root) {
@@ -254,7 +247,7 @@ public class InventoryFragment extends Fragment {
 
         pieChartInventory.setDrawSliceText(false);
         pieChartInventory.setDrawHoleEnabled(false);
-        pieChartInventory.animateY(1500);
+        pieChartInventory.animateY(Utilities.ANIMATION);
 
 
     }
