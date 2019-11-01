@@ -195,7 +195,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
         SQLiteDatabase db = con.getWritableDatabase();
 
         String date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        String description = "Cancelación de recogida. " + justify;
+        String description = "Cancelación de recogida. " + justify.getText().toString();
 
         ContentValues values = new ContentValues();
 

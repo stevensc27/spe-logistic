@@ -4,223 +4,262 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.perfil.PerfilFragment">
+    tools:context=".ui.perfil.PerfilFragment"
+    android:background="@color/colorClearGrey">
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/name"
-        android:textColor="@color/colorOrangeSpe"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/perfil_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="TextView"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/nit"
-        android:textColor="@color/colorOrangeSpe"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/perfil_nit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="TextView"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView13"
-        app:layout_constraintStart_toEndOf="@+id/textView13"
-        app:layout_constraintTop_toTopOf="@+id/textView13" />
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_nit"
-        app:layout_constraintVertical_bias="0.0"
-        android:layout_margin="8dp"
-        >
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/perfil_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorPurpleSpe"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/perfil_nit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorOrangeSpe"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/card1"
+        app:layout_constraintStart_toStartOf="@+id/card1"
+        app:layout_constraintTop_toBottomOf="@+id/card1"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/perfil_pqr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/colorPurpleSpe"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartPqr"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.github.mikephil.charting.charts.BarChart>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/card2"
+        app:layout_constraintStart_toStartOf="@+id/card2"
+        app:layout_constraintTop_toBottomOf="@+id/card2"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/perfil_nit"
+            app:layout_constraintTop_toBottomOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            >
+            android:layout_margin="5dp">
 
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/historyChanges"
-                android:textAlignment="center"
-                android:textColor="@color/colorOrangeSpe"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="0dp"
-            android:gravity="top"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/perfil_send_history"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded"
-                android:paddingLeft="5dp"
-                android:text="@string/title_send"
-                android:textColor="#FFF" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/perfil_collect_history"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded"
-                android:paddingLeft="5dp"
-                android:text="@string/title_collect"
-                android:textColor="#FFF" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/perfil_references_history"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded"
-                android:paddingLeft="5dp"
-                android:text="@string/title_references"
-                android:textColor="#FFF" />
-
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/scroll">
-
-            <TableLayout
-                android:id="@+id/tableHistory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <TableRow
-                    android:background="@color/colorOrangeSpe">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:layout_margin="1dp"
-                        android:gravity="center"
-                        android:text="@string/id"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".1"
-                        android:layout_margin="1dp"
-                        android:gravity="center"
-                        android:text="@string/date"
-                        android:textAllCaps="true"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".8"
-                        android:gravity="center"
-                        android:layout_margin="1dp"
-                        android:textAllCaps="true"
-                        android:text="@string/description"
-                        android:textStyle="bold"/>
-
-
-                </TableRow>
-
-            </TableLayout>
-
-        </ScrollView>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/perfil_export_history"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded_border"
-                android:paddingLeft="5dp"
-                android:text="@string/pdf"
-                android:textColor="@color/colorPurpleSpe"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                tools:ignore="MissingConstraints" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/historyChanges"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPurpleSpe"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="0dp"
+                android:gravity="top"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/perfil_send_history"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_rounded"
+                    android:paddingLeft="5dp"
+                    android:text="@string/title_send"
+                    android:textColor="#FFF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/perfil_collect_history"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_rounded"
+                    android:paddingLeft="5dp"
+                    android:text="@string/title_collect"
+                    android:textColor="#FFF" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/perfil_references_history"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_rounded"
+                    android:paddingLeft="5dp"
+                    android:text="@string/title_references"
+                    android:textColor="#FFF" />
+
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableLayout
+                    android:id="@+id/tableHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TableRow android:background="@color/colorOrangeSpe">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:text="@string/id"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:layout_weight=".1"
+                            android:gravity="center"
+                            android:text="@string/date"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="1dp"
+                            android:layout_weight=".8"
+                            android:gravity="center"
+                            android:text="@string/description"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </ScrollView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/perfil_export_history"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:background="@drawable/button_rounded_border"
+                    android:paddingLeft="5dp"
+                    android:text="@string/pdf"
+                    android:textColor="@color/colorPurpleSpe"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:ignore="MissingConstraints" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

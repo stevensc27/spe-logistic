@@ -4,19 +4,22 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-
 import com.example.spe_logistic.SQLiteConnectionHelper;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-public class PerfilViewModel extends AndroidViewModel {
 
+public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<String>> perfil_list;
+
+    private MutableLiveData<ArrayList<BarEntry>> pqr_list;
+    private MutableLiveData<ArrayList<String>>   pqr_list_label;
+
     private MutableLiveData<ArrayList<String[]>> send_history;
     private MutableLiveData<ArrayList<String[]>> collect_history;
     private MutableLiveData<ArrayList<String[]>> references_history;
@@ -30,6 +33,10 @@ public class PerfilViewModel extends AndroidViewModel {
         super(application);
 
         perfil_list        = new MutableLiveData<>();
+
+        pqr_list           = new MutableLiveData<>();
+        pqr_list_label     = new MutableLiveData<>();
+
         send_history       = new MutableLiveData<>();
         collect_history    = new MutableLiveData<>();
         references_history = new MutableLiveData<>();
@@ -63,6 +70,33 @@ public class PerfilViewModel extends AndroidViewModel {
 
         db.close();
 
+    }
+
+    private void getDataPqr(){
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        ArrayList<BarEntry> pqr_array_list       = new ArrayList<>();
+        ArrayList<String>   pqr_array_list_label = new ArrayList<>();
+
+        String[] parameters = {String.valueOf(user_id)};
+        String queryPqr =   "SELECT     estados_pqr.nombre, " +
+                            "           count(*) " +
+                            "FROM       prqs " +
+                            "INNER JOIN estados_pqrs " +
+                            "ON         estados_pqrs.id = pqrs.estado_id " +
+                            "WHERE      pqrs.cliente_id = ? " +
+                            "GROUP BY   estados_pqr.nombre ";
+
+        Cursor cursor = db.rawQuery(queryPqr,parameters);
+        int i = 0;
+        while (cursor.moveToNext()){
+            pqr_array_list_label.add(cursor.getString(0));
+            pqr_array_list.add(new BarEntry(i,cursor.getInt(1)));
+            i++;
+        }
+
+        pqr_list.setValue(pqr_array_list);
+        pqr_list_label.setValue(pqr_array_list_label);
     }
 
     private void getDataHistorySend() {
@@ -105,6 +139,14 @@ public class PerfilViewModel extends AndroidViewModel {
 
     public LiveData<ArrayList<String>> getPerfil() {
         return perfil_list;
+    }
+
+    public LiveData<ArrayList<BarEntry>> getBarInventoryList() {
+        return pqr_list;
+    }
+
+    public LiveData<ArrayList<String>> getBarInventoryListLabel() {
+        return pqr_list_label;
     }
 
     public LiveData<ArrayList<String[]>> getSend_history() {

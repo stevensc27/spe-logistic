@@ -373,6 +373,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         values.put(Utilities.ENVIOS_TELEFONO_DESTINATARIO, phone.getText().toString());
         values.put(Utilities.ENVIOS_EMAIL_DESTINATARIO, email.getText().toString());
         values.put(Utilities.ENVIOS_FACTURA, invoice.getText().toString());
+        values.put(Utilities.ENVIOS_FECHA_RESERVADO, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         values.put(Utilities.ENVIOS_CLIENTE_ID, user_id);
         values.put(Utilities.ENVIOS_ESTADO_ID, "2");
 

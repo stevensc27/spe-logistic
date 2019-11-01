@@ -114,71 +114,129 @@ public class InventoryViewModel extends AndroidViewModel {
         ArrayList<String>   bar_send_array_list_label = new ArrayList<>();
         
 
-        Date afterSixMonth = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(afterSixMonth);
-        calendar.add(Calendar.MONTH, -5);
-
+        Date date = new Date();
+        Calendar calendar  = Calendar.getInstance();
+        calendar.setTime(date);
 
         DecimalFormat formatter = new DecimalFormat("00");
-        String monthAfterSix = formatter.format(calendar.get(Calendar.MONTH)+1);
-        String dateAfterSix  = calendar.get(Calendar.YEAR)+""+monthAfterSix;
 
-        String[] parameters = {dateAfterSix,String.valueOf(user_id)};
-        String queryIn =    "SELECT     count(*), " +
-                            "           strftime('%Y%m', fecha_ingreso) as month " +
-                            "FROM       inventario " +
-                            "INNER JOIN referencias " +
-                            "ON         referencias.id = inventario.referencia_id " +
-                            "WHERE      strftime('%Y%m', fecha_ingreso) >= ? AND" +
-                            "           referencias.cliente_id = ? " +
-                            "GROUP BY   month " +
-                            "ORDER BY   month";
+        calendar.add(Calendar.MONTH, -3);
+
+        db.execSQL("DROP TABLE IF EXISTS months");
+        db.execSQL("CREATE TABLE months (id TEXT, name TEXT, client TEXT)");
+
+        String[] parameters = null;
+        for (int i = 1; i <= 4; i++){
+
+            String monthBefore = formatter.format(calendar.get(Calendar.MONTH)+1);
+            String dateBefore  = calendar.get(Calendar.YEAR)+""+monthBefore;
+            parameters = new String[]{dateBefore,String.valueOf(user_id)};
+
+            String month = "";
+            switch (monthBefore){
+                case "01": month = "ENE"; break;
+                case "02": month = "FRE"; break;
+                case "03": month = "MAR"; break;
+                case "04": month = "ABR"; break;
+                case "05": month = "MAY"; break;
+                case "06": month = "JUN"; break;
+                case "07": month = "JUL"; break;
+                case "08": month = "AGO"; break;
+                case "09": month = "SEP"; break;
+                case "10": month = "OCT"; break;
+                case "11": month = "NOV"; break;
+                case "12": month = "DIC"; break;
+            }
+
+            bar_send_array_list_label.add(month);
+
+            String queryIn =    "SELECT     count(*) " +
+                                "FROM       inventario " +
+                                "INNER JOIN referencias " +
+                                "ON         referencias.id = inventario.referencia_id " +
+                                "WHERE      strftime('%Y%m',fecha_ingreso) = ? AND " +
+                                "           referencias.cliente_id = ? ";
+
+            Cursor cursorIn = db.rawQuery(queryIn,parameters);
+            cursorIn.moveToFirst();
+            bar_send_array_list_in.add(new BarEntry(i,cursorIn.getInt(0)));
+
+            String queryOut =   "SELECT     count(*) " +
+                                "FROM       inventario " +
+                                "INNER JOIN envios " +
+                                "ON         envios.id = inventario.envio_id " +
+                                "INNER JOIN referencias " +
+                                "ON         referencias.id = inventario.referencia_id " +
+                                "WHERE      strftime('%Y%m',envios.fecha_reservado) = ? AND " +
+                                "           referencias.cliente_id = ? ";
+
+            Cursor cursorOut = db.rawQuery(queryOut,parameters);
+            cursorOut.moveToFirst();
+            bar_send_array_list_out.add(new BarEntry(i,cursorOut.getInt(0)));
+
+            Log.i("APP","datos m: "+month);
+            Log.i("APP","datos i: "+cursorIn.getString(0));
+            Log.i("APP","datos o: "+cursorOut.getString(0));
+
+            calendar.add(Calendar.MONTH, +1);
+        }
+
+        /*Calendar calendar2 = Calendar.getInstance();
+        calendar2.setTime(date);
+        calendar2.add(Calendar.MONTH, -5);
+        String monthBeforeSix = formatter.format(calendar2.get(Calendar.MONTH)+1);
+        String dateBeforeSix  = calendar2.get(Calendar.YEAR)+""+monthBeforeSix;
+
+        String[] parameters = {dateBeforeSix};
+
+
+        String queryIn = "SELECT     months.name," +
+                    "           count(inventario.id)" +
+                    "FROM       months " +
+                    "LEFT JOIN  inventario " +
+                    "ON         strftime('%Y%m', inventario.fecha_ingreso) = months.id " +
+                    "LEFT JOIN  referencias " +
+                    "ON         referencias.id = inventario.referencia_id AND " +
+                    "           referencias.cliente_id = months.client " +
+                    "WHERE      months.id >= ? " +
+                    "GROUP BY   months.name " +
+                    "ORDER BY   months.id ";
+
 
         Cursor cursor = db.rawQuery(queryIn,parameters);
 
         int i = 1;
         while (cursor.moveToNext()){
-
-            bar_send_array_list_in.add(new BarEntry(i,cursor.getInt(0)));
+            Log.i("APP","datos: "+cursor.getString(0)+" "+cursor.getString(1));
+            bar_send_array_list_in.add(new BarEntry(i,cursor.getInt(1)));
+            bar_send_array_list_label.add(cursor.getString(0));
         }
 
-        /*bar_send_array_list_in.add(new BarEntry(1,12));
+        *//*bar_send_array_list_in.add(new BarEntry(1,12));
         bar_send_array_list_in.add(new BarEntry(2,35));
         bar_send_array_list_in.add(new BarEntry(3,51));
         bar_send_array_list_in.add(new BarEntry(4,13));
         bar_send_array_list_in.add(new BarEntry(5,68));
         bar_send_array_list_in.add(new BarEntry(6,22));
          */
+        /*
         
 
-        String queryOut =   "SELECT     count(*), " +
-                            "           strftime('%Y_%m', despachos.fecha) as month, " +
-                            "           CASE strftime('%m', despachos.fecha) " +
-                            "               WHEN '01' then 'ENE' " +
-                            "               WHEN '02' then 'FEB' " +
-                            "               WHEN '03' then 'MAR' " +
-                            "               WHEN '04' then 'ABR' " +
-                            "               WHEN '05' then 'MAY' " +
-                            "               WHEN '06' then 'JUN' " +
-                            "               WHEN '07' then 'JUL' " +
-                            "               WHEN '08' then 'AGO' " +
-                            "               WHEN '09' then 'SEP' " +
-                            "               WHEN '10' then 'OCT' " +
-                            "               WHEN '11' then 'NOV' " +
-                            "               WHEN '12' then 'DIC' " +
-                            "           END " +
-                            "FROM       inventario " +
-                            "INNER JOIN referencias " +
-                            "ON         referencias.id = inventario.referencia_id " +
-                            "INNER JOIN envios " +
-                            "ON         envios.id = inventario.envio_id " +
-                            "INNER JOIN despachos " +
+        String queryOut =   "SELECT     months.name, " +
+                            "           count(inventario.id) " +
+                            "FROM       months " +
+                            "LEFT JOIN despachos " +
+                            "ON         strftime('%Y%m', despachos.fecha) = months.id " +
+                            "LEFT JOIN envios " +
                             "ON         despachos.id = envios.despacho_id " +
-                            "WHERE      strftime('%Y%m', fecha_ingreso) >= ? AND " +
-                            "           referencias.cliente_id = ? " +
-                            "GROUP BY   month " +
-                            "ORDER BY   month";
+                            "LEFT JOIN inventario " +
+                            "ON         envios.id = inventario.envio_id " +
+                            "LEFT JOIN referencias " +
+                            "ON         referencias.id = inventario.referencia_id AND " +
+                            "           referencias.cliente_id = months.client " +
+                            "WHERE      months.id >= ? " +
+                            "GROUP BY   months.name " +
+                            "ORDER BY   months.id";
 
         Cursor cursor1 = db.rawQuery(queryOut,parameters);
 
@@ -186,10 +244,8 @@ public class InventoryViewModel extends AndroidViewModel {
         //Log.i("APP","in: "+cursor1.getString(0));
         while (cursor1.moveToNext()){
             Log.i("APP","out: "+cursor1.getString(0));
-            bar_send_array_list_out.add(new BarEntry(i,cursor1.getInt(0)));
-            bar_send_array_list_label.add(cursor1.getString(2));
-        }
-
+            bar_send_array_list_out.add(new BarEntry(i,cursor1.getInt(1)));
+        }*/
         /*
         bar_send_array_list_out.add(new BarEntry(1,93));
         bar_send_array_list_out.add(new BarEntry(2,62));
@@ -334,6 +390,7 @@ public class InventoryViewModel extends AndroidViewModel {
                                         "           Datetime(fecha_ingreso) <  Datetime(?) " +
                                         "GROUP BY   referencias.codigo_barras," +
                                         "           fecha_ingreso " +
+                                        "ORDER BY   Datetime(fecha_ingreso) " +
                                         "LIMIT      7";
 
         Cursor cursor = db.rawQuery(queryInventoryDammed,parameters);

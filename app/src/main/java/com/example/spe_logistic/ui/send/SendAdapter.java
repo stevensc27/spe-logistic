@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -40,6 +41,8 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
     private EditText justify;
     private String   send_id;
 
+    private int user_id;
+
     public SendAdapter(ArrayList<SendVo> send_list) {
         this.send_list = send_list;
     }
@@ -48,6 +51,9 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
     @Override
     public SendAdapter.ViewHolderSends onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.send_item_list,null,false);
+
+        SharedPreferences preferences = viewGroup.getContext().getSharedPreferences("credentials", viewGroup.getContext().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id",0);
 
         navController = Navigation.findNavController((Activity) viewGroup.getContext(), R.id.nav_host_fragment);
 
@@ -177,8 +183,6 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
     }
 
     private void deleteSend(View v, int i){
-        /*SharedPreferences preferences = v.getContext().getSharedPreferences("credentials", v.getContext().MODE_PRIVATE);
-        Integer user_id = preferences.getInt("user_id",0);*/
 
         con = new SQLiteConnectionHelper(v.getContext(),"SPEDB",null,1);
         SQLiteDatabase db = con.getWritableDatabase();
@@ -205,12 +209,13 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
         SQLiteDatabase db = con.getWritableDatabase();
 
         String date        = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        String description = "Cancelación de envío. " + justify;
+        String description = "Cancelación de envío. " + justify.getText().toString();
 
         ContentValues values = new ContentValues();
 
         values.put(Utilities.HISTORIAL_ENVIOS_FECHA,date);
         values.put(Utilities.HISTORIAL_ENVIOS_DESCRIPCION,description);
+        values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID,user_id);
         values.put(Utilities.HISTORIAL_ENVIOS_ENVIO_ID,send_id);
 
         Long idResult = db.insert(Utilities.HISTORIAL_ENVIOS, Utilities.HISTORIAL_ENVIOS_ID,values);

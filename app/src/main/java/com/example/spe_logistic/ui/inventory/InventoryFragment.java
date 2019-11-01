@@ -62,7 +62,7 @@ public class InventoryFragment extends Fragment {
     private BarData barData;
     private XAxis barChartXAxis;
     private float barSpace = 0.02f;
-    private float groupSpace = 0.55f;
+    private float groupSpace = 0.4f;
 
     private PieChart pieChartInventory;
     private PieDataSet pieDataSet;
@@ -145,7 +145,7 @@ public class InventoryFragment extends Fragment {
         inventoryViewModel.getBarInventoryList().observe(this, new Observer<ArrayList<BarEntry>>() {
             @Override
             public void onChanged(@Nullable ArrayList<BarEntry> bar_inventory_array_list) {
-                horizontalBarDataSet = new BarDataSet(bar_inventory_array_list, "");
+                horizontalBarDataSet = new BarDataSet(bar_inventory_array_list, "Inventario disponible en bodega");
                 horizontalBarDataSet.setColor(getResources().getColor(colorOrangeSpe));
                 horizontalBarData = new BarData(horizontalBarDataSet);
                 horizontalBarChartInventory.setData(horizontalBarData);
@@ -157,7 +157,7 @@ public class InventoryFragment extends Fragment {
         horizontalBarChartInventory.getAxisLeft().setEnabled(true);
         horizontalBarChartInventory.getAxisLeft().setAxisMinimum(0);
         horizontalBarChartInventory.getAxisLeft().setTextSize(4);
-        horizontalBarChartInventory.getLegend().setEnabled(false);
+        horizontalBarChartInventory.getLegend().setEnabled(true);
         horizontalBarChartInventory.getDescription().setEnabled(false);
         horizontalBarChartInventory.animateY(Utilities.ANIMATION);
 
@@ -199,10 +199,10 @@ public class InventoryFragment extends Fragment {
                 barData = new BarData(barDataSetIn, barDataSetOut);
                 barChartSend.setData(barData);
                 barChartSend.setDragEnabled(true);
-                barChartSend.setVisibleXRangeMaximum(6);
-                barData.setBarWidth(0.2f);
+                barChartSend.setVisibleXRangeMaximum(4);
+                barData.setBarWidth(0.3f);
                 barChartSend.getXAxis().setAxisMinimum(0);
-                barChartSend.getXAxis().setAxisMaximum(barChartSend.getBarData().getGroupWidth(groupSpace, barSpace) * 6);
+                barChartSend.getXAxis().setAxisMaximum(barChartSend.getBarData().getGroupWidth(groupSpace, barSpace) * 4);
                 barChartSend.getAxisLeft().setAxisMinimum(0);
                 barChartSend.groupBars(0, groupSpace, barSpace);
                 barChartSend.invalidate();

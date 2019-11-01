@@ -4,15 +4,20 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -20,24 +25,34 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
-public class HistoryChangesPDF {
+import androidx.core.content.FileProvider;
 
+public class TemplatePDF {
+
+    private String name;
     private Context context;
+    private File folder;
     private File pdfFile;
+    private File imageFile;
     private Document document;
     private PdfWriter pdfWriter;
     private Paragraph paragraph;
-    private Font fTitle = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-    private Font fSubTitle = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-    private Font fText = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD);
-    private Font fHighText = new Font(Font.FontFamily.TIMES_ROMAN, 14, Font.BOLD, BaseColor.RED);
+    private Font fTitle = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
+    private Font fSubTitle = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+    private Font fText = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+    private Font fHighText = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL, BaseColor.RED);
 
-    public HistoryChangesPDF(Context context) {
+    public TemplatePDF(Context context, String name) {
         this.context = context;
+        this.name = name;
     }
 
     public void openDocument() {
@@ -52,12 +67,14 @@ public class HistoryChangesPDF {
     }
 
     private void createFile() {
-        File folder = new File(Environment.getExternalStorageDirectory().toString(), "spe_pdf");
+        folder = new File(Environment.getExternalStorageDirectory().toString(), "spe_pdf");
 
-        if (!folder.exists())
-            folder.mkdirs();
+        if (!folder.exists()) {
+            if(!folder.mkdirs())
+                Log.e("createFile","Folder not create");
+        }
 
-        pdfFile = new File(folder, "history.pdf");
+        pdfFile = new File(folder, name+".pdf");
 
     }
 
@@ -75,8 +92,8 @@ public class HistoryChangesPDF {
         try {
             paragraph = new Paragraph();
             addChildParagraph(new Paragraph(title, fTitle));
-            addChildParagraph(new Paragraph(title, fSubTitle));
-            addChildParagraph(new Paragraph("Fecha: " + date, fHighText));
+            addChildParagraph(new Paragraph(subTitle, fSubTitle));
+            addChildParagraph(new Paragraph(date, fHighText));
             paragraph.setSpacingAfter(30);
             document.add(paragraph);
         } catch (Exception e) {
@@ -114,6 +131,7 @@ public class HistoryChangesPDF {
             while (indexColumn < header.length) {
                 pdfPCell = new PdfPCell(new Phrase(header[indexColumn++], fSubTitle));
                 pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                pdfPCell.setVerticalAlignment(Element.ALIGN_CENTER);
                 pdfPCell.setBackgroundColor(BaseColor.LIGHT_GRAY);
                 pdfPTable.addCell(pdfPCell);
             }
@@ -122,9 +140,9 @@ public class HistoryChangesPDF {
                 String[] row = rows.get(indexRow);
 
                 for (indexColumn = 0; indexColumn < row.length; indexColumn++) {
-                    pdfPCell = new PdfPCell(new Phrase(row[indexColumn]));
+
+                    pdfPCell = new PdfPCell(new Phrase(row[indexColumn], fText));
                     pdfPCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    pdfPCell.setFixedHeight(40);
                     pdfPTable.addCell(pdfPCell);
                 }
             }
@@ -140,9 +158,11 @@ public class HistoryChangesPDF {
 
     public void appViewPdf(Activity activity){
         if (pdfFile.exists()){
-            Uri uri = Uri.fromFile(pdfFile);
+            //Uri uri = Uri.fromFile(pdfFile);
+            Uri uri = FileProvider.getUriForFile(context,context.getApplicationContext().getPackageName() + ".provider", pdfFile);
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri,"aplication/pdf");
+            intent.setFlags (Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(uri,"application/pdf");
             try {
                 activity.startActivity(intent);
             }catch (ActivityNotFoundException e){
@@ -153,4 +173,47 @@ public class HistoryChangesPDF {
             Toast.makeText(activity.getApplicationContext(),"No se encuentra archivo",Toast.LENGTH_LONG).show();
         }
     }
+
+    /*public void addImageFromView(View view){
+
+        Bitmap bitmap;
+
+        view.setDrawingCacheEnabled(true);
+        bitmap = Bitmap.createBitmap(view.getDrawingCache());
+        view.setDrawingCacheEnabled(false);
+
+        OutputStream fout = null;
+
+        imageFile = new File(Environment.getExternalStorageDirectory().toString(), "spe_pdf/image.jpeg");
+
+        try {
+            fout = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+            fout.flush();
+            fout.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        Image myImg = null;
+
+        try {
+
+            myImg = Image.getInstance(stream.toByteArray());
+
+            document.add(myImg);
+
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }*/
 }

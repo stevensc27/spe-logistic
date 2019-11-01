@@ -1,9 +1,9 @@
 package com.example.spe_logistic.ui.perfil;
 
 
-import android.content.res.Resources;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -22,14 +21,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.spe_logistic.HistoryChangesPDF;
+import com.example.spe_logistic.TemplatePDF;
 import com.example.spe_logistic.R;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +44,7 @@ import static com.example.spe_logistic.R.color.colorOrangeSpe;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PerfilFragment extends Fragment implements View.OnClickListener {
+public class PerfilFragment extends Fragment implements View.OnClickListener, PermissionListener {
 
     private PerfilViewModel perfilViewModel;
 
@@ -59,6 +63,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
     private ArrayList<String[]> generalData;
 
     private TableLayout tableHistory;
+    String[] header = {"ID","Fecha","Descripción"};
 
 
 
@@ -80,12 +85,9 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         name = root.findViewById(R.id.perfil_name);
         nit  = root.findViewById(R.id.perfil_nit);
 
-        perfilViewModel.getPerfil().observe(this, new Observer<ArrayList<String>>() {
-            @Override
-            public void onChanged(ArrayList<String> perfil_array_list) {
-                name.setText(perfil_array_list.get(0));
-                nit.setText(perfil_array_list.get(1));
-            }
+        perfilViewModel.getPerfil().observe(this, perfil_array_list -> {
+            name.setText(perfil_array_list.get(0));
+            nit.setText(perfil_array_list.get(1));
         });
 
         perfilViewModel.getSend_history().observe(this, send_history_array_list -> {
@@ -142,14 +144,13 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.perfil_export_history:
                 if (tableHistory.getChildCount() != 1){
-                    String[] header = {"ID","Fecha","Descripción"};
-                    HistoryChangesPDF historyChangesPDF = new HistoryChangesPDF(getContext());
-                    historyChangesPDF.openDocument();
-                    historyChangesPDF.addMetaData("SPE Logistica","Historial de cambios","SPE");
-                    historyChangesPDF.addTitles("SPE Logistica","Historial de cambios",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-                    historyChangesPDF.createTable(header,generalData);
-                    historyChangesPDF.closeDocument();
-                    historyChangesPDF.appViewPdf(getActivity());
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+
+                        generatePDF();
+
+                    }else {
+                        requestPermission();
+                    }
 
                 }else {
                     Toast.makeText(getContext(),"No hay datos para exportar",Toast.LENGTH_LONG).show();
@@ -157,6 +158,23 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 break;
 
         }
+    }
+
+    private void generatePDF() {
+        TemplatePDF templatePDF = new TemplatePDF(getContext(),new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss").format(new Date()));
+        templatePDF.openDocument();
+        templatePDF.addMetaData("SPE Logistica","Historial de cambios","SPE");
+        templatePDF.addTitles("Servicios Postales Especializados SAS","Historial de cambios",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        templatePDF.createTable(header,generalData);
+        templatePDF.closeDocument();
+        templatePDF.appViewPdf(getActivity());
+    }
+
+    private void requestPermission() {
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(this)
+                .check();
     }
 
     private void setHistory(ArrayList<String[]> data) {
@@ -181,7 +199,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
             indexCell = 0;
             while (indexCell<3) {
 
-                Log.i("APP","data: "+data.get(indexRow)[indexCell]);
+                //Log.i("APP","data: "+data.get(indexRow)[indexCell]);
 
                 textCell = new TextView(getContext());
 
@@ -192,8 +210,10 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
                 }else if (indexCell==1){
                     textCell.setText(data.get(indexRow)[indexCell].replace(" ","\n"));
                 }else {
-                    if (data.get(indexRow)[indexCell].length()>60)
-                    textCell.setText(data.get(indexRow)[indexCell].replaceAll("(.{60})", "$1\n"));
+                    if (data.get(indexRow)[indexCell].length()>55)
+                        textCell.setText(data.get(indexRow)[indexCell].replaceAll("(.{55})", "$1\n"));
+                    else
+                        textCell.setText(data.get(indexRow)[indexCell]);
                 }
 
                 textCell.setBackgroundColor(Color.WHITE);
@@ -222,5 +242,20 @@ public class PerfilFragment extends Fragment implements View.OnClickListener {
         }
 
         return params;
+    }
+
+    @Override
+    public void onPermissionGranted(PermissionGrantedResponse response) {
+        generatePDF();
+    }
+
+    @Override
+    public void onPermissionDenied(PermissionDeniedResponse response) {
+
+    }
+
+    @Override
+    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+        token.continuePermissionRequest();
     }
 }

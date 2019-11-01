@@ -13,6 +13,7 @@ public class Envios {
     private String  factura;
     private String  archivo;
     private Integer despacho_id;
+    private Date    fecha_reservado;
     private Date    fecha_alistado;
     private Date    fecha_empacado;
     private Integer cliente_id;
