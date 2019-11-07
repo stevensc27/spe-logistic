@@ -31,6 +31,7 @@ public class ReferencesViewModel extends AndroidViewModel {
 
         con = new SQLiteConnectionHelper(getApplication(),"SPEDB",null,1);
         SQLiteDatabase db = con.getReadableDatabase();
+
         String search = "SELECT     id,codigo_barras,nombre " +
                         "FROM       referencias " +
                         "WHERE      cliente_id ="+user_id +" "+

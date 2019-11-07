@@ -1,6 +1,8 @@
 package com.example.spe_logistic.utilities;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -157,6 +159,16 @@ public class Utilities {
         db.execSQL("INSERT INTO "+ESTADOS_PQRS+ "('nombre') SELECT 'En gestión' WHERE NOT EXISTS (SELECT 1 FROM "+ESTADOS_PQRS+" WHERE nombre = 'En gestión');");
         db.execSQL("INSERT INTO "+ESTADOS_PQRS+ "('nombre') SELECT 'Solucionado' WHERE NOT EXISTS (SELECT 1 FROM "+ESTADOS_PQRS+" WHERE nombre = 'Solucionado');");
 
+        db.execSQL("INSERT INTO "+CATEGORIAS_PQRS+ "('nombre') SELECT 'Petición' WHERE NOT EXISTS (SELECT 1 FROM "+CATEGORIAS_PQRS+" WHERE nombre = 'Petición');");
+        db.execSQL("INSERT INTO "+CATEGORIAS_PQRS+ "('nombre') SELECT 'Reclamo' WHERE NOT EXISTS (SELECT 1 FROM "+CATEGORIAS_PQRS+" WHERE nombre = 'Reclamo');");
+        db.execSQL("INSERT INTO "+CATEGORIAS_PQRS+ "('nombre') SELECT 'Sugerencia' WHERE NOT EXISTS (SELECT 1 FROM "+CATEGORIAS_PQRS+" WHERE nombre = 'Sugerencia');");
+
+        //id fecha cliente, dewsc, cate, est
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,1);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,3);");
+
         db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Harina de lentejas x 500gr', 12128,'7707345200098',1,1);");
         db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Arroz SAN TOMAS JR intgr.ltja.almen.300g', 7586,'7709219137882',1,1);");
         db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Frijoles negros en paca', 62000,'7768795854268',1,1);");
@@ -283,15 +295,20 @@ public class Utilities {
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso) values(7,1,'A-1-1','"+date60+"');");
 
-        db.execSQL("INSERT INTO despachos(fecha,guia,peso,cajas) values('"+date30+"','99915415','5','3');");
+        db.execSQL("INSERT INTO despachos(fecha,guia,peso,cajas) values('2019-09-28 16:00:00','99915415','5','3');");
+        db.execSQL("INSERT INTO despachos(fecha,guia,peso,cajas) values('2019-11-01 10:30:00','99915414','10','4');");
         db.execSQL("INSERT INTO envios(nombre_destinatario,direccion_destinatario,ciudad_destinatario_id,telefono_destinatario,email_destinatario,factura," +
                 "despacho_id,fecha_reservado,fecha_alistado,cliente_id,estado_id) values('Steven Suarez','Crra34A','2','3207116','ssc@gmail.com','659323'," +
-                "1,'2019-09-27 11:00:00','2019-09-27 15:00:00',1,4);");
+                "1,'2019-09-27 11:00:00','2019-09-28 15:30:00',1,4);");
+        db.execSQL("INSERT INTO envios(nombre_destinatario,direccion_destinatario,ciudad_destinatario_id,telefono_destinatario,email_destinatario,factura," +
+                "despacho_id,fecha_reservado,fecha_alistado,cliente_id,estado_id) values('Steven Suarez','Crra34A','2','3207116','ssc@gmail.com','659323'," +
+                "2,'2019-11-01 07:00:00','2019-11-01 08:45:00',1,4);");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
         db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(1,4,'A-1-1','"+date60+"',1);");
+        db.execSQL("INSERT INTO inventario(referencia_id,estado_id,posicion,fecha_ingreso,envio_id) values(2,4,'A-1-1','"+date60+"',2);");
     }
     // CLIENTES TABLE
     public static final String CLIENTES                = "clientes";
@@ -357,7 +374,7 @@ public class Utilities {
                                                                                                                 HISTORIAL_REFERENCIAS_CLIENTE_ID+" INTEGER, "+
                                                                                                                 HISTORIAL_REFERENCIAS_DESCRIPCION+" TEXT)";
     // PQRS TABLE
-    public static final String PQRS              = "PQRS";
+    public static final String PQRS              = "pqrs";
     public static final String PQRS_ID           = "id";
     public static final String PQRS_FECHA        = "fecha";
     public static final String PQRS_CLIENTE_ID   = "cliente_id";

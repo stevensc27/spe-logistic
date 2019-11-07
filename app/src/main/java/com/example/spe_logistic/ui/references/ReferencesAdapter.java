@@ -13,6 +13,7 @@ import com.example.spe_logistic.R;
 import java.util.ArrayList;
 
 public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.ViewHolderReferences> implements View.OnClickListener {
+    @NonNull
 
     ArrayList<ReferencesVo> references_list;
     private View.OnClickListener listener;
@@ -21,7 +22,6 @@ public class ReferencesAdapter extends RecyclerView.Adapter<ReferencesAdapter.Vi
         this.references_list = references_list;
     }
 
-    @NonNull
     @Override
     public ReferencesAdapter.ViewHolderReferences onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 

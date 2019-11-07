@@ -58,6 +58,15 @@
     <string name="historyChanges">Historial de Cambios</string>
     <string name="id">ID</string>
     <string name="export">Exportar</string>
+    <string name="pqrs">PQRs</string>
+    <string name="seeIndicators">Ver indicadores</string>
+    <string name="indicators">Indicadores</string>
+    <string name="state">Estado</string>
+    <string name="averageTime">Tiempo promedio</string>
+    <string name="onEnlistment">En alistar</string>
+    <string name="onDispatch">En despachar</string>
+    <string name="total">Total</string>
+    <string name="ok">Ok</string>
 
     <string name="key_map">pk.eyJ1Ijoic3RldmVuc2MyNyIsImEiOiJjazI2ZG5hZzQzMGd4M2JwaTcyM3VpYmlnIn0.6H0hEqE1CCePN2kCQWllxw</string>
 

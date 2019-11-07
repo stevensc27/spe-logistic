@@ -69,4 +69,24 @@
         android:name="com.example.spe_logistic.ui.inventory.InventoryDammedFragment"
         android:label="fragment_inventory_dammed"
         tools:layout="@layout/fragment_inventory_dammed" />
+    <fragment
+        android:id="@+id/perfilPqrFragment"
+        android:name="com.example.spe_logistic.ui.perfil.PerfilPqrFragment"
+        android:label="fragment_perfil_pqr"
+        tools:layout="@layout/fragment_perfil_pqr" />
+    <fragment
+        android:id="@+id/perfilPqrItemFragment"
+        android:name="com.example.spe_logistic.ui.perfil.PerfilPqrItemFragment"
+        android:label="fragment_perfil_pqr_item"
+        tools:layout="@layout/fragment_perfil_pqr_item" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.spe_logistic.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="com.example.spe_logistic.RegisterActivity"
+        android:label="activity_register"
+        tools:layout="@layout/activity_register" />
 </navigation>

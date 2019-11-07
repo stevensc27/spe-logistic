@@ -35,8 +35,8 @@ public class ReferencesFragment extends Fragment implements SearchView.OnQueryTe
 
     private NavController navController;
 
-    RecyclerView references_list;
-    FloatingActionButton new_reference;
+    private RecyclerView references_list;
+    private FloatingActionButton new_reference;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

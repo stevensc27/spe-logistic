@@ -3,6 +3,7 @@ package com.example.spe_logistic.ui.collect;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -40,6 +41,8 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
     private EditText justify;
     private String   collect_id;
 
+    private int user_id;
+
     public CollectAdapter(ArrayList<CollectVo> collect_list) {
         this.collect_list = collect_list;
     }
@@ -48,6 +51,9 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
     @Override
     public CollectAdapter.ViewHolderCollect onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.collect_item_list,null,false);
+
+        SharedPreferences preferences = viewGroup.getContext().getSharedPreferences("credentials", viewGroup.getContext().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id",0);
 
         navController = Navigation.findNavController((Activity) viewGroup.getContext(), R.id.nav_host_fragment);
 
@@ -201,6 +207,7 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
 
         values.put(Utilities.HISTORIAL_RECOGIDAS_FECHA,date);
         values.put(Utilities.HISTORIAL_RECOGIDAS_DESCRIPCION,description);
+        values.put(Utilities.HISTORIAL_RECOGIDAS_CLIENTE_ID,user_id);
         values.put(Utilities.HISTORIAL_RECOGIDAS_RECOGIDA_ID,collect_id);
 
         Long idResult = db.insert(Utilities.HISTORIAL_RECOGIDAS, Utilities.HISTORIAL_RECOGIDAS_ID,values);

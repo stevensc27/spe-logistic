@@ -4,10 +4,13 @@ import android.app.Application;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import com.example.spe_logistic.SQLiteConnectionHelper;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -17,8 +20,10 @@ import androidx.lifecycle.MutableLiveData;
 public class PerfilViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<String>> perfil_list;
 
+    private MutableLiveData<ArrayList<String[]>> time_indicators;
+
     private MutableLiveData<ArrayList<BarEntry>> pqr_list;
-    private MutableLiveData<ArrayList<String>>   pqr_list_label;
+    private MutableLiveData<ArrayList<String>> pqr_list_label;
 
     private MutableLiveData<ArrayList<String[]>> send_history;
     private MutableLiveData<ArrayList<String[]>> collect_history;
@@ -32,13 +37,15 @@ public class PerfilViewModel extends AndroidViewModel {
     public PerfilViewModel(@NonNull Application application) {
         super(application);
 
-        perfil_list        = new MutableLiveData<>();
+        perfil_list = new MutableLiveData<>();
 
-        pqr_list           = new MutableLiveData<>();
-        pqr_list_label     = new MutableLiveData<>();
+        time_indicators = new MutableLiveData<>();
 
-        send_history       = new MutableLiveData<>();
-        collect_history    = new MutableLiveData<>();
+        pqr_list = new MutableLiveData<>();
+        pqr_list_label = new MutableLiveData<>();
+
+        send_history = new MutableLiveData<>();
+        collect_history = new MutableLiveData<>();
         references_history = new MutableLiveData<>();
 
         ArrayList<String> perfil_array_list = new ArrayList<>();
@@ -64,6 +71,8 @@ public class PerfilViewModel extends AndroidViewModel {
 
         perfil_list.setValue(perfil_array_list);
 
+        getDataIndicators();
+        getDataPqr();
         getDataHistorySend();
         getDataHistoryCollect();
         getDataHistoryReferences();
@@ -72,26 +81,60 @@ public class PerfilViewModel extends AndroidViewModel {
 
     }
 
-    private void getDataPqr(){
+    private void getDataIndicators() {
         SQLiteDatabase db = con.getReadableDatabase();
 
-        ArrayList<BarEntry> pqr_array_list       = new ArrayList<>();
-        ArrayList<String>   pqr_array_list_label = new ArrayList<>();
+        String timeEnlis = "00:00";
+        String timeDispa = "00:00";
+        String timeTotal = "00:00";
+        ArrayList<String[]> indicators_array_list = new ArrayList<>();
 
         String[] parameters = {String.valueOf(user_id)};
-        String queryPqr =   "SELECT     estados_pqr.nombre, " +
-                            "           count(*) " +
-                            "FROM       prqs " +
-                            "INNER JOIN estados_pqrs " +
-                            "ON         estados_pqrs.id = pqrs.estado_id " +
-                            "WHERE      pqrs.cliente_id = ? " +
-                            "GROUP BY   estados_pqr.nombre ";
+        String queryEnlistment =    "SELECT     avg(CAST((julianday(fecha_alistado) - julianday(fecha_reservado))*24 AS real)), " +
+                                    "           avg(CAST((julianday(fecha) - julianday(fecha_alistado))*24 AS real)), " +
+                                    "           avg(CAST((julianday(fecha) - julianday(fecha_reservado))*24 AS real)) " +
+                                    "FROM       envios " +
+                                    "INNER JOIN despachos " +
+                                    "ON         despachos.id = envios.despacho_id " +
+                                    "WHERE      envios.cliente_id = ? ";
+        Cursor cursor = db.rawQuery(queryEnlistment, parameters);
+        if (cursor.moveToFirst()) {
+            float enlis = cursor.getFloat(0);
+            timeEnlis = String.format("%02d",(int) enlis) + ":" + String.format("%02d",(int) ((enlis - (int) enlis) * 60));
+            float dispa = cursor.getFloat(1);
+            timeDispa = String.format("%02d",(int) dispa) + ":" + String.format("%02d",(int) ((dispa - (int) dispa) * 60));
+            float total = cursor.getFloat(2);
+            timeTotal = String.format("%02d",(int) total) + ":" + String.format("%02d",(int) ((total - (int) total) * 60));
+        }
 
-        Cursor cursor = db.rawQuery(queryPqr,parameters);
+
+        indicators_array_list.add(new String[]{timeEnlis, timeDispa, timeTotal});
+
+        time_indicators.setValue(indicators_array_list);
+    }
+
+    private void getDataPqr() {
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        ArrayList<BarEntry> pqr_array_list = new ArrayList<>();
+        ArrayList<String> pqr_array_list_label = new ArrayList<>();
+
+        String[] parameters = {String.valueOf(user_id)};
+        String queryPqr = "SELECT     estados_pqrs.nombre, " +
+                "           count(*) " +
+                "FROM       pqrs " +
+                "INNER JOIN estados_pqrs " +
+                "ON         estados_pqrs.id = pqrs.estado_id " +
+                "WHERE      pqrs.cliente_id = ? " +
+                "GROUP BY   estados_pqrs.nombre " +
+                "ORDER BY   estados_pqrs.nombre DESC";
+
+        Cursor cursor = db.rawQuery(queryPqr, parameters);
         int i = 0;
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
+
             pqr_array_list_label.add(cursor.getString(0));
-            pqr_array_list.add(new BarEntry(i,cursor.getInt(1)));
+            pqr_array_list.add(new BarEntry(i, cursor.getInt(1)));
             i++;
         }
 
@@ -132,20 +175,24 @@ public class PerfilViewModel extends AndroidViewModel {
     private ArrayList<String[]> getRows(Cursor cursor) {
         ArrayList<String[]> data = new ArrayList<>();
         while (cursor.moveToNext()) {
-            data.add(new String[]{cursor.getString(0),cursor.getString(1),cursor.getString(2)});
+            data.add(new String[]{cursor.getString(0), cursor.getString(1), cursor.getString(2)});
         }
         return data;
+    }
+
+    public LiveData<ArrayList<String[]>> getIndicators() {
+        return time_indicators;
     }
 
     public LiveData<ArrayList<String>> getPerfil() {
         return perfil_list;
     }
 
-    public LiveData<ArrayList<BarEntry>> getBarInventoryList() {
+    public LiveData<ArrayList<BarEntry>> getBarPqrList() {
         return pqr_list;
     }
 
-    public LiveData<ArrayList<String>> getBarInventoryListLabel() {
+    public LiveData<ArrayList<String>> getBarPqrListLabel() {
         return pqr_list_label;
     }
 
