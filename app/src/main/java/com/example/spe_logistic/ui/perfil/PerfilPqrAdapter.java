@@ -37,6 +37,7 @@ public class PerfilPqrAdapter extends RecyclerView.Adapter<PerfilPqrAdapter.View
     public void onBindViewHolder(@NonNull PerfilPqrAdapter.ViewHolderPerfilPqr viewHolderPerfilPqr, int position) {
         viewHolderPerfilPqr.id_category.setText(pqr_list.get(position).getId() + " - " + pqr_list.get(position).getCategory());
         viewHolderPerfilPqr.description.setText(pqr_list.get(position).getDescription());
+        viewHolderPerfilPqr.date.setText(pqr_list.get(position).getDate());
 
         switch (pqr_list.get(position).getState()) {
             case "1":
@@ -76,14 +77,15 @@ public class PerfilPqrAdapter extends RecyclerView.Adapter<PerfilPqrAdapter.View
 
     public class ViewHolderPerfilPqr extends RecyclerView.ViewHolder {
 
-        TextView id_category, description, state;
+        TextView id_category, description, date, state;
 
         public ViewHolderPerfilPqr(@NonNull View itemView) {
             super(itemView);
 
             id_category = itemView.findViewById(R.id.pqr_card_id_category);
             description = itemView.findViewById(R.id.pqr_card_description);
-            state = itemView.findViewById(R.id.pqr_card_state);
+            date        = itemView.findViewById(R.id.pqr_card_date);
+            state       = itemView.findViewById(R.id.pqr_card_state);
         }
     }
 

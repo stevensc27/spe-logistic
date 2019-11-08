@@ -22,6 +22,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.spe_logistic.MyApp;
 import com.example.spe_logistic.R;
@@ -82,7 +84,8 @@ public class PerfilPqrFragment extends Fragment implements SearchView.OnQueryTex
         String queryPqr =   "SELECT     pqrs.id, " +
                             "           categorias_pqrs.nombre, " +
                             "           descripcion, " +
-                            "           estado_id " +
+                            "           estado_id, " +
+                            "           fecha " +
                             "FROM       pqrs " +
                             "INNER JOIN categorias_pqrs " +
                             "ON         categorias_pqrs.id = pqrs.categoria_id " +
@@ -91,7 +94,7 @@ public class PerfilPqrFragment extends Fragment implements SearchView.OnQueryTex
         Cursor cursor = db.rawQuery(queryPqr,null);
         try {
             while (cursor.moveToNext()) {
-                pqr_array_list.add(new PerfilPqrVo(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3)));
+                pqr_array_list.add(new PerfilPqrVo(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4)));
             }
         } finally {
             cursor.close();
@@ -99,6 +102,27 @@ public class PerfilPqrFragment extends Fragment implements SearchView.OnQueryTex
 
         perfilPqrVos = pqr_array_list;
         adapter = new PerfilPqrAdapter(perfilPqrVos);
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                TextView state = v.findViewById(R.id.pqr_card_state);
+
+                if (state.getText().toString().equals("Solucionado")) {
+                    Toast.makeText(getContext(), "El PQR ya ha sido solucionado", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    TextView t   = v.findViewById(R.id.pqr_card_id_category);
+                    String s     = t.getText().toString();
+                    String pqrId = s.split(" - ")[0];
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("pqrId",pqrId);
+
+                    navController.navigate(R.id.perfilPqrItemFragment,bundle);
+                }
+            }
+        });
         pqr_list.setAdapter(adapter);
 
         return root;

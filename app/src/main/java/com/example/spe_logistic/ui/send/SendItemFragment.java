@@ -47,14 +47,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     private EditText address;
     private EditText invoice;
     private Spinner city;
-    /*private Spinner  road_type;
-    private EditText number1;
-    private EditText chart1;
-    private Spinner  orientation_road1;
-    private EditText number2;
-    private EditText chart2;
-    private Spinner  orientation_road2;
-    private EditText number3;*/
+
     private EditText codebar;
     private EditText amount;
 
@@ -65,8 +58,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     private SQLiteConnectionHelper con;
     private NavController navController;
 
-    ArrayAdapter<String> adapter_city;
-    ArrayList<String> citys;
+    private ArrayAdapter<String> adapter_city;
+    private ArrayList<String> citys;
 
     private int user_id;
 
