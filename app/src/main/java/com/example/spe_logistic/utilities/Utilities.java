@@ -164,10 +164,10 @@ public class Utilities {
         db.execSQL("INSERT INTO "+CATEGORIAS_PQRS+ "('nombre') SELECT 'Sugerencia' WHERE NOT EXISTS (SELECT 1 FROM "+CATEGORIAS_PQRS+" WHERE nombre = 'Sugerencia');");
 
         //id fecha cliente, dewsc, cate, est
-        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,1);");
-        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
-        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
         db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,3);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,2);");
+        db.execSQL("INSERT INTO pqrs(fecha,cliente_id,descripcion,categoria_id,estado_id) values ('2019-11-05 13:00:00',1,'Mi primer PQR',1,1);");
 
         db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Harina de lentejas x 500gr', 12128,'7707345200098',1,1);");
         db.execSQL("INSERT INTO referencias(nombre,valor,codigo_barras,unidades_empaque,cliente_id) values('Arroz SAN TOMAS JR intgr.ltja.almen.300g', 7586,'7709219137882',1,1);");

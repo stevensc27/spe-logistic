@@ -375,7 +375,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
             Long idResult = db.insert(Utilities.ENVIOS, Utilities.ENVIOS_ID, values);
             reserveInventory(Long.toString(idResult));
-            Toast.makeText(this.getActivity(), "Envio con id " + idResult + " creado", Toast.LENGTH_LONG).show();
+            Toast.makeText(this.getActivity(), "Enviof con id " + idResult + " creado", Toast.LENGTH_LONG).show();
 
         } else {
 

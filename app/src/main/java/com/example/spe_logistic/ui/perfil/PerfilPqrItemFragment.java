@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.spe_logistic.R;
@@ -28,6 +29,10 @@ import com.example.spe_logistic.utilities.Utilities;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import static com.example.spe_logistic.R.color.colorClearPurpleSpe;
+import static com.example.spe_logistic.R.color.colorOrangeSpe;
+import static com.example.spe_logistic.R.color.colorGrey;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +50,8 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
     private View root;
     private int user_id;
     private int state_id;
+    private Button change;
+    private TextView state;
 
     public PerfilPqrItemFragment() {
         // Required empty public constructor
@@ -55,8 +62,10 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
-        user_id = preferences.getInt("user_id",0);
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id", 0);
+
+        con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
 
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_perfil_pqr_item, container, false);
@@ -65,44 +74,64 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
 
         navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
-        category    = root.findViewById(R.id.pqr_item_categories);
+        category = root.findViewById(R.id.pqr_item_categories);
         description = root.findViewById(R.id.pqr_item_description);
-        save        = root.findViewById(R.id.pqr_item_save_button);
+        state = root.findViewById(R.id.pqr_item_state);
+        save = root.findViewById(R.id.pqr_item_save_button);
+        change = root.findViewById(R.id.pqr_item_change_state);
 
         getCategories();
         adapter_categories = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, categories);
         category.setAdapter(adapter_categories);
 
         save.setOnClickListener(this);
+        change.setOnClickListener(this);
 
         if (!pqr_id.equals("-1")) {
             getPqrData();
+        } else {
+            change.setVisibility(View.GONE);
         }
+
 
         return root;
     }
 
     private void getPqrData() {
-        con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
+
         SQLiteDatabase db = con.getReadableDatabase();
 
         String[] parameter = {pqr_id};
-        String queryPqr =   "SELECT     descripcion, " +
-                            "           categorias_pqrs.nombre || ' ' || pqrs.categoria_id," +
-                            "           estado_id " +
-                            "FROM       pqrs " +
-                            "INNER JOIN categorias_pqrs " +
-                            "ON         categorias_pqrs.id = pqrs.categoria_id " +
-                            "WHERE      pqrs.id = ? ";
-        Cursor cursor = db.rawQuery(queryPqr,parameter);
+        String queryPqr = "SELECT     descripcion, " +
+                "           categorias_pqrs.nombre || ' ' || pqrs.categoria_id," +
+                "           estado_id " +
+                "FROM       pqrs " +
+                "INNER JOIN categorias_pqrs " +
+                "ON         categorias_pqrs.id = pqrs.categoria_id " +
+                "WHERE      pqrs.id = ? ";
+        Cursor cursor = db.rawQuery(queryPqr, parameter);
         cursor.moveToFirst();
 
-        Log.i("APP",cursor.getString(1));
+        Log.i("APP", cursor.getString(1));
         int spinnerPosition = adapter_categories.getPosition(cursor.getString(1));
         category.setSelection(spinnerPosition);
         description.setText(cursor.getString(0));
 
         state_id = cursor.getInt(2);
+
+        if (state_id == 1) {
+            state.setText("Abierto");
+        } else if (state_id == 2) {
+            state.setText("En gestión");
+        } else if (state_id == 3) {
+            description.setEnabled(false);
+            description.setTextColor(getResources().getColor(colorClearPurpleSpe));
+            save.setBackgroundColor(getResources().getColor(colorGrey));
+            save.setClickable(false);
+            change.setText("Reabrir");
+            state.setText("Solucionado");
+            category.setEnabled(false);
+        }
 
         db.close();
     }
@@ -131,16 +160,44 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.pqr_item_save_button:
-                if (validateData (v)){
+                if (validateData()) {
                     savePqr();
                     navController.navigate(R.id.perfilPqrFragment);
+                }
+                break;
+            case R.id.pqr_item_change_state:
+                if (validateData()) {
+                    solvedPqr();
                 }
                 break;
         }
     }
 
-    private boolean validateData(View v) {
-        if (description.getText().toString().length() < 20) {
+    private void solvedPqr() {
+
+
+        SQLiteDatabase db = con.getWritableDatabase();
+
+        String[] parameters = {pqr_id};
+        ContentValues values = new ContentValues();
+        values.put(Utilities.PQRS_DESCRIPCION,description.getText().toString());
+
+        if (state_id != 3) {
+            values.put(Utilities.PQRS_ESTADO_ID, "3");
+        }else {
+            values.put(Utilities.PQRS_ESTADO_ID, "1");
+        }
+
+        db.update(Utilities.PQRS, values, Utilities.PQRS_ID + " = ?", parameters);
+        db.close();
+
+        Toast.makeText(this.getActivity(), "PQR actualizado", Toast.LENGTH_LONG).show();
+
+        navController.navigate(R.id.perfilPqrFragment);
+    }
+
+    private boolean validateData() {
+        if (description.getText().toString().length() < 30) {
             Toast.makeText(this.getActivity(), "La descripción es muy corta", Toast.LENGTH_LONG).show();
             return false;
         }
@@ -155,22 +212,22 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
 
         ContentValues values = new ContentValues();
 
-        values.put(Utilities.PQRS_FECHA,new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-        values.put(Utilities.PQRS_CATEGORIA_ID,category_id);
-        values.put(Utilities.PQRS_CLIENTE_ID,user_id);
-        values.put(Utilities.PQRS_DESCRIPCION,description.getText().toString());
+        values.put(Utilities.PQRS_FECHA, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        values.put(Utilities.PQRS_CATEGORIA_ID, category_id);
+        values.put(Utilities.PQRS_CLIENTE_ID, user_id);
+        values.put(Utilities.PQRS_DESCRIPCION, description.getText().toString());
 
 
         if (pqr_id.equals("-1")) {
 
-            values.put(Utilities.PQRS_ESTADO_ID,"1");
+            values.put(Utilities.PQRS_ESTADO_ID, "1");
 
             Long idResult = db.insert(Utilities.PQRS, Utilities.PQRS_ID, values);
             Toast.makeText(this.getActivity(), "PQR con id " + idResult + " creado", Toast.LENGTH_LONG).show();
 
         } else {
 
-            values.put(Utilities.PQRS_ESTADO_ID,state_id);
+            values.put(Utilities.PQRS_ESTADO_ID, state_id);
 
             String[] parameters = {pqr_id};
             db.update(Utilities.PQRS, values, Utilities.PQRS_ID + " = ?", parameters);

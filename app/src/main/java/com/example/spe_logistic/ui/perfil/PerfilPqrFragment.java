@@ -106,12 +106,12 @@ public class PerfilPqrFragment extends Fragment implements SearchView.OnQueryTex
             @Override
             public void onClick(View v) {
 
-                TextView state = v.findViewById(R.id.pqr_card_state);
+                /*TextView state = v.findViewById(R.id.pqr_card_state);
 
                 if (state.getText().toString().equals("Solucionado")) {
                     Toast.makeText(getContext(), "El PQR ya ha sido solucionado", Toast.LENGTH_LONG).show();
                 }
-                else {
+                else {*/
                     TextView t   = v.findViewById(R.id.pqr_card_id_category);
                     String s     = t.getText().toString();
                     String pqrId = s.split(" - ")[0];
@@ -120,7 +120,7 @@ public class PerfilPqrFragment extends Fragment implements SearchView.OnQueryTex
                     bundle.putString("pqrId",pqrId);
 
                     navController.navigate(R.id.perfilPqrItemFragment,bundle);
-                }
+                /*}*/
             }
         });
         pqr_list.setAdapter(adapter);
