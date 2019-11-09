@@ -8,6 +8,9 @@ public class Recogidas {
     private Date    fecha;
     private Integer cliente_id;
     private String  direccion;
+    private float   latitud;
+    private float   longitud;
+    private String  ciudad_id;
     private Integer cantidad_cajas;
     private Integer alto_caja;
     private Integer ancho_caja;
@@ -17,11 +20,20 @@ public class Recogidas {
     private Integer valor_declarado;
     private Integer estado_id;
 
-    public Recogidas(Integer id, Date fecha, Integer cliente_id, String direccion, Integer cantidad_cajas, Integer alto_caja, Integer ancho_caja, Integer largo_caja, Integer peso, String descripcion_contenido, Integer valor_declarado, Integer estado_id) {
+    public String getCiudad_id() {
+        return ciudad_id;
+    }
+
+    public void setCiudad_id(String ciudad_id) {
+        this.ciudad_id = ciudad_id;
+    }
+
+    public Recogidas(Integer id, Date fecha, Integer cliente_id, String direccion, String ciudad_id, Integer cantidad_cajas, Integer alto_caja, Integer ancho_caja, Integer largo_caja, Integer peso, String descripcion_contenido, Integer valor_declarado, Integer estado_id) {
         this.id = id;
         this.fecha = fecha;
         this.cliente_id = cliente_id;
         this.direccion = direccion;
+        this.ciudad_id = ciudad_id;
         this.cantidad_cajas = cantidad_cajas;
         this.alto_caja = alto_caja;
         this.ancho_caja = ancho_caja;

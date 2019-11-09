@@ -142,7 +142,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
             //                status = "despachado";
             //            }
 
-            if (sendVo.getId().contains(userInput) || sendVo.getAddress().toLowerCase().contains(userInput)) {
+            if (sendVo.getId().contains(userInput) || sendVo.getName_receiver().toLowerCase().contains(userInput)) {
                 newList.add(sendVo);
             }
         }

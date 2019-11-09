@@ -83,7 +83,7 @@ public class InventoryViewModel extends AndroidViewModel {
                                     "           inventario.estado_id = 1 "                  +
                                     "GROUP BY   codigo_barras "                             +
                                     "ORDER BY   amount DESC "                               +
-                                    "LIMIT      6";
+                                    "LIMIT      5";
 
         Cursor cursor = db.rawQuery(queryReferences,parameters);
 
@@ -91,13 +91,22 @@ public class InventoryViewModel extends AndroidViewModel {
         // here desc, in chart asc
         // x order
         // y quantities per unit
-        cursor.moveToLast();
-        while (cursor.moveToPrevious()){
 
+
+        cursor.moveToLast();
+        do {
+            Log.i("APP",""+cursor.getFloat(0)+" "+cursor.getString(1));
             bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
             bar_inventory_array_list_label.add(cursor.getString(1));
             i++;
-        }
+        }while (cursor.moveToPrevious());
+
+       /* while (cursor.moveToPrevious()){
+            Log.i("APP",""+cursor.getFloat(0)+" "+cursor.getString(1));
+            bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
+            bar_inventory_array_list_label.add(cursor.getString(1));
+            i++;
+        }*/
 
         db.close();
 
@@ -174,9 +183,9 @@ public class InventoryViewModel extends AndroidViewModel {
             cursorOut.moveToFirst();
             bar_send_array_list_out.add(new BarEntry(i,cursorOut.getInt(0)));
 
-            Log.i("APP","datos m: "+month);
+            /*Log.i("APP","datos m: "+month);
             Log.i("APP","datos i: "+cursorIn.getString(0));
-            Log.i("APP","datos o: "+cursorOut.getString(0));
+            Log.i("APP","datos o: "+cursorOut.getString(0));*/
 
             calendar.add(Calendar.MONTH, +1);
         }
@@ -276,19 +285,21 @@ public class InventoryViewModel extends AndroidViewModel {
         SQLiteDatabase db = con.getReadableDatabase();
 
         ArrayList<PieEntry> pie_inventory_arrat_list = new ArrayList<>();
-        ArrayList<String[]> data = new ArrayList<>();
+        ArrayList<PieEntry> data = new ArrayList<>();
 
-        /*
+
         Date date = new Date();
         Calendar calendar  = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
-
+        calendar.set(Calendar.SECOND, 0);
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String firstDay   = format.format(calendar.getTime());
+
+        //Log.i("APP","InitialDay: "+firstDay);
 
         
         String[] parameters = {String.valueOf(user_id)};
@@ -298,75 +309,82 @@ public class InventoryViewModel extends AndroidViewModel {
 
         Cursor cursor = db.rawQuery(queryReferences, parameters);
 
+
         while (cursor.moveToNext()){
 
-            String[] parametersInitial = {firstDay,firstDay,cursor.getString(0)};
-            String queryInventoryInitial =  "SELECT     count(*) AS amountFirstDay " +
+            String[] parametersInitial = {firstDay,"1",firstDay,cursor.getString(0)};
+            String queryInventoryInitial =  "SELECT     count(*) " +
                                             "FROM       inventario " +
-                                            "INNER JOIN envios " +
+                                            "LEFT JOIN  envios " +
                                             "ON         envios.id = inventario.envio_id " +
-                                            "WHERE      Datetime(fecha_ingreso) <= Datetime(?)                  AND " +
-                                            "               (Datetime(envios.fecha_alistado) = null             OR " +
-                                            "                Datetime(envios.fecha_alistados) > Datetime(?))    AND " +
-                                            "           referencia_id = ?";
+                                            "WHERE      Datetime(fecha_ingreso) < Datetime(?)                                           AND " +
+                                            "           (inventario.estado_id = ? OR (Datetime(envios.fecha_reservado > Datetime(?))))  AND " +
+                                            "           referencia_id = ? ";
             Cursor cursorInitial = db.rawQuery(queryInventoryInitial,parametersInitial);
-            cursorInitial.moveToFirst();
-            Float amountFirstDay = cursorInitial.getFloat(0);
+            Float amountFirstDay = 0f;
+            if (cursorInitial.moveToFirst()){
+                amountFirstDay = cursorInitial.getFloat(0);
+            }
+            Log.i("APP","InitialAmount: "+cursor.getString(1)+" "+amountFirstDay);
+
 
 
 
             String[] parametersCurrent = {"1",cursor.getString(0)};
-            String queryInventoryCurrent =  "SELECT count(*) AS amountCurrentDay " +
+            String queryInventoryCurrent =  "SELECT count(*) " +
                                             "FROM   inventario " +
                                             "WHERE  estado_id = ?       AND " +
                                             "       referencia_id = ?";
             Cursor cursorCurrent = db.rawQuery(queryInventoryCurrent,parametersCurrent);
-            cursorCurrent.moveToFirst();
-            Float amountCurrentDay = cursorCurrent.getFloat(0);
+            Float amountCurrentDay = 0f;
+            if (cursorCurrent.moveToFirst())
+                amountCurrentDay = cursorCurrent.getFloat(0);
+            Log.i("APP","currentAmount: "+cursor.getString(1)+" "+amountCurrentDay);
+
 
 
 
             Float averageInventory = ( amountFirstDay + amountCurrentDay ) / 2;
+            Log.i("APP","averageAmount: "+cursor.getString(1)+" "+averageInventory);
+
 
 
 
             String[] parametersDispatched = {firstDay,cursor.getString(0)};
-            String queryDispatched =    "SELECT     count(*) AS amountDispatched " +
+            String queryDispatched =    "SELECT     count(*) " +
                                         "FROM       inventario " +
                                         "INNER JOIN envios " +
                                         "ON         envios.id = inventario.envio_id " +
-                                        "WHERE      Datetime(envios.fecha_alistamiento) > Datatime(?) AND " +
+                                        "WHERE      Datetime(envios.fecha_reservado) > Datetime(?) AND " +
                                         "           referencia_id = ?";
             Cursor cursorDispatched = db.rawQuery(queryDispatched,parametersDispatched);
-            cursorDispatched.moveToFirst();
-            Float amountDispatched = cursorDispatched.getFloat(0);
+            Float amountDispatched = 0f;
+            if (cursorDispatched.moveToFirst())
+                amountDispatched = cursorDispatched.getFloat(0);
+            Log.i("APP","dispatchedAmount: "+cursor.getString(1)+" "+amountDispatched);
 
 
+            if (averageInventory != 0){
 
-            Float rotationIndicator = amountDispatched / averageInventory;
-            DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                int rotationIndicator = Math.round (amountDispatched / averageInventory);
+                Log.i("APP","rotationIndicator: "+cursor.getString(1)+" "+rotationIndicator);
 
-
-            String rotationIndicatorString = decimalFormat.format(rotationIndicator);
-            String barCode = cursor.getString(1);
-
-
-
-            data.add(new String[]{rotationIndicatorString,barCode});
+                data.add(new PieEntry(rotationIndicator,cursor.getString(1)));
+            }
 
         }
-*/
 
-        pie_inventory_arrat_list.add(new PieEntry(6, "1232365985645"));
+
+        /*pie_inventory_arrat_list.add(new PieEntry(5, "1232365985645"));
         pie_inventory_arrat_list.add(new PieEntry(5, "6688522994477"));
         pie_inventory_arrat_list.add(new PieEntry(3, "9325365984561"));
         pie_inventory_arrat_list.add(new PieEntry(2, "3366885544223"));
         pie_inventory_arrat_list.add(new PieEntry(2, "3366885534223"));
-
+*/
 
         db.close();
 
-        pie_inventory_list.setValue(pie_inventory_arrat_list);
+        pie_inventory_list.setValue(data);
 
     }
 

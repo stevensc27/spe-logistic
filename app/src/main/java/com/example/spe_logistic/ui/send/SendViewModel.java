@@ -39,7 +39,8 @@ public class SendViewModel extends AndroidViewModel {
 
         String search = "SELECT     envios.id," +
                 "           direccion_destinatario||' '||ciudades.nombre," +
-                "           estado_id " +
+                "           estado_id, " +
+                "           envios.nombre_destinatario " +
                 "FROM       envios " +
                 "INNER JOIN ciudades " +
                 "ON         ciudades.id = envios.ciudad_destinatario_id " +
@@ -49,7 +50,7 @@ public class SendViewModel extends AndroidViewModel {
         Cursor cursor = db.rawQuery(search, null);
         try {
             while (cursor.moveToNext()) {
-                send_array_list.add(new SendVo(cursor.getString(0), cursor.getString(1), cursor.getString(2)));
+                send_array_list.add(new SendVo(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             }
         } finally {
             cursor.close();

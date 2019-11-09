@@ -80,8 +80,8 @@ public class CollectAdapter extends RecyclerView.Adapter<CollectAdapter.ViewHold
             case "3":
                 viewHolderCollect.state.setText("Recogido");
                 viewHolderCollect.state.setTextColor(0xAA43ED26);
-                //viewHolderCollect.edit.setAlpha(20);
-                //viewHolderCollect.delete.setAlpha(20);
+                viewHolderCollect.edit.setAlpha(20);
+                viewHolderCollect.delete.setAlpha(20);
                 break;
             default:
                 viewHolderCollect.state.setText("");

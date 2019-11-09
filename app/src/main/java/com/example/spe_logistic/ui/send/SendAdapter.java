@@ -63,7 +63,7 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
     @Override
     public void onBindViewHolder(@NonNull SendAdapter.ViewHolderSends viewHolderSends, int i) {
 
-        viewHolderSends.id.setText(send_list.get(i).getId());
+        viewHolderSends.id.setText(send_list.get(i).getId()+" - "+send_list.get(i).getName_receiver());
         viewHolderSends.address.setText(send_list.get(i).getAddress());
 
         switch (send_list.get(i).getStatus()){

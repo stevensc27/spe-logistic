@@ -234,16 +234,14 @@ public class InventorySendFragment extends Fragment implements PermissionListene
             cursorIn.moveToFirst();
             inputs.add(new BarEntry(i, cursorIn.getInt(0)));
 
-            String queryOut = "SELECT     count(*) " +
-                    "FROM       despachos " +
-                    "INNER JOIN envios " +
-                    "ON         envios.despacho_id = despachos.id " +
-                    "INNER JOIN inventario " +
-                    "ON         inventario.envio_id = envios.id " +
-                    "INNER JOIN referencias " +
-                    "ON         referencias.id = inventario.referencia_id " +
-                    "WHERE      strftime('%Y%m',despachos.fecha) = ? AND " +
-                    "           referencias.cliente_id = ? ";
+            String queryOut =   "SELECT     count(*) " +
+                                "FROM       inventario " +
+                                "INNER JOIN envios " +
+                                "ON         envios.id = inventario.envio_id " +
+                                "INNER JOIN referencias " +
+                                "ON         referencias.id = inventario.referencia_id " +
+                                "WHERE      strftime('%Y%m',envios.fecha_reservado) = ? AND " +
+                                "           referencias.cliente_id = ? ";
 
             Cursor cursorOut = db.rawQuery(queryOut, parameters);
             cursorOut.moveToFirst();

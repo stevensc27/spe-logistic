@@ -6,14 +6,24 @@ public class Clientes {
     private String  razon_social;
     private String  nit;
     private String  password;
-    private Integer direccion_id;
+    private String  direccion;
+    private Integer ciudad_id;
 
-    public Clientes(Integer id, String razon_social, String nit, String password, Integer direccion_id) {
+    public Clientes(Integer id, String razon_social, String nit, String password, String direccion, int ciudad_id) {
         this.id = id;
         this.razon_social = razon_social;
         this.nit = nit;
         this.password = password;
-        this.direccion_id = direccion_id;
+        this.direccion = direccion;
+        this.ciudad_id = ciudad_id;
+    }
+
+    public Integer getCiudad_id() {
+        return ciudad_id;
+    }
+
+    public void setCiudad_id(Integer ciudad_id) {
+        this.ciudad_id = ciudad_id;
     }
 
     public Integer getId() {
@@ -48,11 +58,11 @@ public class Clientes {
         this.password = password;
     }
 
-    public Integer getDireccion_id() {
-        return direccion_id;
+    public String getDireccion() {
+        return direccion;
     }
 
-    public void setDireccion_id(Integer direccion_id) {
-        this.direccion_id = direccion_id;
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 }

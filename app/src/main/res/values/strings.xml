@@ -29,8 +29,8 @@
     <string name="inputs">Entradas</string>
     <string name="outputs">Salida</string>
     <string name="barcode">Código de barras</string>
-    <string name="rotationIndicator">Indicador de rotación último mes</string>
-    <string name="monthsCellar">Meses con SPE</string>
+    <string name="rotationIndicator">Rotación mes</string>
+    <string name="timeCellar">Tiempo con SPE</string>
     <string name="collectDate">Fecha de recogida</string>
     <string name="collectTime">Hora de recogida</string>
     <string name="collectAddress">Dirección de recogida</string>

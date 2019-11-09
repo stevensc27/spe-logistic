@@ -14,9 +14,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -40,6 +42,7 @@ import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
@@ -54,6 +57,7 @@ import com.mapbox.mapboxsdk.maps.Style;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -85,6 +89,9 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     private int textWeight;
     private String textStatement;
     private int textValue;
+    private Spinner city;
+    private double latitud = 0;
+    private double longitud = 0;
 
     private Button save;
     private NavController navController;
@@ -93,6 +100,9 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     private LocationComponent locationComponent;
     private FragmentActivity fragmentActivity;
     private int user_id;
+
+    private ArrayAdapter<String> adapter_city;
+    private ArrayList<String> citys;
 
     private SQLiteConnectionHelper con;
 
@@ -117,6 +127,8 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
         user_id = preferences.getInt("user_id", 0);
 
+        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+
         collect_id = (getArguments().getString("collectId", "-1"));
 
         date = root.findViewById(R.id.collect_item_date);
@@ -133,6 +145,7 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         weight = root.findViewById(R.id.collect_item_weight);
         statement = root.findViewById(R.id.collect_item_statement);
         value = root.findViewById(R.id.collect_item_value);
+        city = root.findViewById(R.id.collect_item_city);
 
         save = root.findViewById(R.id.collect_item_save_button);
         save.setOnClickListener(this);
@@ -141,10 +154,14 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-        navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
+        getCitys();
+        adapter_city = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, citys);
+        city.setAdapter(adapter_city);
 
         if (!collect_id.equals("-1")) {
             getCollectData();
+        } else {
+            getAddress();
         }
 
         return root;
@@ -169,39 +186,93 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         }
     }
 
-    private void getCollectData() {
+    private void getCitys() {
         con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
         SQLiteDatabase db = con.getReadableDatabase();
 
-        String[] parameters = {collect_id};
-        String queryCollectData = "SELECT fecha," +
-                "       direccion," +
-                "       cantidad_cajas," +
-                "       alto_caja," +
-                "       ancho_caja," +
-                "       largo_caja," +
-                "       peso," +
-                "       descripcion_contenido," +
-                "       valor_declarado " +
-                "FROM   recogidas " +
-                "WHERE  id = ?";
+        citys = new ArrayList<String>();
+
+        String queryCitys = "SELECT     id,nombre " +
+                "FROM       ciudades " +
+                "ORDER BY   nombre";
+
+        Cursor cursor = db.rawQuery(queryCitys, null);
+
+        while (cursor.moveToNext()) {
+            String city;
+            city = cursor.getString(1) + " " + cursor.getString(0);
+            citys.add(city);
+        }
+    }
+
+    private void getAddress() {
+        con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        String[] parameters = {String.valueOf(user_id)};
+        String queryCollectData = "SELECT     clientes.direccion, " +
+                "           ciudades.nombre ||' '|| ciudades.id " +
+                "FROM       clientes " +
+                "INNER JOIN ciudades " +
+                "ON         ciudades.id = clientes.ciudad_id " +
+                "WHERE      clientes.id = ?";
 
         Cursor cursor = db.rawQuery(queryCollectData, parameters);
 
         cursor.moveToFirst();
 
-        date.setText(cursor.getString(0).split(" ")[0]);
-        textDate = cursor.getString(0).split(" ")[0];
-        time.setText(cursor.getString(0).split(" ")[1]);
-        textTime = cursor.getString(0).split(" ")[1];
-        address.setText(cursor.getString(1));
-        amount.setText(cursor.getString(2));
-        height.setText(cursor.getString(3));
-        width.setText(cursor.getString(4));
-        large.setText(cursor.getString(5));
-        weight.setText(cursor.getString(6));
-        statement.setText(cursor.getString(7));
-        value.setText(cursor.getString(8));
+        address.setText(cursor.getString(0));
+        int spinnerPosition = adapter_city.getPosition(cursor.getString(1));
+        city.setSelection(spinnerPosition);
+
+        db.close();
+    }
+
+    private void getCollectData() {
+        con = new SQLiteConnectionHelper(this.getContext(), "SPEDB", null, 1);
+        SQLiteDatabase db = con.getReadableDatabase();
+
+        String[] parameters = {collect_id};
+        String queryCollectData = "SELECT   fecha," +
+                "           direccion," +
+                "           cantidad_cajas," +
+                "           alto_caja," +
+                "           ancho_caja," +
+                "           largo_caja," +
+                "           peso," +
+                "           descripcion_contenido," +
+                "           valor_declarado," +
+                "           ciudades.nombre ||' '||ciudades.id, " +
+                "           latitud, " +
+                "           longitud " +
+                "FROM       recogidas " +
+                "INNER JOIN ciudades " +
+                "ON         ciudades.id = recogidas.ciudad_id " +
+                "WHERE      recogidas.id = ?";
+
+        Cursor cursor = db.rawQuery(queryCollectData, parameters);
+
+        if (cursor.moveToFirst()) {
+
+            date.setText(cursor.getString(0).split(" ")[0]);
+            textDate = cursor.getString(0).split(" ")[0];
+            time.setText(cursor.getString(0).split(" ")[1]);
+            textTime = cursor.getString(0).split(" ")[1];
+            address.setText(cursor.getString(1));
+            amount.setText(cursor.getString(2));
+            height.setText(cursor.getString(3));
+            width.setText(cursor.getString(4));
+            large.setText(cursor.getString(5));
+            weight.setText(cursor.getString(6));
+            statement.setText(cursor.getString(7));
+            value.setText(cursor.getString(8));
+
+            latitud  = cursor.getDouble(10);
+            longitud = cursor.getDouble(11);
+
+            int spinnerPosition = adapter_city.getPosition(cursor.getString(9));
+            city.setSelection(spinnerPosition);
+        }
 
         db.close();
     }
@@ -258,9 +329,12 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
         ContentValues values = new ContentValues();
 
+        String city_id = city.getSelectedItem().toString().split(" ")[1];
+
         values.put(Utilities.RECOGIDAS_FECHA, date.getText().toString() + " " + time.getText().toString());
         values.put(Utilities.RECOGIDAS_CLIENTE_ID, user_id);
         values.put(Utilities.RECOGIDAS_DIRECCION, textAddress);
+        values.put(Utilities.RECOGIDAS_CIUDAD_ID, city_id);
         values.put(Utilities.RECOGIDAS_CANTIDAD_CAJAS, textAmount);
         values.put(Utilities.RECOGIDAS_ALTO_CAJA, textHeight);
         values.put(Utilities.RECOGIDAS_ANCHO_CAJA, textWidth);
@@ -269,6 +343,14 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         values.put(Utilities.RECOGIDAS_DESCRIPCION_CONTENIDO, textStatement);
         values.put(Utilities.RECOGIDAS_VALOR_DECLARADO, textValue);
         values.put(Utilities.RECOGIDAS_ESTADO_ID, "1");
+
+        Log.i("APP","save: "+latitud);
+
+        if (latitud != 0 && longitud != 0) {
+            Log.i("APP","saveIn: "+latitud);
+            values.put(Utilities.RECOGIDAS_LATITUD, latitud);
+            values.put(Utilities.RECOGIDAS_LONGITUD, longitud);
+        }
 
 
         if (collect_id.equals("-1")) {
@@ -354,10 +436,10 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         Calendar calendar = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
 
-        calendar2.add(Calendar.MONTH, +1);
+        //calendar2.add(Calendar.MONTH, +1);
 
         int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH) + 1;
+        int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this.getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -398,16 +480,31 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.LIGHT, new Style.OnStyleLoaded() {
-            @Override
-            public void onStyleLoaded(@NonNull Style style) {
+        mapboxMap.setStyle(Style.LIGHT, style -> {
 
-                mapboxMap.setMaxZoomPreference(15);
-                mapboxMap.setMinZoomPreference(10);
-                mapboxMap.addOnMapClickListener(CollectItemFragment.this);
+            mapboxMap.setMaxZoomPreference(15);
+            mapboxMap.setMinZoomPreference(10);
+            mapboxMap.addOnMapClickListener(CollectItemFragment.this);
 
-                enableLocation(style);
+
+            Log.i("APP","onmapready: "+latitud);
+            if (latitud != 0 && longitud != 0){
+                LatLng latLng = new LatLng();
+                latLng.setLatitude(latitud);
+                latLng.setLongitude(longitud);
+                mapboxMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title("Recogida"));
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(new LatLng(latitud,longitud))
+                        .zoom(12)
+                        .build();
+
+                mapboxMap.setCameraPosition(cameraPosition);
             }
+
+            enableLocation(style);
         });
     }
 
@@ -425,7 +522,8 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
             // Enable to make component visible
             locationComponent.setLocationComponentEnabled(true);
             // Set the component's camera mode
-            locationComponent.setCameraMode(CameraMode.TRACKING);
+            if (latitud == 0 && longitud == 0)
+                locationComponent.setCameraMode(CameraMode.TRACKING);
             // Set the component's render mode
             locationComponent.setRenderMode(RenderMode.COMPASS);
             // Add the location icon click listener
@@ -514,10 +612,12 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         mapboxMap.clear();
         //aqui se obtiene la ubicacion
         Log.d(CollectItemFragment.class.getSimpleName(), "latitud: " + point.getLatitude() + " longitud: " + point.getLongitude());
-
         mapboxMap.addMarker(new MarkerOptions()
                 .position(point)
                 .title("Recogida"));
+
+        longitud = point.getLongitude();
+        latitud = point.getLatitude();
 
         return true;
     }

@@ -63,7 +63,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
     private int user_id;
 
-    View root;
+    private View root;
 
     private LinearLayout parentLinearLayout;
 
@@ -75,8 +75,8 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials",this.getActivity().MODE_PRIVATE);
-        user_id = preferences.getInt("user_id",0);
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("credentials", this.getActivity().MODE_PRIVATE);
+        user_id = preferences.getInt("user_id", 0);
 
 
         // Inflate the layout for this fragment
@@ -438,7 +438,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void saveHistory(){
+    private void saveHistory() {
         SQLiteDatabase db = con.getWritableDatabase();
 
         String[] parameters = {send_id};
@@ -482,7 +482,7 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
         values.put(Utilities.HISTORIAL_ENVIOS_FECHA, date);
         values.put(Utilities.HISTORIAL_ENVIOS_DESCRIPCION, description);
-        values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID,user_id);
+        values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID, user_id);
         values.put(Utilities.HISTORIAL_ENVIOS_ENVIO_ID, send_id);
 
         Long idResult = db.insert(Utilities.HISTORIAL_ENVIOS, Utilities.HISTORIAL_ENVIOS_ID, values);

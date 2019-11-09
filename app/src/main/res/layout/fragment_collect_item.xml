@@ -54,23 +54,41 @@
 
         <EditText
             android:id="@+id/collect_item_address"
-            android:layout_width="0dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:backgroundTint="@color/colorGreenSpe"
             android:ems="10"
             android:hint="@string/collectAddress"
             android:inputType="textPersonName"
             android:textColor="@color/colorPurpleSpe"
             android:textColorHint="@color/colorClearPurpleSpe"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/mapView"
             app:layout_constraintTop_toBottomOf="@+id/mapView" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/city"
+            android:textColor="@color/colorPurpleSpe"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toEndOf="@+id/collect_item_address"
+            app:layout_constraintTop_toBottomOf="@+id/mapView" />
+
+        <Spinner
+            android:id="@+id/collect_item_city"
+            android:layout_width="120dp"
+            android:layout_height="36dp"
+            android:background="@color/colorClearGreenSpe"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
+            app:layout_constraintHorizontal_bias="0.2"
+            app:layout_constraintStart_toEndOf="@+id/collect_item_address"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
         <EditText
             android:id="@+id/collect_item_amount"
@@ -179,9 +197,7 @@
             android:id="@+id/collect_item_value"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
             android:backgroundTint="@color/colorGreenSpe"
             android:ems="10"
             android:hint="@string/valueStatement"
@@ -191,7 +207,7 @@
             app:layout_constraintEnd_toEndOf="@+id/collect_item_statement"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/collect_item_statement"
             app:layout_constraintTop_toBottomOf="@+id/collect_item_statement" />
 
         <com.mapbox.mapboxsdk.maps.MapView
@@ -210,15 +226,15 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/button_rounded_orange"
             android:radius="16dp"
             android:text="@string/save"
             android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/collect_item_address"
+            app:layout_constraintEnd_toEndOf="@+id/mapView"
             app:layout_constraintHorizontal_bias="0.586"
             app:layout_constraintStart_toStartOf="@+id/collect_item_address"
             app:layout_constraintTop_toBottomOf="@+id/collect_item_address" />
