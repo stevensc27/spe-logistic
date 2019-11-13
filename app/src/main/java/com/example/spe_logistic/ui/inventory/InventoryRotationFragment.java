@@ -1,7 +1,9 @@
 package com.example.spe_logistic.ui.inventory;
 
 
+import android.Manifest;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -10,20 +12,32 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.spe_logistic.R;
 import com.example.spe_logistic.SQLiteConnectionHelper;
+import com.example.spe_logistic.TemplatePDF;
 import com.github.mikephil.charting.data.PieEntry;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,25 +49,30 @@ import static com.example.spe_logistic.R.color.colorOrangeSpe;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class InventoryRotationFragment extends Fragment {
+public class InventoryRotationFragment extends Fragment implements PermissionListener {
 
-    private TableLayout         tableRotation;
-    private TableRow            tableRow;
-    private TextView            textCell;
-    private int                 indexRow;
-    private int                 indexCell;
-    private ArrayList<String[]> data;
+    private TableLayout            tableRotation;
+    private TableRow               tableRow;
+    private TextView               textCell;
+    private int                    indexRow;
+    private int                    indexCell;
+    private ArrayList<String[]>    data;
     private SQLiteConnectionHelper con;
-    private int user_id;
+    private int                    user_id;
+    private String[]               header = {"Código de barras","Rotación mes","Tiempo con SPE"};
 
     public InventoryRotationFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_inventory_rotation, container, false);
 
@@ -107,58 +126,6 @@ public class InventoryRotationFragment extends Fragment {
         SQLiteDatabase db = con.getReadableDatabase();
 
         ArrayList<String[]>  data = new ArrayList<>();
-/*
-
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-        data.add(new String[]{"1122334455667","1.85","4"});
-        data.add(new String[]{"9966558877442","5.77","5"});
-        data.add(new String[]{"6633225588221","4.58","2"});
-        data.add(new String[]{"9955441122665","3.25","13"});
-        data.add(new String[]{"6633225599884","9.35","6"});
-        data.add(new String[]{"9988772200220","5.68","8"});
-*/
-
         Date date = new Date();
         Calendar calendar  = Calendar.getInstance();
         calendar.setTime(date);
@@ -266,7 +233,68 @@ public class InventoryRotationFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Rotación De inventario");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Rotación de inventario");
     }
-    
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.toolbar_menu_options, menu);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_pdf:
+                if (data.size() > 0){
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+                        export();
+                    }else {
+                        requestPermission();
+                    }
+                }else {
+                    Toast.makeText(getContext(),"No hay datos para exportar",Toast.LENGTH_LONG).show();
+                }
+
+                break;
+
+        }
+        return true;
+    }
+
+
+    private void export() {
+        TemplatePDF templatePDF = new TemplatePDF(getContext(),new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        templatePDF.openDocument();
+        templatePDF.addMetaData("SPE Logistica","Rotación de inventario","SPE");
+        templatePDF.addTitles("Servicios Postales Especializados SAS","Rotación de inventario",new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        templatePDF.createTable(header,data);
+        templatePDF.closeDocument();
+        templatePDF.appViewPdf(getActivity());
+    }
+
+    private void requestPermission() {
+        Dexter.withActivity(getActivity())
+                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .withListener(this)
+                .check();
+    }
+
+    @Override
+    public void onPermissionGranted(PermissionGrantedResponse response) {
+        export();
+    }
+
+    @Override
+    public void onPermissionDenied(PermissionDeniedResponse response) {
+
+    }
+
+    @Override
+    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+        token.continuePermissionRequest();
+    }
 }

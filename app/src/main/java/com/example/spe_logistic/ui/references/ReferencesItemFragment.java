@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,6 +77,9 @@ public class ReferencesItemFragment extends Fragment implements View.OnClickList
 
         if (!reference_id.equals("-1")){
             getReferenceData();
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Modificar referencias");
+        }else{
+            ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Nueva referencias");
         }
 
         return root;

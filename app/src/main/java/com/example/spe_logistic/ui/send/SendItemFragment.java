@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -128,6 +131,9 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
 
         if (!send_id.equals("-1")) {
             getCollectData();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Modificar envío");
+        }else {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nuevo envío");
         }
 
         return root;

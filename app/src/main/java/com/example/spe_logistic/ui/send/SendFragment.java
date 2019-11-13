@@ -99,7 +99,7 @@ public class SendFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mis Envíos");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mis envíos");
     }
 
     @Override

@@ -98,7 +98,7 @@ public class ReferencesFragment extends Fragment implements SearchView.OnQueryTe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Mis Referencias");
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setTitle("Mis referencias");
     }
 
     @Override

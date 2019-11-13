@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -89,8 +90,10 @@ public class PerfilPqrItemFragment extends Fragment implements View.OnClickListe
 
         if (!pqr_id.equals("-1")) {
             getPqrData();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Modificar PQR");
         } else {
             change.setVisibility(View.GONE);
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nuevo PQR");
         }
 
 

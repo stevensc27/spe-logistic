@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
@@ -160,9 +161,12 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
 
         if (!collect_id.equals("-1")) {
             getCollectData();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Modificar recogida");
         } else {
             getAddress();
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Nueva recogida");
         }
+
 
         return root;
     }

@@ -74,14 +74,14 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
             case "3":
                 viewHolderSends.state.setText("En Alistamiento");
                 viewHolderSends.state.setTextColor(0xAA2FD6E9);
-                viewHolderSends.edit.setAlpha(20);
-                viewHolderSends.delete.setAlpha(20);
+                //viewHolderSends.edit.setAlpha(20);
+                //viewHolderSends.delete.setAlpha(20);
                 break;
             case "4":
                 viewHolderSends.state.setText("Despachado");
                 viewHolderSends.state.setTextColor(0xAA43ED26);
-                viewHolderSends.edit.setAlpha(20);
-                viewHolderSends.delete.setAlpha(20);
+                //viewHolderSends.edit.setAlpha(20);
+                //viewHolderSends.delete.setAlpha(20);
                 break;
             default:
                 viewHolderSends.state.setText("");
@@ -114,7 +114,7 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
                 } else if (viewHolderSends.state.getText().toString().equals("En Alistamiento")){
                     Toast.makeText(viewHolderSends.itemView.getContext(), "El envío ya está en proceso", Toast.LENGTH_LONG).show();
                 }else {
-                    send_id = viewHolderSends.id.getText().toString();
+                    send_id = viewHolderSends.id.getText().toString().split(" - ")[0];
                     confirmDelete(v, i);
                 }
             }
@@ -194,6 +194,7 @@ public class SendAdapter extends RecyclerView.Adapter<SendAdapter.ViewHolderSend
         values.put(Utilities.INVENTARIO_ESTADO_ID,"1");
         values.put(Utilities.INVENTARIO_ENVIO_ID,"");
 
+        Log.i("APP","id: "+send_id);
         db.update(Utilities.INVENTARIO, values, Utilities.INVENTARIO_ENVIO_ID + " = ?", parameters);
 
         db.delete(Utilities.ENVIOS,Utilities.ENVIOS_ID+"=?",parameters);

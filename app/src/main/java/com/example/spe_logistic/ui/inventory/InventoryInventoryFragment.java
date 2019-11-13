@@ -153,7 +153,7 @@ public class InventoryInventoryFragment extends Fragment implements PermissionLi
 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Unidades Por Referencia");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Unidades por referencia");
     }
 
     @Override

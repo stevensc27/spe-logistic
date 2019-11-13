@@ -67,8 +67,7 @@ public class InventoryDammedFragment extends Fragment implements PermissionListe
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_inventory_dammed, container, false);
 
@@ -159,7 +158,7 @@ public class InventoryDammedFragment extends Fragment implements PermissionListe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Inventario Represado");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Inventario represado");
     }
 
     @Override
@@ -192,7 +191,6 @@ public class InventoryDammedFragment extends Fragment implements PermissionListe
     }
 
     private void export() {
-
         TemplatePDF templatePDF = new TemplatePDF(getContext(),new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         templatePDF.openDocument();
         templatePDF.addMetaData("SPE Logistica","Inventario represado en bodega","SPE");
@@ -200,7 +198,6 @@ public class InventoryDammedFragment extends Fragment implements PermissionListe
         templatePDF.createTable(header,table_inventory_array_list);
         templatePDF.closeDocument();
         templatePDF.appViewPdf(getActivity());
-
     }
 
     private void requestPermission() {

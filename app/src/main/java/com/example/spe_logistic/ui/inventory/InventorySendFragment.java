@@ -113,7 +113,7 @@ public class InventorySendFragment extends Fragment implements PermissionListene
 
     private void getDataSend(View root) {
 
-        barChart = (BarChart) root.findViewById(R.id.barChartSendFull);
+        barChart = root.findViewById(R.id.barChartSendFull);
 
         getInventory();
 
@@ -293,7 +293,7 @@ public class InventorySendFragment extends Fragment implements PermissionListene
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entradas Y Salidas Por Mes");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Entradas y salidas por mes");
     }
 
     @Override

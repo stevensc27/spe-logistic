@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Logistica SPE</string>
+    <string name="app_name">SPE Logistica</string>
     <string name="user_login">Usuario</string>
     <string name="password_login">Contraseña</string>
     <string name="button_login">Entrar</string>
     <string name="button_register">Registrarse</string>
     <string name="logo_spe">logo_spe</string>
     <string name="boxes">boxes</string>
-    <string name="name">Razón Social</string>
+    <string name="name">Razón social</string>
     <string name="nit">NIT</string>
     <string name="address">Dirección</string>
     <string name="city">Ciudad</string>
@@ -55,7 +55,7 @@
     <string name="date">Fecha</string>
     <string name="description">Descripción</string>
     <string name="pdf">PDF</string>
-    <string name="historyChanges">Historial de Cambios</string>
+    <string name="historyChanges">Historial de cambios</string>
     <string name="id">ID</string>
     <string name="export">Exportar</string>
     <string name="pqrs">PQRs</string>

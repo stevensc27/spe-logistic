@@ -143,7 +143,7 @@ public class PerfilFragment extends Fragment implements View.OnClickListener, Pe
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mi Perfil");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mi perfil");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
