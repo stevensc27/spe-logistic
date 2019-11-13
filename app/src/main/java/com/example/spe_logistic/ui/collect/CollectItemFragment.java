@@ -292,6 +292,16 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         String sWeight = weight.getText().toString();
         String sValue = value.getText().toString();
 
+        if (date.getText().toString().length() == 0){
+            Toast.makeText(this.getActivity(), "Debe ingresar una fecha", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (time.getText().toString().length() == 0){
+            Toast.makeText(this.getActivity(), "Debe ingresar una hora", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (!sAmount.matches(isNumber) || !sHeight.matches(isNumber) || !sWidth.matches(isNumber) || !sLarge.matches(isNumber) || !sWeight.matches(isNumber) ||
                 sAmount.length() == 0 || sHeight.length() == 0 || sWidth.length() == 0 || sLarge.length() == 0 || sWeight.length() == 0) {
             Toast.makeText(this.getActivity(), "Las medidas deben ser numéricas y en CM", Toast.LENGTH_LONG).show();
@@ -312,15 +322,17 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         textStatement = statement.getText().toString();
         textValue = Integer.parseInt(sValue);
 
+        if (textStatement.length() < 15) {
+            Toast.makeText(this.getActivity(), "Ingrese una descripción válida (min 15 caracteres)", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (textAddress.length() < 5) {
             Toast.makeText(this.getActivity(), "Ingrese una dirección válida (min 5 caracteres)", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (textStatement.length() < 15) {
-            Toast.makeText(this.getActivity(), "Ingrese una descripción válida (min 15 caracteres)", Toast.LENGTH_LONG).show();
-            return;
-        }
+
 
         saveCollect();
         navController.navigate(R.id.navigation_collect);
@@ -356,6 +368,8 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
             values.put(Utilities.RECOGIDAS_LONGITUD, longitud);
         }
 
+        Log.i("APP","true save: "+values.get(Utilities.RECOGIDAS_LATITUD));
+
 
         if (collect_id.equals("-1")) {
             Long idResult = db.insert(Utilities.RECOGIDAS, Utilities.RECOGIDAS_ID, values);
@@ -384,7 +398,9 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
                 "       largo_caja," +
                 "       peso," +
                 "       descripcion_contenido," +
-                "       valor_declarado " +
+                "       valor_declarado, " +
+                "       latitud, " +
+                "       longitud " +
                 "FROM   recogidas " +
                 "WHERE  id = ?";
         Cursor cursor = db.rawQuery(queryCollectData, parameters);
@@ -419,19 +435,33 @@ public class CollectItemFragment extends Fragment implements View.OnClickListene
         if (!cursor.getString(8).equals(String.valueOf(textValue))) {
             description += "Cambia valor declarado '" + cursor.getString(8) + "' por '" + textValue + "'. ";
         }
+        if (latitud != 0 && longitud != 0) {
+            Log.i("APP","ints: "+cursor.getFloat(9)+" "+(float) latitud);
+            if (cursor.getFloat(9) != (float) latitud ) {
+                description += "Cambia latitud '" + cursor.getFloat(9) + "' por '" + (float) latitud + "'. ";
+            }
 
-        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            Log.i("APP","ints long: "+cursor.getFloat(10)+" "+(float) longitud);
+            if (cursor.getFloat(10) != (float) longitud) {
+                description += "Cambia longitud '" + cursor.getFloat(10) + "' por '" + (float) longitud + "'. ";
+            }
+        }
 
-        ContentValues values = new ContentValues();
+        if(!description.equals("Modificación de recogida. ")){
 
-        values.put(Utilities.HISTORIAL_RECOGIDAS_FECHA, date);
-        values.put(Utilities.HISTORIAL_RECOGIDAS_DESCRIPCION, description);
-        values.put(Utilities.HISTORIAL_RECOGIDAS_CLIENTE_ID, user_id);
-        values.put(Utilities.HISTORIAL_RECOGIDAS_RECOGIDA_ID, collect_id);
+            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-        Long idResult = db.insert(Utilities.HISTORIAL_RECOGIDAS, Utilities.HISTORIAL_RECOGIDAS_ID, values);
+            ContentValues values = new ContentValues();
 
-        Log.i("APP", "ID change history collect: " + idResult + " " + description);
+            values.put(Utilities.HISTORIAL_RECOGIDAS_FECHA, date);
+            values.put(Utilities.HISTORIAL_RECOGIDAS_DESCRIPCION, description);
+            values.put(Utilities.HISTORIAL_RECOGIDAS_CLIENTE_ID, user_id);
+            values.put(Utilities.HISTORIAL_RECOGIDAS_RECOGIDA_ID, collect_id);
+
+            Long idResult = db.insert(Utilities.HISTORIAL_RECOGIDAS, Utilities.HISTORIAL_RECOGIDAS_ID, values);
+
+            Log.i("APP", "ID change history collect: " + idResult + " " + description);
+        }
 
     }
 

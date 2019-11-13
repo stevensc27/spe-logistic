@@ -482,18 +482,22 @@ public class SendItemFragment extends Fragment implements View.OnClickListener {
             description += "Cambia factura '" + cursor.getString(5) + "' por '" + invoice.getText().toString() + "'. ";
         }
 
-        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        if(!description.equals("Modificación de envío. ")) {
 
-        ContentValues values = new ContentValues();
+            String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
 
-        values.put(Utilities.HISTORIAL_ENVIOS_FECHA, date);
-        values.put(Utilities.HISTORIAL_ENVIOS_DESCRIPCION, description);
-        values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID, user_id);
-        values.put(Utilities.HISTORIAL_ENVIOS_ENVIO_ID, send_id);
+            ContentValues values = new ContentValues();
 
-        Long idResult = db.insert(Utilities.HISTORIAL_ENVIOS, Utilities.HISTORIAL_ENVIOS_ID, values);
+            values.put(Utilities.HISTORIAL_ENVIOS_FECHA, date);
+            values.put(Utilities.HISTORIAL_ENVIOS_DESCRIPCION, description);
+            values.put(Utilities.HISTORIAL_ENVIOS_CLIENTE_ID, user_id);
+            values.put(Utilities.HISTORIAL_ENVIOS_ENVIO_ID, send_id);
 
-        Log.i("APP", "ID change history send: " + idResult + " " + description);
+            Long idResult = db.insert(Utilities.HISTORIAL_ENVIOS, Utilities.HISTORIAL_ENVIOS_ID, values);
+
+            Log.i("APP", "ID change history send: " + idResult + " " + description);
+
+        }
 
     }
 }
