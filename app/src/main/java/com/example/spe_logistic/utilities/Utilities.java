@@ -155,7 +155,7 @@ public class Utilities {
 
 
 
-        db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabaneta');");
+        db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Sabaneta' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Sabanetaa');");
         db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Medellin' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Medellin');");
         db.execSQL("INSERT INTO "+CIUDADES+ " ('nombre') SELECT 'Bello' WHERE NOT EXISTS (SELECT 1 FROM "+ CIUDADES+" WHERE nombre = 'Bello');");
 
