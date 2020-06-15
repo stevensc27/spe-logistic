@@ -92,21 +92,15 @@ public class InventoryViewModel extends AndroidViewModel {
         // x order
         // y quantities per unit
 
-
-        cursor.moveToLast();
-        do {
-            Log.i("APP",""+cursor.getFloat(0)+" "+cursor.getString(1));
-            bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
-            bar_inventory_array_list_label.add(cursor.getString(1));
-            i++;
-        }while (cursor.moveToPrevious());
-
-       /* while (cursor.moveToPrevious()){
-            Log.i("APP",""+cursor.getFloat(0)+" "+cursor.getString(1));
-            bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
-            bar_inventory_array_list_label.add(cursor.getString(1));
-            i++;
-        }*/
+        if(cursor.moveToFirst()){
+            cursor.moveToLast();
+            do {
+                Log.i("APP",""+cursor.getFloat(0)+" "+cursor.getString(1));
+                bar_inventory_array_list.add(new BarEntry(i,cursor.getFloat(0)));
+                bar_inventory_array_list_label.add(cursor.getString(1));
+                i++;
+            }while (cursor.moveToPrevious());
+        }
 
         db.close();
 
